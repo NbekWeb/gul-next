@@ -12,10 +12,26 @@ module.exports = {
         foreground: "var(--foreground)",
         pink: {
           500: "#7D6064",
+          400: "#FADEED",
         },
-        black: {
+        dark: {
           400: "#453C3C",
         },
+        green: {
+          700: "#7A9A40",
+          800: "#85CA40",
+          200:'#DBE0D233'
+        },
+        gray: {
+          800: "#C8C8C8",
+          100: "#F0F0F1",
+        },
+        blue: {
+          100: "#E1E8F6",
+        },
+        red:{
+          500:'#EE2A23'
+        }
       },
     },
   },

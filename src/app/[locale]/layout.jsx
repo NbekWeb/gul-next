@@ -1,8 +1,10 @@
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import Menu from "../component/Menu";
+import Foot from "../component/Foot";
 import "../assets/style/index.css";
 import { notFound, redirect } from "next/navigation";
+import { Button } from "antd";
 
 import { routing } from "@/i18n/routing";
 
@@ -29,6 +31,7 @@ export default async function LocaleLayout({ children, params }) {
       <NextIntlClientProvider messages={messages}>
         {children}
       </NextIntlClientProvider>
+      <Foot />
     </>
   );
 }

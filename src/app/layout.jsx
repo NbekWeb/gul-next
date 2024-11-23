@@ -1,13 +1,13 @@
+import { AntdRegistry } from "@ant-design/nextjs-registry";
+
+
 
 export default function RootLayout({ children }) {
-  
- 
-
   return (
     <>
       <html>
         <body>
-          <div>{children}</div>
+          <AntdRegistry>{children}</AntdRegistry>
         </body>
       </html>
     </>
