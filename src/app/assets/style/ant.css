@@ -1,0 +1,12 @@
+.custom-select-icon
+  .ant-select-outlined:not(.ant-select-customize-input)
+  .ant-select-selector,
+.custom-select-icon
+  .ant-select-outlined:not(.ant-select-customize-input)
+  .ant-select-selector {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+
