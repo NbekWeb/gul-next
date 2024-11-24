@@ -18,11 +18,11 @@ export default function List() {
   }
 
   return (
-    <div>
-      <div className="grid grid-cols-2 py-3 bg-gray-100 rounded-3xl px-7 mt-2.5">
-        <div className="flex gap-4">
+    <div className="">
+      <div className="grid grid-cols-2 py-4 bg-gray-100 rounded-3xl px-7 mt-2.5">
+        <div className="flex gap-4 ">
           <span className="text-2xl font-semibold text-dark-400">Цена</span>
-          <div className="flex-grow pt-3">
+          <div className="flex-grow   ">
             <Slider
               range
               defaultValue={[0, 20000]}
@@ -32,7 +32,7 @@ export default function List() {
             />
           </div>
         </div>
-        <div className="flex justify-end gap-7">
+        <div className="flex justify-end gap-7 ">
           <div className="px-5 py-2 text-lg font-medium text-white bg-green-800 rounded-3xl">
             Применить
           </div>
@@ -41,7 +41,7 @@ export default function List() {
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-between mt-6">
+      <div className="flex items-center justify-between mt-6 mb-5 ">
         <span className="text-lg font-semibold text-dark-400">Найдено 102</span>
         <div>
           {/* ( <div className="text-[8px] text-white flex w-5 h-5 items-center justify-center">

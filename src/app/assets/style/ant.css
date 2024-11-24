@@ -27,5 +27,39 @@
   outline:none !important;
 }
 .ant-select-outlined:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer):hover .ant-select-selector{
-  border-color:  #85CA40 !important;
+  border-color:  #85CA40  ;
+}
+
+.ant-pagination-item,.ant-pagination-prev,.ant-pagination-next{
+  min-height: 54px !important;
+  min-width: 54px !important;
+  border: 1px solid #453C3C !important;
+  border-radius: 50% !important;
+  font-size: 18px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+
+}
+
+.ant-pagination .ant-pagination-item-active{
+  background-color: #85CA40 !important;
+  border-color: #85CA40 !important;
+}
+.ant-pagination .ant-pagination-item-active a{
+  color: white !important;
+
+}
+.ant-pagination .ant-pagination-prev .ant-pagination-item-link, :where(.css-dev-only-do-not-override-1x0dypw).ant-pagination .ant-pagination-next .ant-pagination-item-link{
+  border-radius: 50% !important;
+}
+
+:where(.css-dev-only-do-not-override-1x0dypw).ant-pagination .ant-pagination-prev, :where(.css-dev-only-do-not-override-1x0dypw).ant-pagination .ant-pagination-next, :where(.css-dev-only-do-not-override-1x0dypw).ant-pagination .ant-pagination-jump-prev, :where(.css-dev-only-do-not-override-1x0dypw).ant-pagination .ant-pagination-jump-next{
+  min-height: 54px !important;
+  min-width: 54px !important;
+ 
+  font-size: 18px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
 }

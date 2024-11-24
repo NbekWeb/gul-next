@@ -35,9 +35,8 @@ export default function Banner({ type = "" }) {
                 </span>
               )}
             </div>
-            <Link
-              href={`/${selectedLang}`}
-              className="flex  items-center justify-center py-3 text-lg  hover:text-white rounded-[30px] hover:bg-dark-400 shadow-v bg-white text-dark-400 tr-3
+            <Link href={`/${selectedLang}`}
+              className="flex  items-center justify-center py-3 text-lg   rounded-[30px] hover:bg-green-800/80 shadow-v bg-green-800 text-white tr-3
             "
             >
               Купить

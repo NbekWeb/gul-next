@@ -3,8 +3,9 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import Lists from "@/app/component/Catalog/Lists";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import React, { useState, useEffect } from "react";
+import Cards from "@/app/component/Catalog/Cards";
 
 export default function Catalog() {
   const [selectedLang, setSelectedLang] = useState("ru");
@@ -30,6 +31,7 @@ export default function Catalog() {
         </Link>
       </div>
       <Lists />
+      <Cards />
     </div>
   );
 }
