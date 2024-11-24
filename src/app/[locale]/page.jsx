@@ -9,6 +9,8 @@ import Vitrina from "../component/Main/Vitrina";
 import Aksi from "../component/Main/Aksi";
 import Top from "../component/Main/Top";
 import New from "../component/Main/New";
+import Baloon from "../component/Main/Baloon";
+
 export async function generateMetadata({ params }) {
   const { locale } = await params;
 
@@ -22,7 +24,7 @@ export default function HomePage() {
   const translatedText = t("sa");
 
   return (
-    <div>
+    <div >
       <Banner />
       <div className="container grid grid-cols-4 gap-5 px-5 mx-auto mt-16">
         <MainCard />
@@ -57,6 +59,7 @@ export default function HomePage() {
         </div>
         <Aksi />
         <Top />
+        <Baloon />
       </div>
     </div>
   );

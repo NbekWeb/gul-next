@@ -20,7 +20,7 @@ export default function Banner() {
 
   return (
     <>
-      <Link href={`/${selectedLang}`} className="group ">
+      <Link href={`/${selectedLang}/catalog`} className="group ">
         <div className="bg-gray-100 rounded-2xl p-7 h-[380px] flex flex-col justify-between relative ">
           <span className="text-2xl font-semibold">Букеты</span>
           <div className="flex items-center justify-center w-10 h-10 -rotate-45 bg-white border rounded-full border-dark-400 text-dark-400 group-hover:rotate-0 tr-3">

@@ -129,6 +129,23 @@ const Icon = ({ width = "24px", type = "default" }) => {
             />
           </svg>
         );
+      case "check":
+        return (
+          <svg
+            width="1em"
+            height="1em"
+            viewBox="0 0 14 10"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fillRule="evenodd"
+              clipRule="evenodd"
+              d="M13.795 0.305123C14.0683 0.57849 14.0683 1.02171 13.795 1.29507L5.39497 9.69507C5.12161 9.96844 4.67839 9.96844 4.40503 9.69507L0.205025 5.49507C-0.0683418 5.2217 -0.0683418 4.77849 0.205025 4.50512C0.478392 4.23176 0.921608 4.23176 1.19497 4.50512L4.9 8.21015L12.805 0.305123C13.0784 0.0317559 13.5216 0.0317559 13.795 0.305123Z"
+              fill="currentColor"
+            />
+          </svg>
+        );
       default:
         return (
           <svg

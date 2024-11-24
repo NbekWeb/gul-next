@@ -9,4 +9,23 @@
   outline: none !important;
 }
 
-
+.ant-tooltip-arrow{
+  display: none !important;
+}
+.ant-tooltip .ant-tooltip-inner{
+  min-height: 20px !important;
+  background-color: transparent !important;
+  color: #453C3C !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+.ant-slider .ant-slider-track {
+  background-color: #85CA40 !important;
+}
+.ant-slider .ant-slider-handle::after{
+  box-shadow: 0 0 0 2px #85CA40 !important;
+  outline:none !important;
+}
+.ant-select-outlined:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer):hover .ant-select-selector{
+  border-color:  #85CA40 !important;
+}

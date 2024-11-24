@@ -6,14 +6,12 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-
 import Icon from "../Icon";
 
 export default function Banner() {
   return (
-    <div className="flex justify-center ">
-     
-      <div className="container relative mx-auto">
+    <div className="container flex justify-center px-5 mx-auto">
+      <div className="relative w-full ">
         <Swiper
           modules={[Navigation, Pagination, Autoplay]}
           navigation={{

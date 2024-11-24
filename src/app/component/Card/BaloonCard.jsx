@@ -22,11 +22,14 @@ export default function Banner({ type = "" }) {
     <>
       <Link href={`/${selectedLang}`} className="relative ">
         <div className="flex flex-col justify-between ">
-          <img src="/img/o1.png" className="w-full rounded-2xl " />
-          <p className="pr-5 mt-3 text-lg font-semibold leading-5 text-dark-400">
+          <img
+            src="/img/bal1.png"
+            className="w-full rounded-2xl max-h-[325px]"
+          />
+          <p className="pr-32 mt-1 text-lg font-semibold leading-5 text-dark-400">
             Кремовый букет пионовидных роз
           </p>
-          <div className="grid grid-cols-2 gap-4 pb-3 mt-4">
+          <div className="grid grid-cols-2 gap-4 pb-3 mt-2">
             <div className="flex items-center justify-center text-lg font-semibold text-dark-400">
               4290 ₽
               {type == "minus" && (
@@ -51,7 +54,7 @@ export default function Banner({ type = "" }) {
               New
             </span>
           )}
-           {type == "top" && (
+          {type == "top" && (
             <span className="absolute left-0 flex px-3 text-lg text-white bg-pink-400 rounded-tl-2xl rounded-br-xl">
               Top
             </span>
