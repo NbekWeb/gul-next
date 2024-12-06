@@ -1,9 +1,8 @@
 "use client";
 
-import { Autoplay, Navigation } from "swiper/modules";
+import {  Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
+
 
 import Icon from "../Icon";
 
@@ -18,13 +17,13 @@ export default function Banner() {
       <div className="relative flex justify-center ">
         <div className="w-full px-16 mx-auto ">
           <Swiper
-            modules={[Navigation, Autoplay]}
+            modules={[Navigation]}
             navigation={{
               nextEl: ".custom-next-aksi",
               prevEl: ".custom-prev-aksi",
             }}
             pagination={{ clickable: true }}
-            autoplay={{ delay: 3000 }}
+            
             loop={true}
             spaceBetween={50}
             slidesPerView={4}

@@ -19,7 +19,7 @@ export default function Banner() {
             prevEl: ".custom-prev-banner",
           }}
           pagination={{ clickable: true }}
-          autoplay={{ delay: 3000 }}
+          
           loop={true}
           spaceBetween={50}
           slidesPerView={1}

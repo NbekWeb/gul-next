@@ -4,29 +4,73 @@ import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import React, { useState, useEffect, useRef } from "react";
 import Icon from "./Icon";
+import { Popover, Select, Menu } from "antd";
 
-export default function Menu() {
+const content = (
+  <div className="flex flex-col gap-2 text-lg font-semibold ">
+    <a
+      href="tel:+8(904) 999 99 99"
+      className="hover:text-dark-400 text-dark-400"
+    >
+      8(904) 999 99 99
+    </a>
+    <a
+      href="tel:+8(904) 999 99 99"
+      className="hover:text-dark-400 text-dark-400"
+    >
+      8(904) 999 99 99
+    </a>
+  </div>
+);
+
+const menus = [
+  {
+    path: "catalog",
+    label: "Каталог",
+    icon: "/img/flower.png",
+    key: "catalog",
+  },
+  {
+    path: "aboutUs",
+    label: "О нас",
+    key: "aboutUs",
+    children: [
+      {
+        key: "a",
+        label: "sa",
+        path: "sa",
+      },
+      {
+        key: "a1",
+        label: "sa1",
+        path: "sa",
+      },
+    ],
+  },
+  { path: "payment", label: "Оплата", key: "payment" },
+  { path: "delivery", label: "доставка", key: "delivery" },
+  {
+    path: "flower-subscription",
+    label: "подписка на цветы",
+    key: "subscription",
+  },
+  { path: "return", label: "Возврат", key: "return" },
+  { path: "corporate-client", label: "Корпоративным клиентам", key: "client" },
+];
+
+export default function Menus() {
   const [selectedLang, setSelectedLang] = useState("ru");
-  const [selectedCountry, setSelectedCountry] = useState("Москва");
-  const [isOpen, setIsOpen] = useState(false);
-  const [isOpenCountry, setIsOpenCountry] = useState(false);
+  const [current, setCurrent] = useState("");
 
   const router = useRouter();
   const pathname = usePathname();
 
-  const dropdownRef = useRef(null);
-  const countryDropdownRef = useRef(null);
-
   const changeLang = (newLang) => {
     setSelectedLang(newLang);
-    setIsOpen(false);
+
     if (selectedLang !== newLang) {
       switchLanguage();
     }
-  };
-
-  const changeCountry = (value) => {
-    setSelectedCountry(value);
   };
 
   useEffect(() => {
@@ -47,236 +91,195 @@ export default function Menu() {
     }
   };
 
-  const getBorderClass = (path) => {
-    return pathname.startsWith(`/${selectedLang}${path}`)
-      ? "border-pink-500"
-      : "border-transparent";
-  };
-
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      // Close the language dropdown if clicked outside of it
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsOpen(false);
-      }
-
-      // Close the country dropdown if clicked outside of it
-      if (
-        countryDropdownRef.current &&
-        !countryDropdownRef.current.contains(event.target)
-      ) {
-        setIsOpenCountry(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+    const currentMenu = menus.find((menu) =>
+      pathname.startsWith(`/${selectedLang}/${menu.path}`)
+    );
+    setCurrent(currentMenu?.key);
+  }, [pathname, selectedLang]);
 
   return (
-    <div className="container px-5 mx-auto">
-      <div className="flex items-center justify-between py-5">
-        <Link href={`/${selectedLang}`} className="flex items-center gap-2.5">
-          <img src="/img/logo.png" alt="logo" className="w-10" />
-          <span className="text-xl font-medium text-pink-500">FLOWERS&OPT</span>
-        </Link>
-        <div className="flex items-center gap-4">
-          <div className="relative">
-            {!isOpen && (
-              <button
-                onClick={() => {
-                  setIsOpen(true);
-                }}
-                className="flex items-center justify-center text-black-400"
-              >
-                {selectedLang === "ru" ? "RU" : "EN"}
-                <span className="ml-2 flex chevron items-center rotate-0 justify-center w-4 h-4 text-white bg-pink-500 rounded-full text-[8px]">
-                  <Icon type="chevron" />
-                </span>
-              </button>
-            )}
-            {isOpen && (
-              <button
-                onClick={() => {
-                  setIsOpen(false);
-                }}
-                className="flex items-center justify-center text-black-400"
-              >
-                {selectedLang === "ru" ? "RU" : "EN"}
-                <span className="ml-2 flex chevron items-center rotate-180 justify-center w-4 h-4 text-white bg-pink-500 rounded-full text-[8px]">
-                  <Icon type="chevron" />
-                </span>
-              </button>
-            )}
+    <div className={`relative `}>
+      <div className="container px-5 mx-auto overflow-x-hidden ">
+        <div className="flex items-center justify-between py-5">
+          <div className="flex items-center gap-4 sm:hidden">
+            <span>
+              <Icon type="menu" />
+            </span>
 
-            {isOpen && (
-              <div
-                ref={dropdownRef}
-                className="absolute left-0 w-16 mt-2 bg-white rounded-lg top-full"
-              >
-                <button
-                  onClick={() => changeLang("ru")}
-                  className="w-full p-2 text-center rounded-t-lg hover:bg-gray-200"
-                >
-                  RU
-                </button>
-                <button
-                  onClick={() => changeLang("en")}
-                  className="w-full p-1 text-center rounded-b-lg hover:bg-gray-200"
-                >
-                  EN
-                </button>
-              </div>
-            )}
-          </div>
-
-          <div className="relative flex items-center px-2 rounded-md custom-select-icon shadow-select">
-            <span className="text-sm font-medium text-black/50">Ваш город</span>
-
-            <div className="flex items-center min-w-28 ">
-              <div
-                ref={countryDropdownRef}
-                className="relative w-full cursor-pointer"
-                onClick={() => setIsOpenCountry(!isOpenCountry)}
-              >
-                <div className="flex items-center justify-between p-2 ">
-                  <span>{selectedCountry}</span>
-                  <span
-                    className={`flex chevron items-center justify-center w-4 h-4 text-white bg-pink-500 rounded-full text-[8px] ${
-                      isOpenCountry && "rotate-180"
-                    }`}
-                  >
-                    <Icon type="chevron" />
-                  </span>
-                </div>
-
-                {isOpenCountry && (
-                  <div className="absolute left-0 w-full mt-2 bg-white rounded-lg shadow-lg top-full">
-                    <button
-                      onClick={() => changeCountry("Москва")}
-                      className="w-full p-2 text-center rounded-t-lg hover:bg-gray-200"
-                    >
-                      Москва
-                    </button>
-                    <button
-                      onClick={() => changeCountry("Амстердам")}
-                      className="w-full p-2 text-center hover:bg-gray-200"
-                    >
-                      Амстердам
-                    </button>
-                    <button
-                      onClick={() => changeCountry("Кито")}
-                      className="w-full p-2 text-center rounded-b-lg hover:bg-gray-200"
-                    >
-                      Кито
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-4 text-base font-semibold text-dark-400">
-            <div className="flex items-center gap-2">
-              <img src="/img/watch.png" className="w-9" />
-              <span>Кито</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <img src="/img/watch.png" className="w-9" />
-              <span>Москва</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <img src="/img/watch.png" className="w-9" />
-              <span>Амстердам</span>
-            </div>
-          </div>
-          <div className="flex items-center gap-4 text-lg font-semibold text-dark-400">
-            <a href="tel:+8(904) 999 99 99">8(904) 999 99 99</a>
-            <a href="tel:+8(904) 999 99 99">8(904) 999 99 99</a>
-          </div>
-        </div>
-      </div>
-      <div className="flex items-center justify-between pb-6">
-        <div className="flex items-center gap-8 text-base font-semibold capitalize">
-          <Link
-            href={`/${selectedLang}/catalog`}
-            className={`flex gap-1.5 items-center border-b pb-1 ${getBorderClass(
-              "/catalog"
-            )} hover:border-pink-500`}
-          >
-            <span>Каталог</span>
-            <img src="/img/flower.png" className="w-4" />
-          </Link>
-
-          <Link
-            href={`/${selectedLang}/aboutUs`}
-            className={`flex gap-1.5 items-center border-b pb-1 hover:border-pink-500 ${getBorderClass(
-              "/aboutUs"
-            )}`}
-          >
-            О нас
-          </Link>
-
-          <Link
-            href={`/${selectedLang}/payment`}
-            className={`flex gap-1.5 items-center border-b pb-1 hover:border-pink-500 ${getBorderClass(
-              "/payment"
-            )}`}
-          >
-            Оплата
-          </Link>
-          <Link
-            href={`/${selectedLang}/delivery`}
-            className={`flex gap-1.5 items-center border-b pb-1 hover:border-pink-500 ${getBorderClass(
-              "/delivery"
-            )}`}
-          >
-            доставка
-          </Link>
-          <Link
-            href={`/${selectedLang}/flower-subscription`}
-            className={`flex gap-1.5 items-center border-b pb-1 hover:border-pink-500 ${getBorderClass(
-              "/flower-subscription"
-            )}`}
-          >
-            подписка на цветы
-          </Link>
-          <Link
-            href={`/${selectedLang}/return`}
-            className={`flex gap-1.5 items-center border-b pb-1 hover:border-pink-500 ${getBorderClass(
-              "/return"
-            )}`}
-          >
-            Возврат
-          </Link>
-          <Link
-            href={`/${selectedLang}/corporate-client`}
-            className={`flex gap-1.5 items-center border-b pb-1 hover:border-pink-500 ${getBorderClass(
-              "/corporate-client"
-            )}`}
-          >
-            Корпоративным клиентам
-          </Link>
-        </div>
-        <div className="flex gap-5 text-2xl text-dark-400">
-          <Icon type="search" />
-          <Link href={`/${selectedLang}/favorite`}>
-            <Icon type="heart" />
-          </Link>
-          <Link href={`/${selectedLang}/basket`}>
-            <span className="relative">
-              <Icon type="bag" />
-              <span className="w-[14px] h-[14px] rounded-full bg-green-700 text-[10px] flex items-center justify-center text-white absolute top-0 right-0">
-                1
+            <Popover content={content} trigger="click" placement="bottomRight">
+              <span className="text-2xl text-dark-400">
+                <Icon type="tel" />
               </span>
+            </Popover>
+          </div>
+          <Link href={`/${selectedLang}`} className="flex items-center gap-2.5">
+            <img src="/img/logo.png" alt="logo" className="w-10" />
+            <span className="text-xl font-medium text-pink-500 max-sm:hidden">
+              FLOWERS&OPT
             </span>
           </Link>
-          <Icon type="user" />
+          <div className="flex gap-4 text-2xl text-dark-400 sm:hidden">
+            <Link href={`/${selectedLang}/favorite`}>
+              <Icon type="heart" />
+            </Link>
+            <Link href={`/${selectedLang}/basket`}>
+              <span className="relative">
+                <Icon type="bag" />
+                <span className="w-[14px] h-[14px] rounded-full bg-green-700 text-[10px] flex items-center justify-center text-white absolute top-0 right-0 max-xl:w-[10px] max-xl:h-[10px] max-xl:text-[8px] max-xl:right-0.5 max-xl:top-0.5">
+                  1
+                </span>
+              </span>
+            </Link>
+            <Icon type="user" />
+          </div>
+          <div className="flex items-center gap-4 max-sm:hidden">
+            <div className="flex items-center none-select">
+              <Select
+                value={selectedLang}
+                className=""
+                onChange={(val) => changeLang(val)}
+                suffixIcon={
+                  <span className="bg-pink-500 text-[8px] text-white w-5 h-5 flex justify-center items-center rounded-full">
+                    <svg
+                      width="1em"
+                      height="1em"
+                      viewBox="0 0 10 6"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M8.85671 0.70194C8.68607 0.701976 8.52244 0.76979 8.4018 0.890465L5.45102 3.84124C5.32868 3.95866 5.16568 4.02423 4.99612 4.02423C4.82655 4.02423 4.66355 3.95866 4.54121 3.84124L1.59043 0.890465C1.46908 0.773259 1.30655 0.708405 1.13784 0.70987C0.969135 0.711337 0.807754 0.779006 0.688457 0.898303C0.56916 1.0176 0.50149 1.17898 0.500024 1.34769C0.498558 1.51639 0.563413 1.67892 0.680619 1.80028L3.6314 4.75106C3.99919 5.10203 4.48805 5.29785 4.99644 5.29785C5.50483 5.29785 5.99368 5.10203 6.36148 4.75106L9.31161 1.80028C9.40157 1.71029 9.46283 1.59566 9.48764 1.47086C9.51246 1.34607 9.49972 1.21671 9.45103 1.09916C9.40234 0.981605 9.31989 0.881124 9.21411 0.810421C9.10832 0.739718 8.98394 0.701967 8.85671 0.70194Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </span>
+                }
+                style={{ width: 70 }}
+              >
+                <Select.Option value="ru">RU</Select.Option>
+                <Select.Option value="en">EN</Select.Option>
+              </Select>
+            </div>
+
+            <Select
+              defaultValue="Москва "
+              suffixIcon={
+                <span className="bg-pink-500 text-[8px] text-white w-5 h-5 flex justify-center items-center rounded-full">
+                  <svg
+                    width="1em"
+                    height="1em"
+                    viewBox="0 0 10 6"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8.85671 0.70194C8.68607 0.701976 8.52244 0.76979 8.4018 0.890465L5.45102 3.84124C5.32868 3.95866 5.16568 4.02423 4.99612 4.02423C4.82655 4.02423 4.66355 3.95866 4.54121 3.84124L1.59043 0.890465C1.46908 0.773259 1.30655 0.708405 1.13784 0.70987C0.969135 0.711337 0.807754 0.779006 0.688457 0.898303C0.56916 1.0176 0.50149 1.17898 0.500024 1.34769C0.498558 1.51639 0.563413 1.67892 0.680619 1.80028L3.6314 4.75106C3.99919 5.10203 4.48805 5.29785 4.99644 5.29785C5.50483 5.29785 5.99368 5.10203 6.36148 4.75106L9.31161 1.80028C9.40157 1.71029 9.46283 1.59566 9.48764 1.47086C9.51246 1.34607 9.49972 1.21671 9.45103 1.09916C9.40234 0.981605 9.31989 0.881124 9.21411 0.810421C9.10832 0.739718 8.98394 0.701967 8.85671 0.70194Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </span>
+              }
+              style={{ width: 120 }}
+            >
+              <Select.Option value="moskva">Москва</Select.Option>
+              <Select.Option value="ams">Амстердам</Select.Option>
+              <Select.Option value="newest">Кито</Select.Option>
+            </Select>
+
+            <div className="flex items-center gap-4 text-base font-semibold text-dark-400 max-lg:hidden">
+              <div className="flex items-center gap-2">
+                <img src="/img/watch.png" className="w-9" />
+                <span>Кито</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <img src="/img/watch.png" className="w-9" />
+                <span>Москва</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <img src="/img/watch.png" className="w-9" />
+                <span>Амстердам</span>
+              </div>
+            </div>
+            <div className="flex items-center gap-4 text-lg font-semibold text-dark-400 max-xl:hidden">
+              <a href="tel:+8(904) 999 99 99">8(904) 999 99 99</a>
+              <a href="tel:+8(904) 999 99 99">8(904) 999 99 99</a>
+            </div>
+            <div className=" xl:hidden max-sm:hidden">
+              <Popover
+                content={content}
+                trigger="click"
+                placement="bottomRight"
+              >
+                <span className="text-2xl text-dark-400">
+                  <Icon type="tel" />
+                </span>
+              </Popover>
+            </div>
+          </div>
+        </div>
+        <div className="flex items-center justify-between pb-6 overflow-x-hidden max-sm:hidden">
+          <div className="flex-grow mr-4">
+            <div className=" overflow-x-auto min-w-[800px] custom-scrollbar">
+
+
+            <Menu
+              mode="horizontal"
+              selectedKeys={[current]}
+              items={menus.map(({ path, label, icon, children }) =>
+                children
+                  ? {
+                      key: path,
+                      label,
+                      children: children.map(({ key, label, path }) => ({
+                        key,
+                        label: (
+                          <Link href={`/${selectedLang}/${path}`}>{label}</Link>
+                        ),
+                      })),
+                    }
+                  : {
+                      key: path,
+                      label: (
+                        <Link href={`/${selectedLang}/${path}`}>
+                          <span className="flex items-center gap-2">
+                            <span>{label}</span>
+                            {icon && (
+                              <img src={icon} alt={label} className="w-4" />
+                            )}
+                          </span>
+                        </Link>
+                      ),
+                    }
+              )}
+            />
+            </div>
+          </div>
+          <div className="flex gap-5 text-2xl text-dark-400 max-xl:text-xl">
+            <Icon type="search" />
+            <Link href={`/${selectedLang}/favorite`}>
+              <Icon type="heart" />
+            </Link> 
+            <Link href={`/${selectedLang}/basket`}>
+              <span className="relative">
+                <Icon type="bag" />
+                <span className="w-[14px] h-[14px] rounded-full bg-green-700 text-[10px] flex items-center justify-center text-white absolute top-0 right-0 max-xl:w-[10px] max-xl:h-[10px] max-xl:text-[8px] max-xl:right-0.5 max-xl:top-0.5">
+                  1
+                </span>
+              </span>
+            </Link>
+            <Icon type="user" />
+          </div>
         </div>
       </div>
-    </div>
+      <div className="absolute top-0 left-0 w-full h-screen bg-dark-100 sm:hidden">
+        <div className="container relative h-full p-5 bg-white rounded-r-md max-w-72">
+          <div className="absolute flex items-center justify-center text-xs border rounded-full top-5 h-7 w-7 text-dark-400 border-dark-400 right-5">
+            <Icon type="close" />
+          </div>
+          <div></div>
+        </div>
+      </div>
+    
   );
 }

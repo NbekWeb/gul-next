@@ -27,11 +27,13 @@ export default async function LocaleLayout({ children, params }) {
 
   return (
     <>
-      <Menu />
-      <NextIntlClientProvider messages={messages}>
+      <div className="sticky top-0 bg-white z-[10]">
+        <Menu />
+      </div>
+      {/* <NextIntlClientProvider messages={messages}>
         {children}
-      </NextIntlClientProvider>
-      <Foot />
+      </NextIntlClientProvider> */}
+      {/* <Foot /> */}
     </>
   );
 }

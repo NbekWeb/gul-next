@@ -35,7 +35,7 @@ export default function Banner({ type = "" }) {
                 </span>
               )}
             </div>
-            <Link href={`/${selectedLang}`}
+            <Link href={`/${selectedLang}/single-flower`}
               className="flex  items-center justify-center py-3 text-lg   rounded-[30px] hover:bg-green-800/80 shadow-v bg-green-800 text-white tr-3
             "
             >
