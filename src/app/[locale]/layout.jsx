@@ -30,10 +30,10 @@ export default async function LocaleLayout({ children, params }) {
       <div className="sticky top-0 bg-white z-[10]">
         <Menu />
       </div>
-      {/* <NextIntlClientProvider messages={messages}>
+      <NextIntlClientProvider messages={messages}>
         {children}
-      </NextIntlClientProvider> */}
-      {/* <Foot /> */}
+      </NextIntlClientProvider>
+      <Foot />
     </>
   );
 }

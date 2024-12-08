@@ -20,7 +20,7 @@ export default function HomePage() {
   }, [pathname]);
 
   return (
-    <div className="container mx-auto px-5 ">
+    <div className="container max-sm:px-3  mx-auto px-5 ">
       <div className="flex gap-2.5 items-center text-base font-medium mb-5">
         <Link href={`/`} className="text-dark-400/50 hover:text-green-800">
           Главная

@@ -13,7 +13,7 @@ import CatalogCard from "../Card/CatalogCard";
 
 export default function Banner() {
   return (
-    <div className="container px-5 mx-auto ">
+    <div className="container max-sm:px-3  px-5 mx-auto ">
       <h2 className="px-16 text-4xl font-semibold text-center text-dark-400 mb-7">
       Добавьте к букету
       </h2>

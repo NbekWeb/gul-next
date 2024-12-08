@@ -26,7 +26,7 @@ export default function HomePage() {
   return (
     <div >
       <Banner />
-      <div className="container grid grid-cols-4 gap-5 px-5 mx-auto mt-16">
+      <div className="container max-sm:px-3  grid grid-cols-4 gap-5 px-5 mx-auto mt-16">
         <MainCard />
         <MainCard />
         <MainCard />
@@ -36,13 +36,13 @@ export default function HomePage() {
         <MainCard />
         <MainCard />
       </div>
-      <div className="container px-5 py-20 mx-auto">
+      <div className="container max-sm:px-3  px-5 py-20 mx-auto">
         <img src="/img/b3.png" className="w-full" />
       </div>
       <div className="flex flex-col gap-20">
         <Vitrina />
         <New />
-        <div className="container px-5 mx-auto">
+        <div className="container max-sm:px-3  px-5 mx-auto">
           <h3 className="text-4xl font-semibold text-dark-400">
             Какие бывают стадии зрелости бутона розы в Эквадоре
           </h3>

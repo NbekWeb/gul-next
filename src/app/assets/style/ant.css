@@ -168,7 +168,7 @@
 .ant-menu-light,
 :where(.css-dev-only-do-not-override-1x0dypw).ant-menu-light > .ant-menu {
   overflow-y: hidden !important;
-  /* overflow-x: hidden !important; */
+  overflow-x: hidden !important;
 }
 .ant-menu {
   text-transform: capitalize;
@@ -307,6 +307,25 @@
 .ant-menu::before {
   content: none !important;
 }
+
+:where(.css-dev-only-do-not-override-1x0dypw).ant-menu-horizontal
+  .ant-menu-item,
+:where(.css-dev-only-do-not-override-1x0dypw).ant-menu-horizontal
+  .ant-menu-submenu {
+  display: flex !important;
+}
+
+.ant-menu-light.ant-menu-root.ant-menu-inline,
+:where(.css-dev-only-do-not-override-1x0dypw).ant-menu-light
+  > .ant-menu.ant-menu-root.ant-menu-inline,
+:where(
+    .css-dev-only-do-not-override-1x0dypw
+  ).ant-menu-light.ant-menu-root.ant-menu-vertical,
+:where(.css-dev-only-do-not-override-1x0dypw).ant-menu-light
+  > .ant-menu.ant-menu-root.ant-menu-vertical {
+  border: none !important;
+}
+
 
 @media (max-width: 1280px) {
   .ant-menu-overflow {

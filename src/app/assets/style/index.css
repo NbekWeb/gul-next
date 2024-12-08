@@ -49,7 +49,7 @@
   height: 4px;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: rgba(133, 202, 64, 1);
+  background-color: rgba(133, 202, 64, 1) !important;
 
   border-radius: 6px;
 }
@@ -64,4 +64,16 @@
   user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
+}
+
+.mobi-menu{
+  transition: .8s ease;
+}
+
+.tr3{
+  transition: .3s ease;
+}
+
+span:hover {
+  --icon-color: #9A9699; /* Change the color on hover */
 }

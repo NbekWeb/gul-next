@@ -21,7 +21,7 @@ export default function Catalog() {
   }, [pathname]);
 
   return (
-    <div className="container px-5 mx-auto">
+    <div className="container max-sm:px-3  px-5 mx-auto">
       <div className="flex items-center text-base font-medium gap-2.5 mb-5">
         <Link href={`/`} className="text-dark-400/50 hover:text-green-800">
           Главная

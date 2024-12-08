@@ -10,7 +10,7 @@ import Icon from "../Icon";
 
 export default function Banner() {
   return (
-    <div className="container flex justify-center px-5 mx-auto">
+    <div className="container max-sm:px-3  flex justify-center px-5 mx-auto">
       <div className="relative w-full ">
         <Swiper
           modules={[Navigation, Pagination, Autoplay]}

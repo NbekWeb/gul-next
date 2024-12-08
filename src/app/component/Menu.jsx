@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import React, { useState, useEffect, useRef } from "react";
 import Icon from "./Icon";
 import { Popover, Select, Menu } from "antd";
@@ -61,6 +61,7 @@ const menus = [
 export default function Menus() {
   const [selectedLang, setSelectedLang] = useState("ru");
   const [current, setCurrent] = useState("");
+  const [open, setOpen] = useState(false);
 
   const router = useRouter();
   const pathname = usePathname();
@@ -93,37 +94,37 @@ export default function Menus() {
 
   useEffect(() => {
     const currentMenu = menus.find((menu) =>
-      pathname.startsWith(`/${selectedLang}/${menu.path}`)
+      pathname.startsWith(`/${menu.path}`)
     );
     setCurrent(currentMenu?.key);
   }, [pathname, selectedLang]);
 
   return (
     <div className={`relative `}>
-      <div className="container px-5 mx-auto overflow-x-hidden ">
+      <div className="container max-sm:px-3  px-5 mx-auto overflow-x-hidden ">
         <div className="flex items-center justify-between py-5">
-          <div className="flex items-center gap-4 sm:hidden">
-            <span>
+          <div className="flex items-center gap-4 md:hidden">
+            <span className="text-2xl" onClick={() => setOpen(true)}>
               <Icon type="menu" />
             </span>
 
             <Popover content={content} trigger="click" placement="bottomRight">
-              <span className="text-2xl text-dark-400">
+              <span className="text-xl text-dark-400">
                 <Icon type="tel" />
               </span>
             </Popover>
           </div>
-          <Link href={`/${selectedLang}`} className="flex items-center gap-2.5">
-            <img src="/img/logo.png" alt="logo" className="w-10" />
-            <span className="text-xl font-medium text-pink-500 max-sm:hidden">
+          <Link href={`/`} className="flex items-center gap-2.5">
+            <img src="/img/logo.png" alt="logo" className="w-10 max-md:w-6" />
+            <span className="text-xl font-medium text-pink-500 max-sm:hidden max-md:text-base">
               FLOWERS&OPT
             </span>
           </Link>
-          <div className="flex gap-4 text-2xl text-dark-400 sm:hidden">
-            <Link href={`/${selectedLang}/favorite`}>
+          <div className="flex gap-4 text-xl text-dark-400 md:hidden">
+            <Link href={`/favorite`}>
               <Icon type="heart" />
             </Link>
-            <Link href={`/${selectedLang}/basket`}>
+            <Link href={`/basket`}>
               <span className="relative">
                 <Icon type="bag" />
                 <span className="w-[14px] h-[14px] rounded-full bg-green-700 text-[10px] flex items-center justify-center text-white absolute top-0 right-0 max-xl:w-[10px] max-xl:h-[10px] max-xl:text-[8px] max-xl:right-0.5 max-xl:top-0.5">
@@ -133,7 +134,7 @@ export default function Menus() {
             </Link>
             <Icon type="user" />
           </div>
-          <div className="flex items-center gap-4 max-sm:hidden">
+          <div className="flex items-center gap-4 max-md:hidden">
             <div className="flex items-center none-select">
               <Select
                 value={selectedLang}
@@ -211,18 +212,15 @@ export default function Menus() {
                 trigger="click"
                 placement="bottomRight"
               >
-                <span className="text-2xl text-dark-400">
+                <span className="text-xl text-dark-400">
                   <Icon type="tel" />
                 </span>
               </Popover>
             </div>
           </div>
         </div>
-        <div className="flex items-center justify-between pb-6 overflow-x-hidden max-sm:hidden">
-          <div className="flex-grow mr-4">
-            <div className=" overflow-x-auto min-w-[800px] custom-scrollbar">
-
-
+        <div className="flex items-center justify-between pb-6 overflow-x-hidden max-md:hidden">
+          <div className="flex-grow mr-4 overflow-x-hidden">
             <Menu
               mode="horizontal"
               selectedKeys={[current]}
@@ -233,16 +231,14 @@ export default function Menus() {
                       label,
                       children: children.map(({ key, label, path }) => ({
                         key,
-                        label: (
-                          <Link href={`/${selectedLang}/${path}`}>{label}</Link>
-                        ),
+                        label: <Link href={`/${path}`}>{label}</Link>,
                       })),
                     }
                   : {
                       key: path,
                       label: (
-                        <Link href={`/${selectedLang}/${path}`}>
-                          <span className="flex items-center gap-2">
+                        <Link href={`/${path}`}>
+                          <span className="flex items-center gap-2 ">
                             <span>{label}</span>
                             {icon && (
                               <img src={icon} alt={label} className="w-4" />
@@ -253,14 +249,13 @@ export default function Menus() {
                     }
               )}
             />
-            </div>
           </div>
-          <div className="flex gap-5 text-2xl text-dark-400 max-xl:text-xl">
+          <div className="flex gap-5 text-xl text-dark-400 max-xl:text-xl">
             <Icon type="search" />
-            <Link href={`/${selectedLang}/favorite`}>
+            <Link href={`/favorite`}>
               <Icon type="heart" />
-            </Link> 
-            <Link href={`/${selectedLang}/basket`}>
+            </Link>
+            <Link href={`/basket`}>
               <span className="relative">
                 <Icon type="bag" />
                 <span className="w-[14px] h-[14px] rounded-full bg-green-700 text-[10px] flex items-center justify-center text-white absolute top-0 right-0 max-xl:w-[10px] max-xl:h-[10px] max-xl:text-[8px] max-xl:right-0.5 max-xl:top-0.5">
@@ -272,14 +267,55 @@ export default function Menus() {
           </div>
         </div>
       </div>
-      <div className="absolute top-0 left-0 w-full h-screen bg-dark-100 sm:hidden">
-        <div className="container relative h-full p-5 bg-white rounded-r-md max-w-72">
-          <div className="absolute flex items-center justify-center text-xs border rounded-full top-5 h-7 w-7 text-dark-400 border-dark-400 right-5">
+
+      <div
+        className={`absolute top-0  w-full h-screen  md:hidden overflow-y-hidden tr3 ${
+          open ? "left-0" : "-left-[1000px]"
+        } `}
+        onClick={() => setOpen(false)}
+      >
+        <div
+          className={`container max-sm:px-3  relative h-full p-5 bg-white rounded-r-md max-w-[450px] tr3  `}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div
+            className="absolute flex items-center justify-center bg-white  text-[8px] border rounded-full top-5 h-5 w-5 text-dark-400 border-dark-400 right-5"
+            onClick={() => setOpen(false)}
+          >
             <Icon type="close" />
           </div>
-          <div></div>
+          <div className="pr-6">
+            <Menu
+              mode="inline"
+              selectedKeys={[current]}
+              items={menus.map(({ path, label, icon, children }) =>
+                children
+                  ? {
+                      key: path,
+                      label,
+                      children: children.map(({ key, label, path }) => ({
+                        key,
+                        label: <Link href={`/${path}`}>{label}</Link>,
+                      })),
+                    }
+                  : {
+                      key: path,
+                      label: (
+                        <Link href={`/${path}`}>
+                          <span className="flex items-center gap-2 ">
+                            <span>{label}</span>
+                            {icon && (
+                              <img src={icon} alt={label} className="w-4" />
+                            )}
+                          </span>
+                        </Link>
+                      ),
+                    }
+              )}
+            />
+          </div>
         </div>
       </div>
-    
+    </div>
   );
 }

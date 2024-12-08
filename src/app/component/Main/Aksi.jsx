@@ -10,7 +10,7 @@ import OnlineCard from "../Card/OnlineCard";
 
 export default function Banner() {
   return (
-    <div className="container px-5 mx-auto ">
+    <div className="container max-sm:px-3  px-5 mx-auto ">
       <h2 className="px-16 mx-auto text-4xl font-semibold text-dark-400 mb-7">
         Акции
       </h2>
