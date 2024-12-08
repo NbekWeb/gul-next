@@ -4,6 +4,7 @@ import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 
 import Banner from "../component/Card/Banner";
+import Ban from "../component/Card/Ban";
 import MainCard from "../component/Card/MainCard";
 import Vitrina from "../component/Main/Vitrina";
 import Aksi from "../component/Main/Aksi";
@@ -24,9 +25,9 @@ export default function HomePage() {
   const translatedText = t("sa");
 
   return (
-    <div >
-      {/* <Banner /> */}
-      {/* <div className="container max-sm:px-3  grid grid-cols-4 gap-5 px-5 mx-auto mt-16">
+    <div className="">
+      <Banner />
+      <div className="container max-lg:grid-cols-2 max-xs:grid-cols-1 max-xl:grid-cols-3   grid grid-cols-4 gap-5 px-5 mx-auto mt-16 max-md:mt-10">
         <MainCard />
         <MainCard />
         <MainCard />
@@ -36,12 +37,10 @@ export default function HomePage() {
         <MainCard />
         <MainCard />
       </div>
-      <div className="container max-sm:px-3  px-5 py-20 mx-auto">
-        <img src="/img/b3.png" className="w-full" />
-      </div>
+      <Ban />
       <div className="flex flex-col gap-20">
         <Vitrina />
-        <New />
+        {/* <New />
         <div className="container max-sm:px-3  px-5 mx-auto">
           <h3 className="text-4xl font-semibold text-dark-400">
             Какие бывают стадии зрелости бутона розы в Эквадоре
@@ -59,8 +58,8 @@ export default function HomePage() {
         </div>
         <Aksi />
         <Top />
-        <Baloon />
-      </div> */}
+        <Baloon /> */}
+      </div>
     </div>
   );
 }

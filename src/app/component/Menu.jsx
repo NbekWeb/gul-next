@@ -104,7 +104,7 @@ export default function Menus() {
       <div className="container max-sm:px-3  px-5 mx-auto overflow-x-hidden ">
         <div className="flex items-center justify-between py-5">
           <div className="flex items-center gap-4 md:hidden">
-            <span className="text-2xl" onClick={() => setOpen(true)}>
+            <span className="text-4xl" onClick={() => setOpen(true)}>
               <Icon type="menu" />
             </span>
 
@@ -115,7 +115,7 @@ export default function Menus() {
             </Popover>
           </div>
           <Link href={`/`} className="flex items-center gap-2.5">
-            <img src="/img/logo.png" alt="logo" className="w-10 max-md:w-6" />
+            <img src="/img/logo.png" alt="logo" className="w-10" />
             <span className="text-xl font-medium text-pink-500 max-sm:hidden max-md:text-base">
               FLOWERS&OPT
             </span>

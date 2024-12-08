@@ -26,14 +26,16 @@ export default async function LocaleLayout({ children, params }) {
   const messages = await getMessages();
 
   return (
-    <>
-      <div className="sticky top-0 bg-white z-[10]">
+    <div className="overflow-x-hidden">
+      <div className="fixed top-0 bg-white z-[10] w-full ">
         <Menu />
       </div>
-      <NextIntlClientProvider messages={messages}>
-        {children}
-      </NextIntlClientProvider>
+      <div className="max-md:mt-[90px] md:mt-[145px] xs:mb-10 max-xs:mb-4">
+        <NextIntlClientProvider messages={messages}>
+          {children}
+        </NextIntlClientProvider>
+      </div>
       <Foot />
-    </>
+    </div>
   );
 }
