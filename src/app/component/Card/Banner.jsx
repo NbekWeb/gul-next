@@ -34,7 +34,7 @@ export default function Banner() {
             <img src="/img/b1.png" className="w-full" />
           </SwiperSlide>
         </Swiper>
-        <div className="absolute z-10 flex justify-between w-full px-20 mx-auto bottom-5">
+        <div className="absolute z-[2] flex justify-between w-full px-20 mx-auto bottom-5">
           <div className="flex items-center justify-center w-12 h-12 rotate-90 bg-white rounded-full custom-prev-banner">
             <Icon type="chevron" />
           </div>

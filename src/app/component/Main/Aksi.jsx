@@ -51,7 +51,7 @@ export default function Banner() {
             </SwiperSlide>
           </Swiper>
         </div>
-        <div className="absolute z-10 flex justify-between w-full mx-auto transform -translate-y-1/2 top-1/2">
+        <div className="absolute z-[2] flex justify-between w-full mx-auto transform -translate-y-1/2 top-1/2">
           <div className="flex items-center justify-center w-12 h-12 rotate-90 bg-white border rounded-full custom-prev-aksi shadow-v text-dark-400 border-dark-400">
             <Icon type="chevron" />
           </div>

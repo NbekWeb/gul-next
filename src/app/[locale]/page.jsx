@@ -25,8 +25,8 @@ export default function HomePage() {
 
   return (
     <div >
-      <Banner />
-      <div className="container max-sm:px-3  grid grid-cols-4 gap-5 px-5 mx-auto mt-16">
+      {/* <Banner /> */}
+      {/* <div className="container max-sm:px-3  grid grid-cols-4 gap-5 px-5 mx-auto mt-16">
         <MainCard />
         <MainCard />
         <MainCard />
@@ -60,7 +60,7 @@ export default function HomePage() {
         <Aksi />
         <Top />
         <Baloon />
-      </div>
+      </div> */}
     </div>
   );
 }
