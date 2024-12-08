@@ -20,14 +20,14 @@ export default function Banner({ type = "" }) {
 
   return (
     <>
-      <div className="relative ">
+      <div className="relative max-lg:pb-10 ">
         <div className="flex flex-col justify-between ">
           <img src="/img/o1.png" className="w-full rounded-2xl " />
-          <p className="pr-5 mt-3 text-lg font-semibold leading-5 text-dark-400">
+          <p className=" mt-3 text-lg font-semibold leading-5 limit2 text-dark-400 max-lg:text-base max-lg:leading-4  min-h-10">
             Кремовый букет пионовидных роз
           </p>
-          <div className="grid grid-cols-2 gap-4 pb-3 mt-4">
-            <div className="flex items-center justify-center text-lg font-semibold text-dark-400">
+          <div className="grid grid-cols-2 gap-4 pb-3 mt-4 max-sm:grid-cols-1">
+            <div className="flex items-center justify-center text-lg font-semibold text-dark-400 max-md:justify-start max-sm:justify-center">
               4290 ₽
               {type == "minus" && (
                 <span className="text-xs text-white bg-red-500 rounded-sm px-0.5 ml-2 ">
@@ -37,14 +37,14 @@ export default function Banner({ type = "" }) {
             </div>
             <Link
               href={`/${selectedLang}/single-flower`}
-              className="flex  items-center justify-center py-3 text-lg  hover:text-white rounded-[30px] hover:bg-dark-400 shadow-v bg-white text-dark-400 tr-3
+              className="flex  items-center justify-center py-3 max-lg:py-2 text-lg  hover:text-white rounded-[30px] hover:bg-dark-400 shadow-v bg-white text-dark-400 tr-3 max-sm:bg-green-800 max-sm:border max-sm:border-green-800 max-sm:text-white max-sm:hover:bg-white max-sm:hover:text-green-800
             "
             >
               Купить
             </Link>
           </div>
 
-          <span className="absolute flex items-center justify-center text-lg text-white bg-green-200 rounded-full w-9 h-9 right-5 top-5 hover:text-dark-400 hover:bg-white tr-3">
+          <span className="absolute flex items-center justify-center text-lg text-white bg-green-200 rounded-full w-9 h-9 right-5 top-5 hover:text-dark-400 hover:bg-white tr-3 max-lg:top-3 max-lg:right-3">
             <Icon type="heart" />
           </span>
           {type == "new" && (

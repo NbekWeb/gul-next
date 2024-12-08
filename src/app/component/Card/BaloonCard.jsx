@@ -19,17 +19,17 @@ export default function Banner({ type = "" }) {
   }, [pathname]);
 
   return (
-    <>
+    <div className="max-lg:pb-10">
       <Link href={`/${selectedLang}`} className="relative ">
         <div className="flex flex-col justify-between ">
           <img
             src="/img/bal1.png"
             className="w-full rounded-2xl max-h-[325px]"
           />
-          <p className="pr-32 mt-1 text-lg font-semibold leading-5 text-dark-400">
+          <p className="min-h-10   max-lg:text-base max-lg:leading-4  limit2 mt-1 text-lg font-semibold leading-5 text-dark-400">
             Кремовый букет пионовидных роз
           </p>
-          <div className="grid grid-cols-2 gap-4 pb-3 mt-2">
+          <div className="grid grid-cols-2 gap-4 pb-3 mt-2 max-lg:grid-cols-1 max-lg:gap-2">
             <div className="flex items-center justify-center text-lg font-semibold text-dark-400">
               4290 ₽
               {type == "minus" && (
@@ -39,14 +39,14 @@ export default function Banner({ type = "" }) {
               )}
             </div>
             <div
-              className="flex  items-center justify-center py-3 text-lg  hover:text-white rounded-[30px] hover:bg-dark-400 shadow-v bg-white text-dark-400 tr-3
+              className="flex  items-center justify-center py-3 text-lg  hover:text-white rounded-[30px] hover:bg-dark-400 shadow-v bg-white text-dark-400 tr-3 max-lg:mx-2 max-lg:py-2
             "
             >
-              4290 ₽
+             Купить
             </div>
           </div>
 
-          <span className="absolute flex items-center justify-center text-lg text-white bg-green-200 rounded-full w-9 h-9 right-5 top-5 hover:text-dark-400 hover:bg-white tr-3">
+          <span className="absolute flex items-center justify-center text-lg text-white bg-green-200 rounded-full w-9 h-9 right-5 top-5 hover:text-dark-400 hover:bg-white tr-3 max-lg:top-3 max-lg:right-3">
             <Icon type="heart" />
           </span>
           {type == "new" && (
@@ -66,6 +66,6 @@ export default function Banner({ type = "" }) {
           )}
         </div>
       </Link>
-    </>
+    </div>
   );
 }

@@ -83,13 +83,23 @@ span:hover {
   justify-content: center !important;
 }
 
-@media (min-width: 640px) {
+.limit2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+
+
+@media (min-width: 768px) {
   .swiper-pagination {
     display: none !important;
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .swiper-pagination-bullet {
     width: 20px !important;
     height: 20px !important;

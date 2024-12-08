@@ -168,7 +168,7 @@ export default function Foot() {
                   <img
                     src="/img/logo.png"
                     alt="logo"
-                    className="w-10 max-lg:w-8"
+                    className="w-10 "
                   />
                 </Link>
                 <div className="flex items-center none-select ">
