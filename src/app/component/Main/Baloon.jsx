@@ -9,7 +9,7 @@ import BaloonCard from "../Card/BaloonCard";
 
 export default function Banner() {
   return (
-    <div className="container max-sm:px-3  grid grid-cols-2 gap-5 px-5  mx-auto pb-44 max-lg:grid-cols-1">
+    <div className="container baloon max-sm:px-3  grid grid-cols-2 gap-5 px-5  mx-auto pb-44 max-lg:grid-cols-1 ">
       <div className="relative bg-blue-100 w-full rounded-3xl h-[540px] flex gap-10 flex-col justify-center px-5">
         <img
           src="/img/baloon.png"

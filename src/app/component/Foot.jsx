@@ -72,8 +72,8 @@ export default function Foot() {
 
   return (
     <div className="border-t border-gray-800 max-sm:border-transparent ">
-      <div className="container max-sm:px-3   px-5 pt-10 pb-6 mx-auto overflow-x-hidden  max-lg:pt-6 max-sm:pt-3 ">
-        <div className="max-xs:bg-gray-100 grid justify-between grid-cols-5 max-lg:gap-6 max-sm:flex max-sm:flex-col  max-lg:grid-cols-6 max-sm:px-10 max-sm:py-3 rounded-md max-sm:gap-4">
+      <div className="container px-5 pt-10 pb-6 mx-auto overflow-x-hidden max-sm:px-3 max-lg:pt-6 max-sm:pt-3 ">
+        <div className="grid justify-between grid-cols-5 rounded-md max-xs:bg-gray-100 max-lg:gap-6 max-sm:flex max-sm:flex-col max-lg:grid-cols-6 max-sm:px-10 max-sm:py-3 max-sm:gap-4">
           <div className="flex flex-col gap-8 text-base capitalize text-dark-400 max-xl:text-sm max-lg:order-3 max-lg:col-span-2 max-sm:gap-4">
             <Link href={`/${selectedLang}/aboutUs`}>О нас</Link>
             <Link href={`/${selectedLang}/payment`}>Оплата</Link>
@@ -82,7 +82,7 @@ export default function Foot() {
               подписка на цветы
             </Link>
           </div>
-          <div className="max-lg:order-4 flex sm:justify-center max-lg:col-span-2 ">
+          <div className="flex max-lg:order-4 sm:justify-center max-lg:col-span-2 ">
             <div>
               <Link
                 href={`/${selectedLang}/catalog`}
@@ -109,7 +109,7 @@ export default function Foot() {
               </div>
             </div>
           </div>
-          <div className="max-lg:order-5 flex max-lg:justify-end max-lg:col-span-2 lg:justify-center max-sm:justify-start">
+          <div className="flex max-lg:order-5 max-lg:justify-end max-lg:col-span-2 lg:justify-center max-sm:justify-start">
             <div className="">
               <span className="text-base font-semibold text-black">
                 Личный кабинет
@@ -122,16 +122,16 @@ export default function Foot() {
               </div>
             </div>
           </div>
-          <div className="max-lg:order-2 max-lg:col-span-4 flex max-lg:justify-end max-md:col-span-3 max-sm:justify-start ">
+          <div className="flex max-lg:order-2 max-lg:col-span-4 max-lg:justify-end max-md:col-span-3 max-sm:justify-start ">
             <div className="max-lg:flex max-lg:gap-3 max-md:gap-2 max-md:items-center max-sm:gap-4 max-xs:flex-col max-xs:w-full max-xs:items-start ">
-              <span className="text-base font-semibold text-black  max-lg:hidden ">
+              <span className="text-base font-semibold text-black max-lg:hidden ">
                 Контакты
               </span>
-              <div className="flex lg:flex-col gap-2 xs:mt-2 text-lg font-semibold text-dark-400 max-lg:mt-0 max-md:flex-col max-xs:mx-auto">
+              <div className="flex gap-2 text-lg font-semibold lg:flex-col xs:mt-2 text-dark-400 max-lg:mt-0 max-md:flex-col max-xs:mx-auto">
                 <a href="tel:+8(904) 999 99 99">8(904) 999 99 99</a>
                 <a href="tel:+8(904) 999 99 99">8(904) 999 99 99</a>
               </div>
-              <div className="flex items-center h-6 gap-4 max-xl:gap-2 lg:mt-2 max-md:gap-1  max-xs:hidden ">
+              <div className="flex items-center h-6 gap-4 max-xl:gap-2 lg:mt-2 max-md:gap-1 max-xs:hidden ">
                 <img src="/img/tg.png" className="h-full" />
                 <img src="/img/wk.png" className="h-full" />
                 <img src="/img/wt.png" className="h-full" />
@@ -139,20 +139,20 @@ export default function Foot() {
                 <img src="/img/yt.png" className="h-full" />
               </div>
 
-              <div className="flex items-center h-6 gap-4 justify-between w-full xs:hidden text-xl text-gray-900 pt-5 pb-10 border-b border-gray-900">
-                <span className="w-11 h-11 rounded-full flex justify-center items-center border border-gray-900 hover:bg-gray-900 hover:text-white tr3">
+              <div className="flex items-center justify-between w-full h-6 gap-4 pt-5 text-xl text-gray-900 border-b border-gray-900 xs:hidden max-md:pb-10">
+                <span className="flex items-center justify-center border border-gray-900 rounded-full w-11 h-11 hover:bg-gray-900 hover:text-white tr3">
                   <Icon type="wk" />
                 </span>
-                <span className="w-11 h-11 rounded-full flex justify-center items-center border border-gray-900 hover:bg-gray-900 hover:text-white tr3">
+                <span className="flex items-center justify-center border border-gray-900 rounded-full w-11 h-11 hover:bg-gray-900 hover:text-white tr3">
                   <Icon type="face" />
                 </span>
-                <span className="w-11 h-11 rounded-full flex justify-center items-center border border-gray-900 hover:bg-gray-900 hover:text-white tr3">
+                <span className="flex items-center justify-center border border-gray-900 rounded-full w-11 h-11 hover:bg-gray-900 hover:text-white tr3">
                   <Icon type="insta" />
                 </span>
-                <span className="w-11 h-11 rounded-full flex justify-center items-center border border-gray-900 hover:bg-gray-900 hover:text-white tr3">
+                <span className="flex items-center justify-center border border-gray-900 rounded-full w-11 h-11 hover:bg-gray-900 hover:text-white tr3">
                   <Icon type="tg" />
                 </span>
-                <span className="w-11 h-11 rounded-full flex justify-center items-center border border-gray-900 hover:bg-gray-900 hover:text-white tr3">
+                <span className="flex items-center justify-center border border-gray-900 rounded-full w-11 h-11 hover:bg-gray-900 hover:text-white tr3">
                   <Icon type="ws" />
                 </span>
               </div>
@@ -160,7 +160,7 @@ export default function Foot() {
           </div>
           <div className="max-lg:order-1 max-lg:col-span-2 max-md:col-span-3">
             <div className="flex flex-col gap-5 max-lg:gap-3 ">
-              <div className="flex items-center gap-2 max-xs:grid max-xs:grid-cols-2  max-sm:justify-between  ">
+              <div className="flex items-center gap-2 max-xs:grid max-xs:grid-cols-2 max-sm:justify-between ">
                 <Link
                   href={`/`}
                   className="lg:hidden max-md:col-span-3 max-xs:justify-center max-xs:flex max-xs:mb-2"

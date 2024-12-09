@@ -20,10 +20,10 @@ export default function Banner({ type = "" }) {
 
   return (
     <>
-      <div className="relative max-lg:pb-10 ">
+      <div className="relative max-md:pb-10 ">
         <div className="flex flex-col justify-between ">
           <img src="/img/o1.png" className="w-full rounded-2xl " />
-          <p className=" mt-3 text-lg font-semibold leading-5 limit2 text-dark-400 max-lg:text-base max-lg:leading-4  min-h-10">
+          <p className="mt-3 text-lg font-semibold leading-5  limit2 text-dark-400 max-lg:text-base max-lg:leading-4 min-h-10">
             Кремовый букет пионовидных роз
           </p>
           <div className="grid grid-cols-2 gap-4 pb-3 mt-4 max-sm:grid-cols-1">

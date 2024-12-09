@@ -78,7 +78,8 @@ span:hover {
   --icon-color: #9a9699; /* Change the color on hover */
 }
 
-.banner .swiper-pagination {
+.banner .swiper-pagination,
+.baloon .swiper-pagination {
   display: flex !important;
   justify-content: center !important;
 }
@@ -91,10 +92,14 @@ span:hover {
   -webkit-box-orient: vertical;
 }
 
-
-
 @media (min-width: 768px) {
   .swiper-pagination {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .baloon .swiper-pagination {
     display: none !important;
   }
 }

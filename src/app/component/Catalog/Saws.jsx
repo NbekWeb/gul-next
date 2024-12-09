@@ -19,15 +19,15 @@ export default function Banner() {
   }, [pathname]);
 
   return (
-    <>
+    <div className="max-md:pb-10">
       <div className="relative ">
         <div className="flex flex-col justify-between ">
           <img src="/img/o1.png" className="w-full rounded-2xl " />
-          <p className="pr-5 mt-3 text-lg font-semibold leading-5 text-dark-400">
+          <p className="mt-3 text-lg font-semibold leading-5 max-lg:text-base max-lg:leading-4 limit2 min-h-10 text-dark-400">
             Кремовый букет пионовидных роз
           </p>
         </div>
       </div>
-    </>
+    </div>
   );
 }

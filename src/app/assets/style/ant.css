@@ -326,13 +326,37 @@
   border: none !important;
 }
 
+.ant-tooltip {
+  z-index: 2 !important;
+}
 
+@media (max-width: 640px){
+
+  .cards .ant-pagination {
+    display: flex !important;
+    gap: 10px !important;
+    align-items: center !important;
+  }
+}
+
+.cards .ant-pagination-item,
+.cards .ant-pagination-prev,
+.cards .ant-pagination-next {
+  min-height: 40px !important;
+  min-width: 40px !important;
+}
+
+.cards .ant-pagination.ant-pagination-mini .ant-pagination-total-text,
+.cards
+  :where(
+    .css-dev-only-do-not-override-1x0dypw
+  ).ant-pagination.ant-pagination-mini
+  .ant-pagination-simple-pager {
+  height: 40px !important;
+  font-size: 28px !important;
+}
 @media (max-width: 1280px) {
   .ant-menu-overflow {
     gap: 16px;
   }
 }
-
-
-
-

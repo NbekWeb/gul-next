@@ -16,7 +16,7 @@ export default function Banner() {
         Витрина Онлайн
       </h2>
       <div className="relative flex justify-center ">
-        <div className="w-full sm:px-16 mx-auto max-sm:px-0 ">
+        <div className="w-full sm:px-16 mx-auto max-md:px-0 ">
           <Swiper
             modules={[Navigation, Pagination, Autoplay]}
             navigation={{
@@ -79,7 +79,7 @@ export default function Banner() {
             </SwiperSlide>
           </Swiper>
         </div>
-        <div className="absolute z-[2] flex justify-between w-full mx-auto transform -translate-y-1/2 top-1/2 max-lg:hidden">
+        <div className="absolute z-[2] flex justify-between w-full mx-auto transform -translate-y-1/2 top-1/2 max-md:hidden">
           <div className="flex items-center justify-center w-12 h-12 rotate-90 bg-white border rounded-full custom-prev-vitrina shadow-v text-dark-400 border-dark-400">
             <Icon type="chevron" />
           </div>

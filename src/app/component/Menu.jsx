@@ -328,7 +328,7 @@ export default function Menus() {
                   : {
                       key: path,
                       label: (
-                        <Link href={`/${path}`}>
+                        <Link href={`/${path}`} onClick={() => setOpen(false)}>
                           <span className="flex items-center gap-2 ">
                             <span>{label}</span>
                             {icon && (

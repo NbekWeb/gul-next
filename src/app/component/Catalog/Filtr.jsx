@@ -19,8 +19,8 @@ export default function List() {
 
   return (
     <div className="">
-      <div className="grid grid-cols-2 py-4 bg-gray-100 rounded-3xl px-7 mt-2.5">
-        <div className="flex gap-4 ">
+      <div className="grid grid-cols-2 py-4 bg-gray-100 rounded-3xl px-7 mt-2.5 max-md:grid-cols-1">
+        <div className="flex items-center gap-4">
           <span className="text-2xl font-semibold text-dark-400">Цена</span>
           <div className="relative flex-grow py-3">
             <Slider
@@ -32,18 +32,18 @@ export default function List() {
             />
           </div>
         </div>
-        <div className="flex justify-end gap-7 ">
-          <div className="flex items-center px-5 text-lg font-medium text-white bg-green-800 border rounded-3xl">
+        <div className="flex items-center justify-end gap-7 max-md:mt-3">
+          <div className="flex items-center px-5 py-2 text-lg font-medium text-white bg-green-800 border max-md:py-1 rounded-3xl max-md:h-10">
             Применить
           </div>
-          <div className="flex items-center px-5 py-2 text-lg font-medium bg-white text-dark-400 rounded-3xl">
+          <div className="flex items-center px-5 py-2 text-lg font-medium bg-white max-md:h-10 max-md:py-1 text-dark-400 rounded-3xl max-md:text-base">
             Сбросить
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-between mt-6 mb-5 ">
+      <div className="flex items-center justify-between mt-6 mb-5 max-sm:grid max-sm:grid-cols-1 max-sm:gap-2">
         <span className="text-lg font-semibold text-dark-400">Найдено 102</span>
-        <div>
+        <div className="">
           <Select
             defaultValue="Сначала дешевле"
             suffixIcon={
@@ -62,7 +62,7 @@ export default function List() {
                 </svg>
               </span>
             }
-            style={{ width: 200 }}
+            className="!w-[200px] max-sm:!w-full"
           >
             <Select.Option value="price">Сначала дешевле</Select.Option>
             <Select.Option value="newest">Сначала новые</Select.Option>

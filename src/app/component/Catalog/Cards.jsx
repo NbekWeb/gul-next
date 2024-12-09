@@ -3,6 +3,7 @@
 import { useState } from "react";
 import CatalogCard from "../Card/CatalogCard";
 import Saws from "../Catalog/Saws";
+import See from "../Main/See";
 import { Pagination } from "antd";
 
 export default function List() {
@@ -15,7 +16,7 @@ export default function List() {
 
   return (
     <div>
-      <div className="grid grid-cols-4 gap-5">
+      <div className="grid grid-cols-4 gap-5 max-lg:gap-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:gap-2.5">
         <CatalogCard />
         <CatalogCard type="new" />
         <CatalogCard type="new" />
@@ -33,27 +34,30 @@ export default function List() {
         <CatalogCard />
         <CatalogCard type="minus" />
       </div>
-      <div className="mt-10 flex justify-center pb-4">
+      <div className="flex justify-center pb-4 mt-10 overflow-x-hidden ">
         <Pagination
           current={currentPage} // Controlled pagination
           onChange={handlePageChange} // Handler for page change
           total={500}
-          showSizeChanger={false} // Hide the size changer
+          responsive
+          showLessItems
+          showSizeChanger={false}
+          className="max-sm:!hidden"
         />
-      </div>
-      <div>
-        <span className="text-4xl font-semibold text-dark-400 mt-10">
-          Вы смотрели
-        </span>
-        <div className="pt-5 grid grid-cols-6 gap-5 pb-32">
-          <Saws />
-          <Saws />
-          <Saws />
-          <Saws />
-          <Saws />
-          <Saws />
+        <div className="cards">
+          <Pagination
+            current={currentPage} // Controlled pagination
+            onChange={handlePageChange} // Handler for page change
+            total={500}
+            responsive
+            showLessItems
+            simple
+            showSizeChanger={false}
+            className="sm:!hidden"
+          />
         </div>
       </div>
+      <See />
     </div>
   );
 }
