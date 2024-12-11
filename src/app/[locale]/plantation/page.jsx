@@ -32,9 +32,9 @@ export default function HomePage() {
           | Букет из светло-персиковых кустовых роз Павлова
         </Link>
       </div>
-        <div>
-          <Slider />
-        </div>
+      <div>
+        <Slider />
+      </div>
     </div>
   );
 }

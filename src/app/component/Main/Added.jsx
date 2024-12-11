@@ -1,6 +1,6 @@
 "use client";
 
-import {  Navigation } from "swiper/modules";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -9,27 +9,52 @@ import Icon from "../Icon";
 
 import CatalogCard from "../Card/CatalogCard";
 
-
-
 export default function Banner() {
   return (
-    <div className="container max-sm:px-3  px-5 mx-auto ">
-      <h2 className="px-16 text-4xl font-semibold text-center text-dark-400 mb-7">
-      Добавьте к букету
+    <div className="container px-5 mx-auto max-sm:px-3 ">
+      <h2 className="px-16 mx-auto text-4xl font-semibold text-dark-400 mb-7 max-md:px-0 max-lg:text-3xl max-lg:mb-5 max-sm:mb-3">
+        Добавьте к букету
       </h2>
       <div className="relative flex justify-center ">
-        <div className="w-full px-16 mx-auto">
+        <div className="w-full px-16 mx-auto max-md:px-0">
           <Swiper
-            modules={[Navigation]}
+            modules={[Navigation, Pagination, Autoplay]}
             navigation={{
               nextEl: ".custom-next-added",
               prevEl: ".custom-prev-added",
             }}
-            pagination={{ clickable: true }}
-           
+            pagination={{
+              clickable: true,
+              dynamicBullets: true,
+              dynamicMainBullets: 2,
+            }}
             loop={true}
-            spaceBetween={50}
-            slidesPerView={4}
+            autoplay={{
+              delay: 3000,
+              disableOnInteraction: false,
+            }}
+            breakpoints={{
+              280: {
+                slidesPerView: 2,
+                spaceBetween: 10,
+              },
+              480: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+              },
+              768: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+              },
+              1024: {
+                slidesPerView: 3,
+                spaceBetween: 30,
+              },
+              1280: {
+                slidesPerView: 4,
+                spaceBetween: 50,
+              },
+            }}
           >
             <SwiperSlide>
               <CatalogCard type="new" />

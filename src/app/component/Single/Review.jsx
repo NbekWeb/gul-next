@@ -5,7 +5,7 @@ import { Rate } from "antd";
 export default function Round() {
   return (
     <>
-      <div className="flex gap-5 text-lg text-dark-400">
+      <div className="flex gap-5 text-lg text-dark-400 max-sm:grid max-sm:grid-cols-1">
         <img src="/img/rew.png" className="w-40 h-40 rounded-3xl" />
         <div className="flex flex-col gap-2.5">
           <div className="flex items-center gap-4">

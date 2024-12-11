@@ -36,14 +36,29 @@ const menus = [
     key: "aboutUs",
     children: [
       {
-        key: "a",
-        label: "sa",
-        path: "sa",
+        key: "plantation",
+        label: "Плантация",
+        path: "plantation",
       },
       {
-        key: "a1",
-        label: "sa1",
-        path: "sa",
+        key: "example",
+        label: "Пример расчета",
+        path: "example",
+      },
+      {
+        key: "schedule",
+        label: "График праздников",
+        path: "schedule",
+      },
+      {
+        key: "clients",
+        label: "Оптовым клиентам",
+        path: "clients",
+      },
+      {
+        key: "retail-clients ",
+        label: "Розничным клиентам",
+        path: "retail-clients",
       },
     ],
   },
@@ -338,7 +353,6 @@ export default function Menus() {
                   </span>
                 }
                 style={{ width: 120 }}
-                
               >
                 <Select.Option value="moskva">Москва</Select.Option>
                 <Select.Option value="ams">Амстердам</Select.Option>

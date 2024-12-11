@@ -33,6 +33,16 @@
   background: #fff !important;
 }
 
+.single-slider .swiper-pagination-bullet-active {
+  width: 20px !important;
+  height: 20px !important;
+}
+
+.single-slider .swiper-pagination-bullet {
+  width: 16px !important;
+  height: 16px !important;
+}
+
 .banner .swiper-pagination-fraction,
 .banner .swiper-pagination-custom,
 .banner .swiper-horizontal > .swiper-pagination-bullets,

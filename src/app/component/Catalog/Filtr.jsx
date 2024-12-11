@@ -8,32 +8,43 @@ const formatter = (value) => `${value} ₽`;
 
 export default function List() {
   const [isClient, setIsClient] = useState(false);
+  const [range, setRange] = useState([0, 20000]);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
+  const handleRangeChange = (value) => {
+    if (Array.isArray(value)) {
+      let [min, max] = value;
+      if (min + 2000 < max) {
+        setRange(value);
+      }
+    }
+  };
+
   if (!isClient) {
-    return null; // Avoid rendering the Slider on the server
+    return null;
   }
 
   return (
     <div className="">
-      <div className="grid grid-cols-2 py-4 bg-gray-100 rounded-3xl px-7 mt-2.5 max-md:grid-cols-1">
-        <div className="flex items-center gap-4">
+      <div className="grid grid-cols-2 py-4 bg-gray-100 rounded-3xl px-7 mt-2.5 max-md:grid-cols-1 max-sm:px-5">
+        <div className="flex items-center gap-4 max-xs:flex-col max-xs:items-start max-xs:gap-2">
           <span className="text-2xl font-semibold text-dark-400">Цена</span>
-          <div className="relative flex-grow py-3">
+          <div className="relative flex-grow pb-3 overflow-visible max-xs:w-full max-xs:pr-2">
             <Slider
               range
-              defaultValue={[0, 20000]}
+              onChange={handleRangeChange}
+              value={range}
               min={0}
               max={20000}
-              tooltip={{ open: true, formatter }}
+              tooltip={{ open: true, formatter, placement: "bottom" }}
             />
           </div>
         </div>
-        <div className="flex items-center justify-end gap-7 max-md:mt-3">
-          <div className="flex items-center px-5 py-2 text-lg font-medium text-white bg-green-800 border max-md:py-1 rounded-3xl max-md:h-10">
+        <div className="flex items-center justify-end gap-7 max-md:mt-3 max-xs:gap-5">
+          <div className="flex items-center px-5 py-2 text-lg font-medium text-white bg-green-800 border max-md:py-1 rounded-3xl max-md:h-10 max-xs:justify-between">
             Применить
           </div>
           <div className="flex items-center px-5 py-2 text-lg font-medium bg-white max-md:h-10 max-md:py-1 text-dark-400 rounded-3xl max-md:text-base">

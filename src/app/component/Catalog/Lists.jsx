@@ -20,7 +20,7 @@ export default function Lists() {
 
   return (
     <div className="">
-      <span className="mt-5 text-3xl font-semibold text-dark-400 ">
+      <span className="mt-5 text-3xl font-semibold text-dark-400 max-sm:text-2xl">
         Каталог цветов
       </span>
       <div className="!max-w-full mt-5 overflow-x-hidden ">

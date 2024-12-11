@@ -20,7 +20,7 @@ export default function Banner({ type = "" }) {
 
   return (
     <>
-      <div className="relative ">
+      <div className="relative max-md:pb-10">
         <div className="flex flex-col justify-between ">
           <img src="/img/o1.png" className="w-full rounded-2xl " />
           <p className="pr-5 mt-3 text-lg font-semibold leading-5 text-dark-400 min-h-10 limit2">

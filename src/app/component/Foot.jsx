@@ -72,7 +72,7 @@ export default function Foot() {
 
   return (
     <div className="border-t border-gray-800 max-sm:border-transparent ">
-      <div className="container px-5 pt-10 pb-6 mx-auto overflow-x-hidden max-sm:px-3 max-lg:pt-6 max-sm:pt-3 ">
+      <div className="container px-5 pt-10 pb-6 mx-auto overflow-x-hidden max-xs:p-0 max-sm:px-3 max-lg:pt-6 max-sm:pt-3 ">
         <div className="grid justify-between grid-cols-5 rounded-md max-xs:bg-gray-100 max-lg:gap-6 max-sm:flex max-sm:flex-col max-lg:grid-cols-6 max-sm:px-10 max-sm:py-3 max-sm:gap-4">
           <div className="flex flex-col gap-8 text-base capitalize text-dark-400 max-xl:text-sm max-lg:order-3 max-lg:col-span-2 max-sm:gap-4">
             <Link href={`/${selectedLang}/aboutUs`}>О нас</Link>
@@ -139,20 +139,20 @@ export default function Foot() {
                 <img src="/img/yt.png" className="h-full" />
               </div>
 
-              <div className="flex items-center justify-between w-full h-6 gap-4 pt-5 text-xl text-gray-900 border-b border-gray-900 xs:hidden max-md:pb-10">
-                <span className="flex items-center justify-center border border-gray-900 rounded-full w-11 h-11 hover:bg-gray-900 hover:text-white tr3">
+              <div className="flex items-center justify-between w-full h-6 gap-4 pt-5 text-xl text-gray-900 border-b border-gray-900 max-xs:text-lg xs:hidden max-md:pb-10 max-xs:justify-between">
+                <span className="flex items-center justify-center border border-gray-900 rounded-full w-11 h-11 max-xs:min-w-9 max-xs:h-9 hover:bg-gray-900 hover:text-white tr3">
                   <Icon type="wk" />
                 </span>
-                <span className="flex items-center justify-center border border-gray-900 rounded-full w-11 h-11 hover:bg-gray-900 hover:text-white tr3">
+                <span className="flex items-center justify-center border border-gray-900 rounded-full w-11 h-11 max-xs:min-w-9 max-xs:h-9 hover:bg-gray-900 hover:text-white tr3">
                   <Icon type="face" />
                 </span>
-                <span className="flex items-center justify-center border border-gray-900 rounded-full w-11 h-11 hover:bg-gray-900 hover:text-white tr3">
+                <span className="flex items-center justify-center border border-gray-900 rounded-full w-11 h-11 max-xs:min-w-9 max-xs:h-9 hover:bg-gray-900 hover:text-white tr3">
                   <Icon type="insta" />
                 </span>
-                <span className="flex items-center justify-center border border-gray-900 rounded-full w-11 h-11 hover:bg-gray-900 hover:text-white tr3">
+                <span className="flex items-center justify-center border border-gray-900 rounded-full w-11 h-11 max-xs:min-w-9 max-xs:h-9 hover:bg-gray-900 hover:text-white tr3">
                   <Icon type="tg" />
                 </span>
-                <span className="flex items-center justify-center border border-gray-900 rounded-full w-11 h-11 hover:bg-gray-900 hover:text-white tr3">
+                <span className="flex items-center justify-center border border-gray-900 rounded-full w-11 h-11 max-xs:min-w-9 max-xs:h-9 hover:bg-gray-900 hover:text-white tr3">
                   <Icon type="ws" />
                 </span>
               </div>

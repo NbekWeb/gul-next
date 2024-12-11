@@ -346,6 +346,8 @@
   min-width: 40px !important;
 }
 
+
+
 .cards .ant-pagination.ant-pagination-mini .ant-pagination-total-text,
 .cards
   :where(
@@ -360,3 +362,5 @@
     gap: 16px;
   }
 }
+
+

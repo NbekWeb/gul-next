@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Navigation, Thumbs } from "swiper/modules";
+import { Autoplay, Navigation, Pagination, Thumbs } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/free-mode";
@@ -44,22 +44,30 @@ export default function Banner() {
 
   return (
     <div className="pb-20">
-      <div className="grid grid-cols-2 gap-5 text-lg single-flower">
+      <div className="grid grid-cols-2 gap-5 text-lg single-flower max-xl:grid-cols-1">
         <div className="banner-slider">
-          {/* Main Slider */}
-          <div className="relative">
+          <div className="relative single-slider">
             <Swiper
               spaceBetween={10}
               thumbs={{ swiper: thumbsSwiper }}
-              modules={[Navigation, Thumbs]}
+              modules={[Navigation, Thumbs, Pagination, Autoplay]}
               navigation={{
                 nextEl: ".custom-next-single",
                 prevEl: ".custom-prev-single",
               }}
+              pagination={{
+                clickable: true,
+                dynamicBullets: true,
+                dynamicMainBullets: 2,
+              }}
+              autoplay={{
+                delay: 3000,
+                disableOnInteraction: false,
+              }}
               className="main-slider"
               onActiveIndexChange={(swiper) =>
                 setActiveIndex(swiper.activeIndex)
-              } // Update active index
+              }
             >
               {slides.map((slide, index) => (
                 <SwiperSlide key={index}>
@@ -73,7 +81,7 @@ export default function Banner() {
                 </SwiperSlide>
               ))}
             </Swiper>
-            <div className="absolute z-[2] flex justify-between w-full px-5 mx-auto transform -translate-y-1/2 top-1/2 text-white/20">
+            <div className="absolute z-[2] flex justify-between w-full px-5 mx-auto transform -translate-y-1/2 top-1/2 text-white/20 max-md:hidden">
               <div className="flex items-center justify-center w-12 h-12 rotate-90 rounded-full bg-dark-400/20 custom-prev-single">
                 <Icon type="chevron" />
               </div>
@@ -83,72 +91,78 @@ export default function Banner() {
             </div>
           </div>
 
-          {/* Thumbnail Slider */}
-          <Swiper
-            onSwiper={setThumbsSwiper}
-            spaceBetween={10}
-            slidesPerView={4}
-            freeMode={true}
-            watchSlidesProgress={true}
-            modules={[Thumbs]}
-            className="mt-5 thumb-slider"
-          >
-            {slides.map((slide, index) => (
-              <SwiperSlide key={index}>
-                <div className="relative ">
-                  {/* Conditionally apply bg-black/40 only if the index matches activeIndex */}
-                  <div
-                    className={`absolute flex w-full h-full rounded-3xl ${
-                      activeIndex === index ? "bg-black/40" : ""
-                    } z-10 top-0`}
-                  ></div>
-                  <img
-                    src={slide}
-                    alt={`Thumbnail ${index + 1}`}
-                    className="w-full rounded-3xl"
-                  />
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+          <div className="max-md:hidden">
+            <Swiper
+              onSwiper={setThumbsSwiper}
+              spaceBetween={10}
+              slidesPerView={4}
+              freeMode={true}
+              watchSlidesProgress={true}
+              modules={[Thumbs]}
+              className="mt-5 thumb-slider"
+            >
+              {slides.map((slide, index) => (
+                <SwiperSlide key={index}>
+                  <div className="relative ">
+                    {/* Conditionally apply bg-black/40 only if the index matches activeIndex */}
+                    <div
+                      className={`absolute flex w-full h-full rounded-3xl ${
+                        activeIndex === index ? "bg-black/40" : ""
+                      } z-10 top-0`}
+                    ></div>
+                    <img
+                      src={slide}
+                      alt={`Thumbnail ${index + 1}`}
+                      className="w-full rounded-3xl"
+                    />
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 p-12 bg-gray-100 rounded-3xl">
+        <div className="flex flex-col gap-4 p-12 bg-gray-100 rounded-3xl max-md:p-10 max-sm:p-5">
           <div className="flex gap-4">
-            <span className="text-3xl font-semibold text-dark-400">
+            <span className="text-3xl font-semibold text-dark-400 max-sm:text-2xl">
               Букет из светло-персиковых кустовых роз Павлова
             </span>
-            <span className="flex items-center justify-center h-12 text-xl text-red-500 bg-white rounded-full shadow-v min-w-12">
+            <span className="flex items-center justify-center h-12 text-xl text-red-500 bg-white rounded-full max-xs:hidden shadow-v min-w-12">
               <Icon type="heart" />
             </span>
           </div>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
+          <div className="flex items-center justify-between max-sm:grid max-sm:grid-cols-2">
+            <div className="flex items-center gap-4 max-sm:order-1">
               <span className="p-1 text-xs text-white bg-red-500 rounded-sm">
                 4890 ₽
               </span>
               <span className="font-semibold text-green-800 ">4290 ₽</span>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 max-sm:order-3 max-sm:col-span-2 max-sm:flex-col max-sm:gap-2 max-sm:items-start">
               <div className="flex items-center gap-2.5 text-dark-400">
                 <span className="text-sm">Cashback 10%</span>
                 <span className="text-xl">
                   <Icon type="cashback" />
                 </span>
               </div>
-              <div className="flex items-center gap-2.5 text-dark-400">
+              <div className="flex items-center gap-2.5 text-dark-400 capitalize">
                 <span className="text-sm">в наличии</span>
                 <span className="flex items-center justify-center p-1 text-white bg-green-800 rounded-full">
                   <Icon type="check" />
                 </span>
               </div>
             </div>
-            <div className="flex flex-col items-center justify-center w-12 h-12 gap-0 text-sm bg-white rounded-full text-dark-400 shadow-v ">
-              <img src="/img/star.png" className="h-5" />
-              <span>4.5</span>
+            <div className="flex  gap-2.5 items-center max-sm:order-2 ">
+              <span className="flex items-center justify-center h-12 text-xl text-red-500 bg-white rounded-full shadow-v min-w-12 xs:hidden">
+                <Icon type="heart" />
+              </span>
+              <div className="flex flex-col items-center justify-center w-12 h-12 gap-0 text-sm bg-white rounded-full text-dark-400 shadow-v ">
+                <img src="/img/star.png" className="h-5" />
+                <span>4.5</span>
+              </div>
             </div>
           </div>
           <div className="flex flex-col gap-3 ">
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-6 max-xs:flex-col max-xs:items-start max-sm:gap-2">
               <div className="font-medium min-w-36 text-dark-400">Упаковка</div>
               <Select
                 defaultValue="Крафт бумага"
@@ -174,7 +188,7 @@ export default function Banner() {
                 <Select.Option value="2">Крафт бумага2</Select.Option>
               </Select>
             </div>
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-6 max-xs:flex-col max-xs:items-start max-sm:gap-2">
               <div className="font-medium min-w-36 text-dark-400">
                 Размер букета
               </div>
@@ -187,7 +201,7 @@ export default function Banner() {
                 ))}
               </div>
             </div>
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-6 max-xs:flex-col max-xs:items-start max-sm:gap-2">
               <div className="font-medium min-w-36 text-dark-400">
                 Количество
               </div>
@@ -211,7 +225,7 @@ export default function Banner() {
             <p className="">
               Не реализованый товар: 34 упаковки с 21.03.2018 на бирже
             </p>
-            <div className="flex gap-4 mt-4">
+            <div className="flex gap-4 mt-4 max-sm:grid max-sm:grid-cols-2">
               <div className="flex items-center gap-0 bg-white rounded-3xl max-w-max">
                 <Round
                   val={<Icon type="minus" />}
@@ -230,7 +244,7 @@ export default function Banner() {
               <div className="flex items-center justify-center h-10 px-12 text-white bg-green-800 rounded-3xl max-w-max">
                 Купить
               </div>
-              <div className="flex items-center justify-center h-10 bg-transparent border border-dark-400 rounded-3xl max-w-max px-7">
+              <div className="flex items-center justify-center h-10 bg-transparent border max-sm:col-span-2 max-sm:max-w-full border-dark-400 rounded-3xl max-w-max px-7">
                 Купить в 1 клик
               </div>
             </div>
@@ -342,17 +356,28 @@ export default function Banner() {
         </div>
       </div>
       <div className="px-10 py-6 mt-10 border rounded-3xl border-dark-400/50">
-        <div className="flex items-center justify-between pb-6 border-b border-dark-400/50">
-          <span className="text-4xl">Отзывы</span>
-          <div className="flex items-center gap-3">
-            <div className="flex items-center justify-center text-yellow-500 border border-yellow-500 rounded-full w-14 h-14">
-              4.5
+        <div className="pb-6 border-b border-dark-400/50 max-md:pb-4">
+          <div className="flex items-center justify-between max-sm:flex-col max-sm:items-start max-sm:gap-2">
+            <span className="text-4xl max-md:text-3xl">Отзывы</span>
+            <div className="flex items-center gap-3 ">
+              <div className="flex items-center justify-center text-yellow-500 border border-yellow-500 rounded-full w-14 h-14">
+                4.5
+              </div>
+              <div className="flex items-center gap-3 max-md:flex-col ">
+                
+              <Rate disabled allowHalf defaultValue={4.5} />
+
+              <span className="font-medium max-md:text-sm max-sm:hidden">
+                На основании 3 отзывов
+              </span>
+              </div>
             </div>
-            <Rate disabled allowHalf defaultValue={4.5} />
-            <span className="font-medium">На основании 3 отзывов</span>
           </div>
+          <span className="text-sm font-medium sm:hidden">
+                На основании 3 отзывов
+              </span>
         </div>
-        <div className="grid grid-cols-2 gap-5 mt-7">
+        <div className="grid grid-cols-2 gap-5 mt-7 max-lg:grid-cols-1">
           <div className="flex flex-col gap-7">
             <Review />
             <Review />
