@@ -26,7 +26,7 @@ export default async function LocaleLayout({ children, params }) {
   const messages = await getMessages();
 
   return (
-    <div className="">
+    <div className="text-dark-400">
       <div className="fixed top-0 bg-white z-[10] w-full ">
         <Menu />
       </div>

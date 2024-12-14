@@ -9,12 +9,12 @@ import OnlineCard from "../Card/OnlineCard";
 
 export default function Banner() {
   return (
-    <div className="container max-sm:px-3  px-5 mx-auto ">
-      <h2 className="px-16 mx-auto text-4xl font-semibold text-dark-400 mb-7 max-lg:text-3xl  max-lg:px-0 max-lg:mb-5 max-sm:mb-3 ">
+    <div className="container px-5 mx-auto max-sm:px-3 ">
+      <h2 className="px-16 mx-auto text-4xl font-semibold text-dark-400 mb-7 max-lg:text-3xl max-lg:px-0 max-lg:mb-5 max-sm:mb-3 ">
         Акции
       </h2>
       <div className="relative flex justify-center ">
-        <div className="w-full lg:px-16 mx-auto  max-lg:px-0">
+        <div className="w-full mx-auto md:px-16 max-md:px-0">
           <Swiper
             modules={[Navigation, Pagination, Autoplay]}
             navigation={{

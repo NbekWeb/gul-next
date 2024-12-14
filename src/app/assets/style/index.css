@@ -5,10 +5,18 @@
 @import "swiper/css/navigation";
 @import "swiper/css/pagination";
 
+@font-face {
+  font-family: "Montserrat";
+  src: url("../font/m.ttf") format("ttf");
+  font-weight: normal; /* Optional: Set font weight */
+  font-style: normal; /* Optional: Set font style */
+}
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
   /* transition: .3s ease; */
 }
 

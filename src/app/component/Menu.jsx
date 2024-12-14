@@ -108,9 +108,22 @@ export default function Menus() {
   };
 
   useEffect(() => {
-    const currentMenu = menus.find((menu) =>
-      pathname.startsWith(`/${menu.path}`)
-    );
+    const findCurrentMenu = (menus) => {
+      for (const menu of menus) {
+        if (pathname.startsWith(`/${selectedLang}/${menu.path}`)) {
+          return menu;
+        }
+        if (menu.children) {
+          const childMenu = findCurrentMenu(menu.children);
+          if (childMenu) {
+            return childMenu;
+          }
+        }
+      }
+      return undefined;
+    };
+
+    const currentMenu = findCurrentMenu(menus);
     setCurrent(currentMenu?.key);
   }, [pathname, selectedLang]);
 
@@ -135,7 +148,7 @@ export default function Menus() {
           >
             <img src="/img/logo.png" alt="logo" className="w-10" />
             <span className="text-xl font-medium text-pink-500 max-sm:hidden max-md:text-base">
-              FLOWERS&OPT
+              FLOWERS&OPT 
             </span>
           </Link>
           <div className="flex gap-4 text-xl text-dark-400 md:hidden max-md:justify-end">
@@ -369,7 +382,7 @@ export default function Menus() {
                       label,
                       children: children.map(({ key, label, path }) => ({
                         key,
-                        label: <Link href={`/${path}`}>{label}</Link>,
+                        label: <Link href={`/${path}`} onClick={() => setOpen(false)}>{label}</Link>,
                       })),
                     }
                   : {
