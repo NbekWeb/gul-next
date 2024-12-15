@@ -33,8 +33,37 @@
 .ant-select-outlined:not(.ant-select-disabled):not(
     .ant-select-customize-input
   ):not(.ant-pagination-size-changer):hover
-  .ant-select-selector {
-  border-color: #85ca40;
+  .ant-select-selector,
+.ant-menu-light.ant-menu-horizontal > .ant-menu-item:hover::after,
+:where(.css-1x0dypw).ant-menu-light
+  > .ant-menu.ant-menu-horizontal
+  > .ant-menu-item:hover::after,
+:where(.css-1x0dypw).ant-menu-light.ant-menu-horizontal
+  > .ant-menu-submenu:hover::after,
+:where(.css-1x0dypw).ant-menu-light
+  > .ant-menu.ant-menu-horizontal
+  > .ant-menu-submenu:hover::after,
+:where(.css-1x0dypw).ant-menu-light.ant-menu-horizontal
+  > .ant-menu-item-active::after,
+:where(.css-1x0dypw).ant-menu-light
+  > .ant-menu.ant-menu-horizontal
+  > .ant-menu-item-active::after,
+:where(.css-1x0dypw).ant-menu-light.ant-menu-horizontal
+  > .ant-menu-submenu-active::after,
+:where(.css-1x0dypw).ant-menu-light
+  > .ant-menu.ant-menu-horizontal
+  > .ant-menu-submenu-active::after,
+:where(.css-1x0dypw).ant-menu-light.ant-menu-horizontal
+  > .ant-menu-item-open::after,
+:where(.css-1x0dypw).ant-menu-light
+  > .ant-menu.ant-menu-horizontal
+  > .ant-menu-item-open::after,
+:where(.css-1x0dypw).ant-menu-light.ant-menu-horizontal
+  > .ant-menu-submenu-open::after,
+:where(.css-1x0dypw).ant-menu-light
+  > .ant-menu.ant-menu-horizontal
+  > .ant-menu-submenu-open::after {
+  border-color: #85ca40 !important;
 }
 
 .ant-pagination-item,
@@ -364,6 +393,8 @@
   }
 }
 
-.none-select .ant-select-outlined:not(.ant-select-customize-input) .ant-select-selector{
+.none-select
+  .ant-select-outlined:not(.ant-select-customize-input)
+  .ant-select-selector {
   border-color: transparent !important;
 }
