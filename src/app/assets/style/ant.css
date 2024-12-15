@@ -172,27 +172,7 @@
   flex-direction: row !important;
 }
 
-.none-select
-  .ant-select-outlined:not(.ant-select-disabled):not(
-    .ant-select-customize-input
-  ):not(.ant-pagination-size-changer):hover
-  .ant-select-selector,
-.none-select
-  .ant-select-focused:where(
-    .css-dev-only-do-not-override-1x0dypw
-  ).ant-select-outlined:not(.ant-select-disabled):not(
-    .ant-select-customize-input
-  ):not(.ant-pagination-size-changer)
-  .ant-select-selector,
-.none-select
-  :where(.css-dev-only-do-not-override-1x0dypw).ant-select-outlined:not(
-    .ant-select-customize-input
-  )
-  .ant-select-selector {
-  outline: none !important;
-  box-shadow: none !important;
-  border: none !important;
-}
+
 
 .ant-menu-horizontal {
   border: none !important;
@@ -294,7 +274,6 @@
   > .ant-menu-submenu-open::after {
   border-color: #453c3c !important;
   color: #453c3c !important;
-  border-width: 2px !important;
 }
 
 .ant-menu .ant-menu-title-content {
@@ -423,9 +402,4 @@
   }
 }
 
-.none-select
-  .ant-select-outlined:not(.ant-select-customize-input)
-  .ant-select-selector {
-  border: none !important;
-  outline: none !important;
-}
+
