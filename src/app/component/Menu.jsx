@@ -148,7 +148,7 @@ export default function Menus() {
           >
             <img src="/img/logo.png" alt="logo" className="w-10" />
             <span className="text-xl font-medium text-pink-500 max-sm:hidden max-md:text-base">
-              FLOWERS&OPT 
+              FLOWERS&OPT
             </span>
           </Link>
           <div className="flex gap-4 text-xl text-dark-400 md:hidden max-md:justify-end">
@@ -219,7 +219,7 @@ export default function Menus() {
               <Select.Option value="newest">Кито</Select.Option>
             </Select>
 
-            <div className="flex items-center gap-4 text-base font-semibold text-dark-400 max-lg:hidden">
+            <div className="flex items-center gap-4 text-base font-medium text-dark-400 max-lg:hidden">
               <div className="flex items-center gap-2">
                 <img src="/img/watch.png" className="w-9" />
                 <span>Кито</span>
@@ -382,7 +382,14 @@ export default function Menus() {
                       label,
                       children: children.map(({ key, label, path }) => ({
                         key,
-                        label: <Link href={`/${path}`} onClick={() => setOpen(false)}>{label}</Link>,
+                        label: (
+                          <Link
+                            href={`/${path}`}
+                            onClick={() => setOpen(false)}
+                          >
+                            {label}
+                          </Link>
+                        ),
                       })),
                     }
                   : {

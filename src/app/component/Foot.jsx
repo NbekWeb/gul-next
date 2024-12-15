@@ -225,7 +225,7 @@ export default function Foot() {
                   </Select>
                 </div>
               </div>
-              <div className="flex flex-wrap items-center gap-4 text-base font-semibold text-dark-400 max-lg:hidden">
+              <div className="flex flex-wrap items-center gap-4 text-base font-medium text-dark-400 max-lg:hidden">
                 <div className="flex items-center gap-2">
                   <img src="/img/watch.png" className="w-9" />
                   <span>Кито</span>

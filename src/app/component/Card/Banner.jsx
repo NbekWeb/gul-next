@@ -24,7 +24,7 @@ export default function Banner() {
     },
   ];
   return (
-    <div className="container max-sm:px-3  flex justify-center px-5 mx-auto banner">
+    <div className="container flex justify-center px-5 mx-auto max-sm:px-3 banner">
       <div className="relative w-full ">
         <Swiper
           modules={[Navigation, Pagination, Autoplay]}
@@ -43,8 +43,7 @@ export default function Banner() {
         >
           {slides.map((item, i) => (
             <SwiperSlide key={i}>
-              <img src={item.src} className="w-full max-xs:hidden" />
-              <img src={item.srcMobi} className="w-full xs:hidden" />
+              <img src={item.src} className="w-full " />
             </SwiperSlide>
           ))}
         </Swiper>
