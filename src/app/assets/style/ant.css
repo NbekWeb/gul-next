@@ -378,7 +378,16 @@
   > .ant-menu-submenu-open::after,
 :where(.css-1x0dypw).ant-menu-light
   > .ant-menu.ant-menu-horizontal
-  > .ant-menu-submenu-open::after {
+  > .ant-menu-submenu-open::after,
+.ant-menu-light.ant-menu-horizontal > .ant-menu-item-selected::after,
+:where(.css-1x0dypw).ant-menu-light
+  > .ant-menu.ant-menu-horizontal
+  > .ant-menu-item-selected::after,
+:where(.css-1x0dypw).ant-menu-light.ant-menu-horizontal
+  > .ant-menu-submenu-selected::after,
+:where(.css-1x0dypw).ant-menu-light
+  > .ant-menu.ant-menu-horizontal
+  > .ant-menu-submenu-selected::after {
   border-bottom-width: 3px !important;
 }
 
