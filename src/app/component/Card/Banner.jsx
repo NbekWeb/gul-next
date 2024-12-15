@@ -8,21 +8,8 @@ import "swiper/css/pagination";
 
 import Icon from "../Icon";
 
-export default function Banner() {
-  const slides = [
-    {
-      src: "/img/b1.png",
-      srcMobi: "/img/b1m.png",
-    },
-    {
-      src: "/img/b1.png",
-      srcMobi: "/img/b1m.png",
-    },
-    {
-      src: "/img/b1.png",
-      srcMobi: "/img/b1m.png",
-    },
-  ];
+export default function Banner({ bannerData = [] }) {
+
   return (
     <div className="container flex justify-center px-5 mx-auto max-sm:px-3 banner">
       <div className="relative w-full ">
@@ -41,7 +28,7 @@ export default function Banner() {
             disableOnInteraction: false,
           }}
         >
-          {slides.map((item, i) => (
+          {bannerData.map((item, i) => (
             <SwiperSlide key={i}>
               <img src={item.src} className="w-full " />
             </SwiperSlide>

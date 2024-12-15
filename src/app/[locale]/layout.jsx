@@ -25,16 +25,16 @@ export default async function LocaleLayout({ children, params }) {
   const messages = await getMessages();
 
   return (
-    <div className="text-dark-400">
-      <div className="fixed top-0 bg-white z-[10] w-full ">
-        <Menu />
-      </div>
-      <div className="max-md:mt-[90px] md:mt-[145px] xs:mb-10 max-xs:mb-4">
-        <NextIntlClientProvider messages={messages}>
+    <NextIntlClientProvider messages={messages}>
+      <div className="text-dark-400">
+        <div className="fixed top-0 bg-white z-[10] w-full ">
+          <Menu />
+        </div>
+        <div className="max-md:mt-[90px] md:mt-[145px] xs:mb-10 max-xs:mb-4">
           {children}
-        </NextIntlClientProvider>
+        </div>
+        <Foot />
       </div>
-      <Foot />
-    </div>
+    </NextIntlClientProvider>
   );
 }

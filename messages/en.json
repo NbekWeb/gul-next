@@ -2,5 +2,28 @@
   "HomePage": {
     "sa": "Hello world!",
     "about": "Go to the about page"
+  },
+  "menu": {
+    "catalog": "Catalog",
+    "aboutUs": "About Us",
+    "plantation": "Plantation",
+    "example": "Example Calculation",
+    "schedule": "Holiday Schedule",
+    "clients": "Wholesale Clients",
+    "retailClients": "Retail Clients",
+    "payment": "Payment",
+    "delivery": "Delivery",
+    "subscription": "Flower Subscription",
+    "return": "Return",
+    "client": "Corporate Clients",
+    "moskva": "Moscow",
+    "amsterdam": "Amsterdam",
+    "quito": "Quito",
+    "title": "My Account",
+    "login": "Log in",
+    "register": "Register",
+    "orderHistory": "Order History",
+    "favorites": "Favorites",
+    "contacts": "Contacts"
   }
 }

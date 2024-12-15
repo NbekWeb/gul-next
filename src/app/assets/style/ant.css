@@ -350,7 +350,7 @@
 :where(.css-dev-only-do-not-override-1x0dypw).ant-menu-light
   > .ant-menu.ant-menu-horizontal
   > .ant-menu-submenu-open::after {
-  border-bottom-width: 2px !important;
+  border-bottom-width: 3px !important;
 }
 
 .ant-menu::before {
@@ -407,4 +407,8 @@
   .ant-menu-overflow {
     gap: 16px;
   }
+}
+
+.ant-spin .ant-spin-dot-item {
+  background: #85ca40 !important;
 }

@@ -6,6 +6,8 @@ import React, { useState, useEffect, useRef } from "react";
 import Icon from "./Icon";
 import { Popover, Select, Menu } from "antd";
 
+import { useTranslations } from "next-intl";
+
 const content = (
   <div className="flex flex-col gap-2 text-lg font-semibold ">
     <a
@@ -26,54 +28,56 @@ const content = (
 const menus = [
   {
     path: "catalog",
-    label: "Каталог",
+    label: "catalog",
     icon: "/img/flower.png",
     key: "catalog",
   },
   {
     path: "aboutUs",
-    label: "О нас",
+    label: "aboutUs",
     key: "aboutUs",
     children: [
       {
         key: "plantation",
-        label: "Плантация",
+        label: "plantation",
         path: "plantation",
       },
       {
         key: "example",
-        label: "Пример расчета",
+        label: "example",
         path: "example",
       },
       {
         key: "schedule",
-        label: "График праздников",
+        label: "schedule",
         path: "schedule",
       },
       {
         key: "clients",
-        label: "Оптовым клиентам",
+        label: "clients",
         path: "clients",
       },
       {
         key: "retail-clients ",
-        label: "Розничным клиентам",
+        label: "retailClients",
         path: "retail-clients",
       },
     ],
   },
-  { path: "payment", label: "Оплата", key: "payment" },
-  { path: "delivery", label: "доставка", key: "delivery" },
+  { path: "payment", label: "payment", key: "payment" },
+  { path: "delivery", label: "delivery", key: "delivery" },
   {
     path: "flower-subscription",
-    label: "подписка на цветы",
+    label: "subscription",
     key: "subscription",
   },
-  { path: "return", label: "Возврат", key: "return" },
-  { path: "corporate-client", label: "Корпоративным клиентам", key: "client" },
+  { path: "return", label: "return", key: "return" },
+  { path: "corporate-client", label: "client", key: "client" },
 ];
 
 export default function Menus() {
+  const t = useTranslations("menu");
+
   const [selectedLang, setSelectedLang] = useState("ru");
   const [current, setCurrent] = useState("");
   const [open, setOpen] = useState(false);
@@ -195,7 +199,7 @@ export default function Menus() {
             </div>
 
             <Select
-              defaultValue="Москва "
+              defaultValue="moskva"
               suffixIcon={
                 <span className="bg-pink-500 text-[8px] text-white w-5 h-5 flex justify-center items-center rounded-full">
                   <svg
@@ -214,23 +218,23 @@ export default function Menus() {
               }
               style={{ width: 120 }}
             >
-              <Select.Option value="moskva">Москва</Select.Option>
-              <Select.Option value="ams">Амстердам</Select.Option>
-              <Select.Option value="newest">Кито</Select.Option>
+              <Select.Option value="moskva">{t("moskva")}</Select.Option>
+              <Select.Option value="amsterdam">{t("amsterdam")}</Select.Option>
+              <Select.Option value="newest">{t("quito")}</Select.Option>
             </Select>
 
             <div className="flex items-center gap-4 text-base font-medium text-dark-400 max-lg:hidden">
               <div className="flex items-center gap-2">
                 <img src="/img/watch.png" className="w-9" />
-                <span>Кито</span>
+                <span>{t("quito")}</span>
               </div>
               <div className="flex items-center gap-2">
                 <img src="/img/watch.png" className="w-9" />
-                <span>Москва</span>
+                <span>{t("moskva")}</span>
               </div>
               <div className="flex items-center gap-2">
                 <img src="/img/watch.png" className="w-9" />
-                <span>Амстердам</span>
+                <span>{t("amsterdam")}</span>
               </div>
             </div>
             <div className="flex items-center gap-4 text-lg font-semibold text-dark-400 max-xl:hidden">
@@ -259,10 +263,10 @@ export default function Menus() {
                 children
                   ? {
                       key: path,
-                      label,
+                      label: t(label),
                       children: children.map(({ key, label, path }) => ({
                         key,
-                        label: <Link href={`/${path}`}>{label}</Link>,
+                        label: <Link href={`/${path}`}>{t(label)}</Link>,
                       })),
                     }
                   : {
@@ -270,7 +274,7 @@ export default function Menus() {
                       label: (
                         <Link href={`/${path}`}>
                           <span className="flex items-center gap-2 ">
-                            <span>{label}</span>
+                            <span>{t(label)}</span>
                             {icon && (
                               <img src={icon} alt={label} className="w-4" />
                             )}
@@ -348,7 +352,7 @@ export default function Menus() {
               </div>
 
               <Select
-                defaultValue="Москва "
+                defaultValue="moskva"
                 suffixIcon={
                   <span className="bg-pink-500 text-[8px] text-white w-5 h-5 flex justify-center items-center rounded-full">
                     <svg
@@ -367,9 +371,9 @@ export default function Menus() {
                 }
                 style={{ width: 120 }}
               >
-                <Select.Option value="moskva">Москва</Select.Option>
-                <Select.Option value="ams">Амстердам</Select.Option>
-                <Select.Option value="newest">Кито</Select.Option>
+                <Select.Option value="moskva">{t("moskva")}</Select.Option>
+                <Select.Option value="amsterdam">{t("amsterdam")}</Select.Option>
+                <Select.Option value="newest">{t("quito")}</Select.Option>
               </Select>
             </div>
             <Menu

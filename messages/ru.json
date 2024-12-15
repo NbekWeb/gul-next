@@ -1,7 +1,31 @@
 {
-    "HomePage": {
-      "sa": "ruHello world!",
-      "about": "ruGo to the about page"
-    }
-  }
-  
+  "HomePage": {
+    "sa": "ruHello world!",
+    "about": "ruGo to the about page"
+  },
+  "menu": {
+    "catalog": "Каталог",
+    "aboutUs": "О нас",
+    "plantation": "Плантация",
+    "example": "Пример расчета",
+    "schedule": "График праздников",
+    "clients": "Оптовым клиентам",
+    "retailClients": "Розничным клиентам",
+    "payment": "Оплата",
+    "delivery": "Доставка",
+    "subscription": "Подписка на цветы",
+    "return": "Возврат",
+    "client": "Корпоративным клиентам",
+    "moskva": "Москва",
+    "amsterdam": "Амстердам",
+    "quito": "Кито",
+    "title": "Личный кабинет",
+    "login": "Войти",
+    "register": "Зарегистрироваться",
+    "orderHistory": "История заказов",
+    "favorites": "Избранные товары",
+    "contacts": "Контакты"
+    
+  },
+  "foot": {}
+}

@@ -1,26 +1,25 @@
 "use client";
 
-import Link from "next/link";
+import {Link} from "@/i18n/routing";
 import React, { useState, useEffect, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Select } from "antd";
 
 import Icon from "./Icon";
 
-const { Option } = Select;
+import { useTranslations } from "next-intl";
+
+
 
 export default function Foot() {
+   const t = useTranslations("menu");
+  
   const [selectedLang, setSelectedLang] = useState("ru");
-  const [selectedCountry, setSelectedCountry] = useState("Москва");
-
+ 
   const router = useRouter();
   const pathname = usePathname();
 
-  const dropdownRef = useRef(null);
-  const countryDropdownRef = useRef(null);
-
-  const [isOpen, setIsOpen] = useState(false);
-  const [isOpenCountry, setIsOpenCountry] = useState(false);
+ 
 
   const switchLanguage = () => {
     if (pathname.startsWith("/en")) {
@@ -31,9 +30,7 @@ export default function Foot() {
       router.push(newPath);
     }
   };
-  const changeCountry = (value) => {
-    setSelectedCountry(value);
-  };
+ 
   const changeLang = (value) => {
     setSelectedLang(value);
     switchLanguage();
@@ -47,85 +44,64 @@ export default function Foot() {
     }
   }, [pathname]);
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      // Close the language dropdown if clicked outside of it
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsOpen(false);
-      }
-
-      // Close the country dropdown if clicked outside of it
-      if (
-        countryDropdownRef.current &&
-        !countryDropdownRef.current.contains(event.target)
-      ) {
-        setIsOpenCountry(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+ 
 
   return (
     <div className="border-t border-gray-800 max-sm:border-transparent ">
       <div className="container px-5 pt-10 pb-6 mx-auto overflow-x-hidden max-xs:p-0 max-sm:px-3 max-lg:pt-6 max-sm:pt-3 ">
         <div className="grid justify-between grid-cols-5 rounded-md max-xs:bg-gray-100 max-lg:gap-6 max-sm:flex max-sm:flex-col max-lg:grid-cols-6 max-sm:px-10 max-sm:py-3 max-sm:gap-4">
           <div className="flex flex-col gap-8 text-base capitalize text-dark-400 max-xl:text-sm max-lg:order-3 max-lg:col-span-2 max-sm:gap-4">
-            <Link href={`/${selectedLang}/aboutUs`}>О нас</Link>
-            <Link href={`/${selectedLang}/payment`}>Оплата</Link>
-            <Link href={`/${selectedLang}/delivery`}> доставка</Link>
-            <Link href={`/${selectedLang}/flower-subscription`}>
-              подписка на цветы
+            <Link href={`/aboutUs`}>{t("aboutUs")}</Link>
+            <Link href={`/payment`}>{t("payment")}</Link>
+            <Link href={`/delivery`}> {t("delivery")}</Link>
+            <Link href={`/flower-subscription`}>
+             {t("subscription")}
             </Link>
           </div>
           <div className="flex max-lg:order-4 sm:justify-center max-lg:col-span-2 ">
             <div>
               <Link
-                href={`/${selectedLang}/catalog`}
+                href={`/catalog`}
                 className="text-base font-semibold text-black"
               >
                 Каталог
               </Link>
               <div className="flex flex-col gap-2.5 mt-8 text-sm text-black/60 max-sm:mt-4 max-sm:gap-1.5">
-                <Link href={`/${selectedLang}/catalog`}> Все товары</Link>
-                <Link href={`/${selectedLang}/catalog`}>
+                <Link href={`/catalog`}> Все товары</Link>
+                <Link href={`/catalog`}>
                   Стоматологические материалы{" "}
                 </Link>
-                <Link href={`/${selectedLang}/catalog`}>
+                <Link href={`/catalog`}>
                   {" "}
                   Стоматологические инструменты
                 </Link>
-                <Link href={`/${selectedLang}/catalog`}> Хирургия</Link>
-                <Link href={`/${selectedLang}/catalog`}>
+                <Link href={`/catalog`}> Хирургия</Link>
+                <Link href={`/catalog`}>
                   {" "}
                   Инфузионные системы
                 </Link>
-                <Link href={`/${selectedLang}/catalog`}> Уход за стомой</Link>
-                <Link href={`/${selectedLang}/catalog`}> Ортопедия</Link>
+                <Link href={`/catalog`}> Уход за стомой</Link>
+                <Link href={`/catalog`}> Ортопедия</Link>
               </div>
             </div>
           </div>
           <div className="flex max-lg:order-5 max-lg:justify-end max-lg:col-span-2 lg:justify-center max-sm:justify-start">
             <div className="">
               <span className="text-base font-semibold text-black">
-                Личный кабинет
+                {t("title")}
               </span>
               <div className="flex flex-col gap-2.5 mt-8 text-sm text-black/60 max-sm:mt-4 max-sm:gap-1.5">
-                <Link href={`/${selectedLang}/login`}>Войти</Link>
-                <Link href={`/${selectedLang}/regis`}>Зарегистрироваться</Link>
-                <Link href={`/${selectedLang}/hystory`}>История заказов</Link>
-                <Link href={`/${selectedLang}/favorite`}>Избранные товары</Link>
+                <Link href={`/login`}>{t("login")}</Link>
+                <Link href={`/regis`}>{t("register")}</Link>
+                <Link href={`/hystory`}>{t("orderHistory")}</Link>
+                <Link href={`/favorite`}>{t("favorites")}</Link>
               </div>
             </div>
           </div>
           <div className="flex max-lg:order-2 max-lg:col-span-4 max-lg:justify-end max-md:col-span-3 max-sm:justify-start ">
             <div className="max-lg:flex max-lg:gap-3 max-md:gap-2 max-md:items-center max-sm:gap-4 max-xs:flex-col max-xs:w-full max-xs:items-start ">
               <span className="text-base font-semibold text-black max-lg:hidden ">
-                Контакты
+                {t("contacts")}
               </span>
               <div className="flex gap-2 text-lg font-semibold lg:flex-col xs:mt-2 text-dark-400 max-lg:mt-0 max-md:flex-col max-xs:mx-auto">
                 <a href="tel:+8(904) 999 99 99">8(904) 999 99 99</a>
@@ -200,7 +176,7 @@ export default function Foot() {
                 </div>
                 <div className="max-xs:flex max-xs:justify-end">
                   <Select
-                    defaultValue="Москва "
+                    defaultValue="moskva "
                     suffixIcon={
                       <span className="bg-pink-500 text-[8px] text-white w-5 h-5 flex justify-center items-center rounded-full">
                         <svg
@@ -219,24 +195,24 @@ export default function Foot() {
                     }
                     style={{ width: 120 }}
                   >
-                    <Select.Option value="moskva">Москва</Select.Option>
-                    <Select.Option value="ams">Амстердам</Select.Option>
-                    <Select.Option value="newest">Кито</Select.Option>
+                    <Select.Option value="moskva">{t("moskva")}</Select.Option>
+                    <Select.Option value="ams">{t("amsterdam")}</Select.Option>
+                    <Select.Option value="newest">{t("quito")}</Select.Option>
                   </Select>
                 </div>
               </div>
               <div className="flex flex-wrap items-center gap-4 text-base font-medium text-dark-400 max-lg:hidden">
-                <div className="flex items-center gap-2">
-                  <img src="/img/watch.png" className="w-9" />
-                  <span>Кито</span>
+                <div className="flex items-center gap-1">
+                  <img src="/img/watch.png" className="w-6" />
+                  <span>{t("quito")}</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <img src="/img/watch.png" className="w-9" />
-                  <span>Москва</span>
+                <div className="flex items-center gap-1">
+                  <img src="/img/watch.png" className="w-6" />
+                  <span>{t("moskva")}</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <img src="/img/watch.png" className="w-9" />
-                  <span>Амстердам</span>
+                <div className="flex items-center gap-1">
+                  <img src="/img/watch.png" className="w-6" />
+                  <span>{t("amsterdam")}</span>
                 </div>
               </div>
               <Link

@@ -1,6 +1,5 @@
 "use client";
 
-import { useTranslations } from "next-intl";
 import { notFound } from "next/navigation";
 import { useState, useEffect } from "react";
 
@@ -20,8 +19,7 @@ import { api } from "@/app/utils/api";
 import { routing } from "@/i18n/routing";
 
 export default function HomePage() {
-  const t = useTranslations("HomePage");
-  const translatedText = t("sa");
+  
 
   const [banner, setBanner] = useState([]);
   const [loading, setLoading] = useState(0);
@@ -34,6 +32,7 @@ export default function HomePage() {
         method: "GET",
       });
       setBanner(response.data);
+      console.log(response.data);
     } catch (error) {
       console.error("Error fetching banner data:", error);
     } finally {
@@ -41,15 +40,14 @@ export default function HomePage() {
     }
   };
 
-  // useEffect(() => {
-  //   getBanner();
-  // }, []);
+  useEffect(() => {
+    getBanner();
+  }, []);
 
   return (
     <Spin spinning={loading > 0}>
       <div>
-        {loading}
-        <Banner bannerData={banner} loading={loading} />
+        {banner.length > 0 && <Banner bannerData={banner} />}
         <div className="container grid grid-cols-4 gap-5 px-5 mx-auto mt-16 max-lg:grid-cols-2 max-xs:grid-cols-1 max-xl:grid-cols-3 max-md:mt-10">
           {[...Array(8)].map((_, index) => (
             <MainCard key={index} />
