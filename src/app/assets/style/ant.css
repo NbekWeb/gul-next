@@ -189,8 +189,8 @@
     .ant-select-customize-input
   )
   .ant-select-selector {
-  outline: none;
-  box-shadow: none;
+  outline: none !important;
+  box-shadow: none !important;
   border: none !important;
 }
 
@@ -204,7 +204,7 @@
   overflow-x: hidden !important;
 }
 .ant-menu {
-  text-transform: capitalize;
+  text-transform: capitalize !important;
 }
 
 .ant-menu-light.ant-menu-horizontal > .ant-menu-item-selected,
@@ -262,7 +262,36 @@
 .ant-menu-light .ant-menu-item-selected,
 :where(.css-dev-only-do-not-override-1x0dypw).ant-menu-light
   > .ant-menu
-  .ant-menu-item-selected {
+  .ant-menu-item-selected,
+.ant-menu-light.ant-menu-horizontal > .ant-menu-item:hover::after,
+:where(.css-1x0dypw).ant-menu-light
+  > .ant-menu.ant-menu-horizontal
+  > .ant-menu-item:hover::after,
+:where(.css-1x0dypw).ant-menu-light.ant-menu-horizontal
+  > .ant-menu-submenu:hover::after,
+:where(.css-1x0dypw).ant-menu-light
+  > .ant-menu.ant-menu-horizontal
+  > .ant-menu-submenu:hover::after,
+:where(.css-1x0dypw).ant-menu-light.ant-menu-horizontal
+  > .ant-menu-item-active::after,
+:where(.css-1x0dypw).ant-menu-light
+  > .ant-menu.ant-menu-horizontal
+  > .ant-menu-item-active::after,
+:where(.css-1x0dypw).ant-menu-light.ant-menu-horizontal
+  > .ant-menu-submenu-active::after,
+:where(.css-1x0dypw).ant-menu-light
+  > .ant-menu.ant-menu-horizontal
+  > .ant-menu-submenu-active::after,
+:where(.css-1x0dypw).ant-menu-light.ant-menu-horizontal
+  > .ant-menu-item-open::after,
+:where(.css-1x0dypw).ant-menu-light
+  > .ant-menu.ant-menu-horizontal
+  > .ant-menu-item-open::after,
+:where(.css-1x0dypw).ant-menu-light.ant-menu-horizontal
+  > .ant-menu-submenu-open::after,
+:where(.css-1x0dypw).ant-menu-light
+  > .ant-menu.ant-menu-horizontal
+  > .ant-menu-submenu-open::after {
   border-color: #453c3c !important;
   color: #453c3c !important;
 }
