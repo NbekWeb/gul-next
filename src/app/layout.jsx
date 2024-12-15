@@ -1,5 +1,5 @@
 import { AntdRegistry } from "@ant-design/nextjs-registry";
-import "./assets/style/index.css";
+import "./assets/style/global.css";
 
 export default function RootLayout({ children }) {
   return (

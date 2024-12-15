@@ -2,7 +2,6 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import Menu from "../component/Menu";
 import Foot from "../component/Foot";
-import "../assets/style/index.css";
 import { notFound, redirect } from "next/navigation";
 import { Button } from "antd";
 
