@@ -294,6 +294,7 @@
   > .ant-menu-submenu-open::after {
   border-color: #453c3c !important;
   color: #453c3c !important;
+  border-width: 2px !important;
 }
 
 .ant-menu .ant-menu-title-content {
