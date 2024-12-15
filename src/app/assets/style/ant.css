@@ -426,5 +426,6 @@
 .none-select
   .ant-select-outlined:not(.ant-select-customize-input)
   .ant-select-selector {
-  border-color: transparent !important;
+  border: none !important;
+  outline: none !important;
 }
