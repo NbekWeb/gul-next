@@ -104,7 +104,6 @@ export default function Foot() {
                 {t("contacts")}
               </span>
               <div className="flex gap-2 text-lg font-semibold lg:flex-col xs:mt-2 text-dark-400 max-lg:mt-0 max-md:flex-col max-xs:mx-auto">
-                
                 <a href="tel:+7(981) 104 18 10">+7 981-104-18-10</a>
                 <a href="tel:+7(981) 104 18 10">+7 981-104-18-10</a>
               </div>
@@ -112,7 +111,9 @@ export default function Foot() {
                 <img src="/img/tg.png" className="h-full" />
                 <img src="/img/wk.png" className="h-full" />
                 <img src="/img/wt.png" className="h-full" />
-                <img src="/img/vk.png" className="h-full" />
+                <a href="https://vk.com/flowersandopt" target="_blank">
+                  <img src="/img/vk.png" className="h-full" />
+                </a>
                 <img src="/img/yt.png" className="h-full" />
               </div>
 
