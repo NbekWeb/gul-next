@@ -6,14 +6,17 @@ import "swiper/css";
 import "swiper/css/navigation";
 import dynamic from "next/dynamic";
 import Icon from "../Icon";
+import { useTranslations } from "next-intl";
 
-import CatalogCard from "../Card/CatalogCard";
+import OnlineCard from "../Card/OnlineCard";
 
-export default function Banner() {
+export default function Banner({ data = [] ,onUpdate}) {
+  const t = useTranslations("menu");
+
   return (
     <div className="container px-5 mx-auto max-sm:px-3 ">
       <h2 className="px-16 mx-auto text-4xl font-semibold text-dark-400 mb-7 max-md:px-0 max-lg:text-3xl max-lg:mb-5 max-sm:mb-3">
-        Добавьте к букету
+        {t("addingBuk")}
       </h2>
       <div className="relative flex justify-center ">
         <div className="w-full px-16 mx-auto max-md:px-0">
@@ -56,27 +59,11 @@ export default function Banner() {
               },
             }}
           >
-            <SwiperSlide>
-              <CatalogCard type="new" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <CatalogCard type="minus" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <CatalogCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <CatalogCard type="new" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <CatalogCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <CatalogCard type="new" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <CatalogCard type="minus" />
-            </SwiperSlide>
+            {data.map((item, i) => (
+              <SwiperSlide key={i}>
+                <OnlineCard data={item} onlike={onUpdate} />
+              </SwiperSlide>
+            ))}
           </Swiper>
         </div>
         <div className="absolute z-[2] flex justify-between w-full mx-auto transform -translate-y-1/2 top-1/2">

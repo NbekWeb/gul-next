@@ -2,11 +2,11 @@
 
 import Icon from "../Icon";
 
-export default function List({ name = "Букеты", selected = false,onClick  }) {
+export default function List({ name = "", selected = false, onClick }) {
   return (
     <div
-    onClick={onClick}
-      className={`flex max-sm:py-1.5 items-center px-5 max-sm:px-3 max-sm:rounded-md  bg-gray-100 py-3 rounded-xl text-dark-400 hover:text-white hover:bg-green-800 group hover:cursor-pointer ${
+      onClick={onClick}
+      className={`flex max-sm:py-1.5 items-center px-5 max-sm:px-3 max-sm:rounded-md  bg-gray-100 py-3 rounded-xl text-dark-400 hover:text-white hover:bg-green-800 group hover:cursor-pointer tr-3 ${
         selected && "bg-green-800 text-white"
       }`}
     >

@@ -1,17 +1,29 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useTranslations } from "next-intl";
 
 import Icon from "../Icon";
-
 import OnlineCard from "../Card/OnlineCard";
 
-export default function Banner() {
+export default function Banner({ data = [],onUpdate }) {
+  const [filteredData, setFilteredData] = useState([]);
+  const t = useTranslations("menu");
+  useEffect(() => {
+    const newFilteredData = data.filter((item) => item.is_new === true);
+    setFilteredData(newFilteredData);
+  }, [data]);
+
+  if (filteredData.length === 0) {
+    return null;
+  }
+
   return (
-    <div className="container max-sm:px-3  px-5 mx-auto">
-      <h2 className="px-16 text-4xl font-semibold text-dark-400 lg:mb-7 max-md:px-0  max-lg:text-3xl max-lg:mb-5 max-sm:mb-3">
-        Новинки
+    <div className="container px-5 mx-auto max-sm:px-3">
+      <h2 className="px-16 text-4xl font-semibold text-dark-400 lg:mb-7 max-md:px-0 max-lg:text-3xl max-lg:mb-5 max-sm:mb-3">
+        {t("new_arrivals")}
       </h2>
       <div className="relative flex justify-center mx-auto ">
         <div className="w-full px-16 mx-auto max-md:px-0">
@@ -54,27 +66,11 @@ export default function Banner() {
               },
             }}
           >
-            <SwiperSlide>
-              <OnlineCard type="new" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <OnlineCard type="new" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <OnlineCard type="new" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <OnlineCard type="new" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <OnlineCard type="new" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <OnlineCard type="new" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <OnlineCard type="new" />
-            </SwiperSlide>
+            {filteredData.map((item, i) => (
+              <SwiperSlide key={i}>
+                <OnlineCard data={item} tip="new"  onlike={onUpdate}  />
+              </SwiperSlide>
+            ))}
           </Swiper>
         </div>
         <div className="absolute max-md:hidden z-[2] flex justify-between w-full mx-auto transform -translate-y-1/2 top-1/2">

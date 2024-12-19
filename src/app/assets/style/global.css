@@ -63,6 +63,16 @@
 }
 
 /* styles.css */
+.tr-scrollbar::-webkit-scrollbar {
+  height: 4px;
+}
+.tr-scrollbar::-webkit-scrollbar-thumb {
+  background-color: transparent !important;
+}
+.tr-scrollbar::-webkit-scrollbar-track {
+  background-color: transparent !important;
+}
+
 .custom-scrollbar::-webkit-scrollbar {
   height: 4px;
 }
@@ -139,4 +149,19 @@ span:hover {
   }
 }
 
+.phone input {
+  height: 50px;
+  padding: 10px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  border: 1px solid #d9d9d9;
+  outline: none;
+}
 
+.phone input:hover {
+  border-color: #85ca40;
+}
+
+.PhoneInputCountry {
+  display: none !important;
+}

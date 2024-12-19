@@ -1,25 +1,22 @@
 "use client";
 
-import {Link} from "@/i18n/routing";
+import { Link } from "@/i18n/routing";
 import React, { useState, useEffect, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Select } from "antd";
 
 import Icon from "./Icon";
-
+import { api } from "@/app/utils/api";
 import { useTranslations } from "next-intl";
 
-
-
 export default function Foot() {
-   const t = useTranslations("menu");
-  
+  const t = useTranslations("menu");
+  const [categories, setCategories] = useState([]);
+
   const [selectedLang, setSelectedLang] = useState("ru");
- 
+
   const router = useRouter();
   const pathname = usePathname();
-
- 
 
   const switchLanguage = () => {
     if (pathname.startsWith("/en")) {
@@ -30,10 +27,22 @@ export default function Foot() {
       router.push(newPath);
     }
   };
- 
+
   const changeLang = (value) => {
     setSelectedLang(value);
     switchLanguage();
+  };
+
+  const getCategory = async () => {
+    try {
+      const response = await api({
+        url: "/flower/categories/",
+        method: "GET",
+      });
+      setCategories(response.data);
+    } catch (error) {
+      console.error("Error fetching banner data:", error);
+    }
   };
 
   useEffect(() => {
@@ -44,7 +53,9 @@ export default function Foot() {
     }
   }, [pathname]);
 
- 
+  useEffect(() => {
+    getCategory();
+  }, []);
 
   return (
     <div className="border-t border-gray-800 max-sm:border-transparent ">
@@ -54,9 +65,7 @@ export default function Foot() {
             <Link href={`/aboutUs`}>{t("aboutUs")}</Link>
             <Link href={`/payment`}>{t("payment")}</Link>
             <Link href={`/delivery`}> {t("delivery")}</Link>
-            <Link href={`/flower-subscription`}>
-             {t("subscription")}
-            </Link>
+            <Link href={`/flower-subscription`}>{t("subscription")}</Link>
           </div>
           <div className="flex max-lg:order-4 sm:justify-center max-lg:col-span-2 ">
             <div>
@@ -64,24 +73,15 @@ export default function Foot() {
                 href={`/catalog`}
                 className="text-base font-semibold text-black"
               >
-                Каталог
+                {t("catalog")}
               </Link>
               <div className="flex flex-col gap-2.5 mt-8 text-sm text-black/60 max-sm:mt-4 max-sm:gap-1.5">
-                <Link href={`/catalog`}> Все товары</Link>
-                <Link href={`/catalog`}>
-                  Стоматологические материалы{" "}
-                </Link>
-                <Link href={`/catalog`}>
-                  {" "}
-                  Стоматологические инструменты
-                </Link>
-                <Link href={`/catalog`}> Хирургия</Link>
-                <Link href={`/catalog`}>
-                  {" "}
-                  Инфузионные системы
-                </Link>
-                <Link href={`/catalog`}> Уход за стомой</Link>
-                <Link href={`/catalog`}> Ортопедия</Link>
+                <Link href={`/catalog`}> {t("allProduct")}</Link>
+                {categories.map((category, i) => (
+                  <Link href={`/catalog?category=[${category.id}]`} key={i}>
+                    {category?.translations?.[selectedLang]?.name}
+                  </Link>
+                ))}
               </div>
             </div>
           </div>
@@ -141,11 +141,7 @@ export default function Foot() {
                   href={`/`}
                   className="lg:hidden max-md:col-span-3 max-xs:justify-center max-xs:flex max-xs:mb-2"
                 >
-                  <img
-                    src="/img/logo.png"
-                    alt="logo"
-                    className="w-10 "
-                  />
+                  <img src="/img/logo.png" alt="logo" className="w-10 " />
                 </Link>
                 <div className="flex items-center none-select ">
                   <Select
@@ -176,7 +172,7 @@ export default function Foot() {
                 </div>
                 <div className="max-xs:flex max-xs:justify-end">
                   <Select
-                    defaultValue="moskva "
+                    defaultValue="moskva"
                     suffixIcon={
                       <span className="bg-pink-500 text-[8px] text-white w-5 h-5 flex justify-center items-center rounded-full">
                         <svg

@@ -1,7 +1,7 @@
 "use client";
 
-import { notFound } from "next/navigation";
 import { useState, useEffect } from "react";
+
 
 import { Spin } from "antd";
 
@@ -16,13 +16,18 @@ import New from "../component/Main/New";
 import Baloon from "../component/Main/Baloon";
 
 import { api } from "@/app/utils/api";
-import { routing } from "@/i18n/routing";
 
 export default function HomePage() {
-  
 
+  
   const [banner, setBanner] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [flowersAll, setFlowersAll] = useState([]);
+  const [balloon, setBalloon] = useState([]);
+
   const [loading, setLoading] = useState(0);
+
+ 
 
   const getBanner = async () => {
     setLoading((prev) => prev + 1);
@@ -32,7 +37,51 @@ export default function HomePage() {
         method: "GET",
       });
       setBanner(response.data);
-      console.log(response.data);
+    } catch (error) {
+      console.error("Error fetching banner data:", error);
+    } finally {
+      setLoading((prev) => prev - 1);
+    }
+  };
+  const getCategory = async () => {
+    setLoading((prev) => prev + 1);
+    try {
+      const response = await api({
+        url: "/flower/categories/",
+        method: "GET",
+      });
+      setCategories(response.data);
+    } catch (error) {
+      console.error("Error fetching banner data:", error);
+    } finally {
+      setLoading((prev) => prev - 1);
+    }
+  };
+  const getFlowersAll = async () => {
+    setLoading((prev) => prev + 1);
+    try {
+      const response = await api({
+        url:"/flower/flowers/all/",
+        method: "GET",
+      });
+
+      setFlowersAll(response.data.results);
+    } catch (error) {
+      console.error("Error fetching banner data:", error);
+    } finally {
+      setLoading((prev) => prev - 1);
+    }
+  };
+
+  const getBalloon = async () => {
+    setLoading((prev) => prev + 1);
+    try {
+      const response = await api({
+        url: "/flower/balloon/",
+        method: "GET",
+      });
+
+      setBalloon(response.data);
     } catch (error) {
       console.error("Error fetching banner data:", error);
     } finally {
@@ -42,6 +91,9 @@ export default function HomePage() {
 
   useEffect(() => {
     getBanner();
+    getBalloon();
+    getCategory();
+    getFlowersAll();
   }, []);
 
   return (
@@ -49,20 +101,31 @@ export default function HomePage() {
       <div>
         {banner.length > 0 && <Banner bannerData={banner} />}
         <div className="container grid grid-cols-4 gap-5 px-5 mx-auto mt-16 max-lg:grid-cols-2 max-xs:grid-cols-1 max-xl:grid-cols-3 max-md:mt-10">
-          {[...Array(8)].map((_, index) => (
-            <MainCard key={index} />
+          {categories.map((category, index) => (
+            <MainCard key={index} data={category} />
           ))}
         </div>
         <Ban />
         <div className="flex flex-col lg:gap-20 max-lg:gap-10">
-          <Vitrina />
-          <New />
+          {flowersAll.length > 0 && (
+            <>
+              <Vitrina data={flowersAll} onUpdate={()=>getFlowersAll()} />
+              <New data={flowersAll} onUpdate={()=>getFlowersAll()} />
+            </>
+          )}
+
           <div className="container px-5 mx-auto max-sm:px-3">
             <Roses />
           </div>
-          <Aksi />
-          <Top />
-          <Baloon />
+
+          {flowersAll.length > 0 && (
+            <>
+              <Aksi data={flowersAll} onUpdate={()=>getFlowersAll()} />
+              <Top data={flowersAll} onUpdate={()=>getFlowersAll()} />
+            </>
+          )}
+
+          <Baloon data={balloon} onUpdate={()=>getBalloon()} />
         </div>
       </div>
     </Spin>

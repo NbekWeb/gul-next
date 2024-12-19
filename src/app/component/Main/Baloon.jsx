@@ -2,14 +2,17 @@
 
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useTranslations } from "next-intl";
 
 import Icon from "../Icon";
 
 import BaloonCard from "../Card/BaloonCard";
 
-export default function Banner() {
+export default function Banner({ data = [],onUpdate }) {
+  const t = useTranslations("menu");
+
   return (
-    <div className="container baloon max-sm:px-3  grid grid-cols-2 gap-5 px-5  mx-auto pb-44 max-lg:grid-cols-1 ">
+    <div className="container grid grid-cols-2 gap-5 px-5 mx-auto baloon max-sm:px-3 pb-44 max-lg:grid-cols-1 ">
       <div className="relative bg-blue-100 w-full rounded-3xl h-[540px] flex gap-10 flex-col justify-center px-5">
         <img
           src="/img/baloon.png"
@@ -17,10 +20,10 @@ export default function Banner() {
         />
         <img src="/img/vec.png" className="absolute top-12 left-12 " />
         <h3 className="w-1/2 text-5xl font-semibold capitalize relative z-[2] max-md:text-4xl max-sm:text-3xl">
-          воздушные шары
+          {t("balloons")}
         </h3>
         <span className="absolute z-[2] flex items-center text-lg font-semibold text-dark-400 bottom-16 gap-2.5">
-          Выбрать
+          {t("choose")}
           <Icon type="arrow" className="" />
         </span>
       </div>
@@ -43,23 +46,16 @@ export default function Banner() {
               280: {
                 spaceBetween: 10,
               },
-              480:{
+              480: {
                 spaceBetween: 20,
-              }
+              },
             }}
           >
-            <SwiperSlide>
-              <BaloonCard type="top" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <BaloonCard type="minus" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <BaloonCard type="top" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <BaloonCard type="minus" />
-            </SwiperSlide>
+            {data.map((item, i) => (
+              <SwiperSlide key={i}>
+                <BaloonCard type="top" data={item} onlike={onUpdate} />
+              </SwiperSlide>
+            ))}
           </Swiper>
         </div>
         <div className="flex px-2 gap-7 max-lg:hidden">

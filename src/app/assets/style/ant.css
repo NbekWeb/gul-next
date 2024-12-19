@@ -450,3 +450,47 @@
 .ant-spin .ant-spin-dot-item {
   background: #85ca40 !important;
 }
+
+.ant-modal .ant-modal-content {
+  border-radius: 24px !important;
+  max-width: 400px !important;
+  margin: 0 auto !important;
+}
+.ant-input,
+.ant-input-affix-wrapper {
+  padding: 10px !important;
+  font-size: 18px !important;
+  color: #453c3c !important;
+}
+.ant-form-vertical
+  .ant-form-item:not(.ant-form-item-horizontal)
+  .ant-form-item-label,
+.ant-input-affix-wrapper .ant-input {
+  padding: 0px !important;
+}
+
+.ant-form-vertical
+  .ant-form-item:not(.ant-form-item-horizontal)
+  .ant-form-item-label
+  > label {
+  font-weight: 600 !important;
+  color: #453c3c !important;
+}
+
+.login .ant-form-item .ant-form-item-control-input {
+  height: 50px !important;
+}
+
+.ant-modal-root .ant-modal-wrap {
+  overflow-y: hidden !important;
+}
+
+.ant-upload-list-item-actions a{
+  display: none !important  ;
+}
+
+
+/* .custom-switch{} */
+.ant-switch.ant-switch-checked{
+  background-color: #85ca40 !important;
+}

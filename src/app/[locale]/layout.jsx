@@ -10,6 +10,8 @@ import { routing } from "@/i18n/routing";
 export async function generateMetadata({ params }) {
   const { locale } = await params;
 
+
+
   if (!routing.locales.includes(locale)) {
     notFound();
   }

@@ -1,14 +1,83 @@
 "use client";
 
-import Link from "next/link";
 import Icon from "../Icon";
 import React, { useState, useEffect, useRef } from "react";
-
+import { useTranslations } from "next-intl";
 import { usePathname, useRouter } from "next/navigation";
+import { api } from "@/app/utils/api";
+import { useOrders } from "@/app/content/OrdersContext";
 
-export default function Banner({ type = "" }) {
+export default function Banner({ data = {}, onlike }) {
   const [selectedLang, setSelectedLang] = useState("ru");
+  const [type, setType] = useState("");
+  const { toggleOpened,opened } = useOrders();
   const pathname = usePathname();
+
+  const t = useTranslations("menu");
+
+  const postLike = async (id) => {
+    if (!data?.like) {
+      try {
+        const response = await api({
+          url: "/flower/like/balloon",
+          method: "POST",
+          data: { balloon: id },
+        });
+        onlike();
+      } catch (error) {
+        if (!opened) {
+          toggleOpened();
+        }
+        console.log("Error fetching banner data:", `${error}`);
+      }
+    } else {
+      try {
+        const response = await api({
+          url: `/flower/like/balloon/${id}/`,
+          method: "DELETE",
+        });
+        onlike();
+      } catch (error) {
+        if (!opened) {
+          toggleOpened();
+        }
+        console.error("Error fetching banner data:", error);
+      }
+    }
+  };
+
+  const addToOrder = () => {
+    // Get existing orders from localStorage, or initialize an empty object
+    const existingOrders = JSON.parse(localStorage.getItem("orders")) || [];
+
+    // Structure the order object as per your requirements
+    const order = {
+      id: data?.id,
+      type: 1,
+    };
+
+    existingOrders.push(order);
+
+    // Save the updated orders back to localStorage
+    localStorage.setItem("orders", JSON.stringify(existingOrders));
+
+    router.push(`/${selectedLang}/basket`);
+  };
+
+  useEffect(() => {
+    if (data?.is_new) {
+      setType("new");
+    }
+    if (data?.is_popular) {
+      setType("top");
+    }
+    if (
+      Math.trunc(data?.discount_price) !== Math.trunc(data?.price) &&
+      data?.discount_price
+    ) {
+      setType("minus");
+    }
+  }, [data]);
 
   useEffect(() => {
     if (pathname.startsWith("/en")) {
@@ -20,14 +89,14 @@ export default function Banner({ type = "" }) {
 
   return (
     <div className="max-lg:pb-10">
-      <Link href={`/${selectedLang}`} className="relative ">
+      <div className="relative ">
         <div className="flex flex-col justify-between ">
           <img
-            src="/img/bal1.png"
+            src={data?.images_balloon?.[0]?.image}
             className="w-full rounded-2xl max-h-[325px]"
           />
-          <p className="min-h-10   max-lg:text-base max-lg:leading-4  limit2 mt-1 text-lg font-semibold leading-5 text-dark-400">
-            Кремовый букет пионовидных роз
+          <p className="mt-1 text-lg font-semibold min-h-8 max-lg:text-base limit2 text-dark-400">
+            {data?.translations?.[selectedLang]?.description}
           </p>
           <div className="grid grid-cols-2 gap-4 pb-3 mt-2 max-lg:grid-cols-1 max-lg:gap-2">
             <div className="flex items-center justify-center text-lg font-semibold text-dark-400">
@@ -39,33 +108,38 @@ export default function Banner({ type = "" }) {
               )}
             </div>
             <div
-              className="flex  items-center justify-center py-3 text-lg  hover:text-white rounded-[30px] hover:bg-dark-400 shadow-v bg-white text-dark-400 tr-3 max-lg:mx-2 max-lg:py-2
+              className="flex hover:cursor-pointer  items-center justify-center py-3 text-lg  hover:text-white rounded-[30px] hover:bg-dark-400 shadow-v bg-white text-dark-400 tr-3 max-lg:mx-2 max-lg:py-2
             "
             >
-             Купить
+              {t("buyButton")}
             </div>
           </div>
 
-          <span className="absolute flex items-center justify-center text-lg text-white bg-green-200 rounded-full w-9 h-9 right-5 top-5 hover:text-dark-400 hover:bg-white tr-3 max-lg:top-3 max-lg:right-3">
-            <Icon type="heart" />
+          <span
+            onClick={() => postLike(data?.id)}
+            className={`absolute flex items-center justify-center text-lg text-white bg-green-200 rounded-full w-9 h-9  hover:text-dark-400 hover:bg-white tr-3 top-3 right-3  ${
+              data?.like ? " hover:text-red-500" : "hover:text-dark-400 pt-1"
+            }`}
+          >
+            {data?.like ? <Icon type="delete" /> : <Icon type="heart" />}
           </span>
           {type == "new" && (
             <span className="absolute left-0 flex px-3 text-lg text-white bg-dark-400 rounded-tl-2xl rounded-br-xl">
-              New
+              {t("newLabel")}
             </span>
           )}
           {type == "top" && (
             <span className="absolute left-0 flex px-3 text-lg text-white bg-pink-400 rounded-tl-2xl rounded-br-xl">
-              Top
+              {t("topLabel")}
             </span>
           )}
           {type == "minus" && (
             <span className="absolute left-0 flex px-3 text-lg bg-white text-dark-400 rounded-tl-2xl rounded-br-xl">
-              -15%
+              -{Math.trunc(100 - data?.discount_price / data?.price)}%
             </span>
           )}
         </div>
-      </Link>
+      </div>
     </div>
   );
 }

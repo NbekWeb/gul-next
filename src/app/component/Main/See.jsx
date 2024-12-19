@@ -1,17 +1,16 @@
-"use client";
-
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import Icon from "../Icon";
-
+import { useTranslations } from "next-intl";
 import Saws from "../Catalog/Saws";
 
 export default function Banner() {
+  const t = useTranslations("menu");
   return (
     <div className="container px-5 mx-auto max-sm:px-3 ">
       <h2 className="px-16 mx-auto text-4xl font-semibold text-dark-400 mb-7 max-md:px-0 max-lg:text-3xl max-lg:mb-5 max-sm:mb-3">
-        Вы смотрели
+        {t("you_have_watched")}
       </h2>
       <div className="relative flex justify-center mx-auto ">
         <div className="w-full px-16 mx-auto max-md:px-0">

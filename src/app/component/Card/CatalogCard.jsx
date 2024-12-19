@@ -1,14 +1,16 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import Icon from "../Icon";
 import React, { useState, useEffect, useRef } from "react";
-
+import { useTranslations } from "next-intl";
 import { usePathname, useRouter } from "next/navigation";
 
-export default function Banner({ type = "" }) {
+export default function Banner({ data = {} }) {
   const [selectedLang, setSelectedLang] = useState("ru");
+  const [type, setType] = useState("");
   const pathname = usePathname();
+  const t = useTranslations("menu");
 
   useEffect(() => {
     if (pathname.startsWith("/en")) {
@@ -18,28 +20,49 @@ export default function Banner({ type = "" }) {
     }
   }, [pathname]);
 
+  useEffect(() => {
+    if (data?.is_new) {
+      setType("new");
+    }
+    if (data?.is_popular) {
+      setType("top");
+    }
+    if (
+      Math.trunc(data?.discount_price) !== Math.trunc(data?.price) &&
+      data?.discount_price
+    ) {
+      setType("minus");
+    }
+  }, [data]);
+
   return (
     <>
       <div className="relative max-md:pb-10">
         <div className="flex flex-col justify-between ">
-          <img src="/img/o1.png" className="w-full rounded-2xl " />
+          <div className="w-full overflow-hidden rounded-2xl aspect-square">
+            <img
+              src={data?.images?.[0]?.image}
+              className="object-cover w-full h-full"
+            />
+          </div>
           <p className="pr-5 mt-3 text-lg font-semibold leading-5 text-dark-400 min-h-10 limit2">
-            Кремовый букет пионовидных роз
+            {data?.translations?.[selectedLang]?.description}
           </p>
           <div className="grid grid-cols-2 gap-4 pb-3 mt-4 max-sm:grid-cols-1 max-sm:gap-2 max-sm:mx-2.5">
             <div className="flex items-center justify-center text-lg font-semibold text-dark-400">
-              4290 ₽
+              {Math.trunc(data?.price)} ₽
               {type == "minus" && (
                 <span className="text-xs text-white bg-red-500 rounded-sm px-0.5 ml-2 ">
                   <span className="line-through">4590</span>₽
                 </span>
               )}
             </div>
-            <Link href={`/${selectedLang}/single-flower`}
-              className="flex  items-center justify-center py-3 text-lg max-lg:py-2   rounded-[30px] hover:bg-green-800/80 shadow-v bg-green-800 text-white tr-3
+            <Link
+              href={`/single-flower/${data?.id}`}
+              className="flex hover:text-white  items-center justify-center py-3 text-lg max-lg:py-2   rounded-[30px] hover:bg-green-800/80 shadow-v bg-green-800 text-white tr-3
             "
             >
-              Купить
+              {t("buyButton")}
             </Link>
           </div>
 
@@ -48,17 +71,17 @@ export default function Banner({ type = "" }) {
           </span>
           {type == "new" && (
             <span className="absolute left-0 flex px-3 text-lg text-white bg-dark-400 rounded-tl-2xl rounded-br-xl">
-              New
+              {t("newLabel")}
             </span>
           )}
           {type == "top" && (
             <span className="absolute left-0 flex px-3 text-lg text-white bg-pink-400 rounded-tl-2xl rounded-br-xl">
-              Top
+              {t("topLabel")}
             </span>
           )}
           {type == "minus" && (
             <span className="absolute left-0 flex px-3 text-lg bg-white text-dark-400 rounded-tl-2xl rounded-br-xl">
-              -15%
+              -{Math.trunc(100 - data?.discount_price / data?.price)}%
             </span>
           )}
         </div>

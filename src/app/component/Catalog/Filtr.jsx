@@ -2,13 +2,20 @@
 
 import { useEffect, useState } from "react";
 import { Slider, Select } from "antd";
-import Icon from "../Icon";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 const formatter = (value) => `${value} ₽`;
 
-export default function List() {
+export default function List({ data = 0 }) {
+  const t = useTranslations("menu");
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const defaultRange = [0, 20000];
+
   const [isClient, setIsClient] = useState(false);
-  const [range, setRange] = useState([0, 20000]);
+  const [range, setRange] = useState(defaultRange);
 
   useEffect(() => {
     setIsClient(true);
@@ -17,11 +24,42 @@ export default function List() {
   const handleRangeChange = (value) => {
     if (Array.isArray(value)) {
       let [min, max] = value;
-      if (min + 2000 < max) {
+      if (min + 1800 < max) {
         setRange(value);
       }
     }
   };
+
+  const handleApply = () => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    params.set("min", range[0]);
+    params.set("max", range[1]);
+
+    router.push(`?${params.toString()}`);
+  };
+
+  const handleReset = () => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete("min");
+    params.delete("max");
+
+    router.push(`?${params.toString()}`);
+
+    setRange([0, 20000]);
+  };
+
+  useEffect(() => {
+    setIsClient(true);
+
+    const min = parseInt(searchParams.get("min")) || defaultRange[0];
+    const max = parseInt(searchParams.get("max")) || defaultRange[1];
+
+    // Update range if query contains min and max
+    if (min >= defaultRange[0] && max <= defaultRange[1]) {
+      setRange([min, max]);
+    }
+  }, [searchParams]);
 
   if (!isClient) {
     return null;
@@ -31,7 +69,10 @@ export default function List() {
     <div className="">
       <div className="grid grid-cols-2 py-4 bg-gray-100 rounded-3xl px-7 mt-2.5 max-md:grid-cols-1 max-sm:px-5">
         <div className="flex items-center gap-4 max-xs:flex-col max-xs:items-start max-xs:gap-2">
-          <span className="text-2xl font-semibold text-dark-400">Цена</span>
+          <span className="text-2xl font-semibold text-dark-400">
+           
+            {t("price")}
+          </span>
           <div className="relative flex-grow pb-3 overflow-visible max-xs:w-full max-xs:pr-2">
             <Slider
               range
@@ -44,16 +85,24 @@ export default function List() {
           </div>
         </div>
         <div className="flex items-center justify-end gap-7 max-md:mt-3 max-xs:gap-5">
-          <div className="flex items-center px-5 py-2 text-lg font-medium text-white bg-green-800 border max-md:py-1 rounded-3xl max-md:h-10 max-xs:justify-between">
-            Применить
+          <div
+            onClick={handleApply}
+            className="flex hover:cursor-pointer hover:opacity-100 opacity-80 items-center px-5 py-2 text-lg font-medium text-white bg-green-800 border max-md:py-1 rounded-3xl max-md:h-10 max-xs:justify-between"
+          >
+            {t("apply")}
           </div>
-          <div className="flex items-center px-5 py-2 text-lg font-medium bg-white max-md:h-10 max-md:py-1 text-dark-400 rounded-3xl max-md:text-base">
-            Сбросить
+          <div
+            onClick={handleReset}
+            className="flex border-transparent border hover:border-green-800 hover:cursor-pointer hover:text-green-800 items-center px-5 py-2 text-lg font-medium bg-white max-md:h-10 max-md:py-1 text-dark-400 rounded-3xl max-md:text-base"
+          >
+            {t("reset")}
           </div>
         </div>
       </div>
       <div className="flex items-center justify-between mt-6 mb-5 max-sm:grid max-sm:grid-cols-1 max-sm:gap-2">
-        <span className="text-lg font-semibold text-dark-400">Найдено 102</span>
+        <span className="text-lg font-semibold text-dark-400">
+          {t("found")} {data}
+        </span>
         <div className="">
           <Select
             defaultValue="Сначала дешевле"
@@ -75,8 +124,8 @@ export default function List() {
             }
             className="!w-[200px] max-sm:!w-full"
           >
-            <Select.Option value="price">Сначала дешевле</Select.Option>
-            <Select.Option value="newest">Сначала новые</Select.Option>
+            <Select.Option value="price"> {t("cheapest_first")}</Select.Option>
+            <Select.Option value="newest"> {t("newest_first")}</Select.Option>
           </Select>
         </div>
       </div>

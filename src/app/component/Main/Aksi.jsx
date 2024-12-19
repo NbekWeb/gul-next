@@ -1,17 +1,31 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import Icon from "../Icon";
-
+import { useTranslations } from "next-intl";
 import OnlineCard from "../Card/OnlineCard";
 
-export default function Banner() {
+export default function Banner({ data = [], onUpdate }) {
+  const [filteredData, setFilteredData] = useState([]);
+  const t = useTranslations("menu");
+  useEffect(() => {
+    const newFilteredData = data.filter(
+      (item) => Math.trunc(item?.discount_price) !== Math.trunc(item?.price)
+    );
+    setFilteredData(newFilteredData);
+  }, [data]);
+
+  if (filteredData.length === 0) {
+    return null;
+  }
+
   return (
     <div className="container px-5 mx-auto max-sm:px-3 ">
       <h2 className="px-16 mx-auto text-4xl font-semibold text-dark-400 mb-7 max-lg:text-3xl max-lg:px-0 max-lg:mb-5 max-sm:mb-3 ">
-        Акции
+        {t("promotions")}
       </h2>
       <div className="relative flex justify-center ">
         <div className="w-full mx-auto md:px-16 max-md:px-0">
@@ -54,27 +68,11 @@ export default function Banner() {
               disableOnInteraction: false,
             }}
           >
-            <SwiperSlide>
-              <OnlineCard type="minus" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <OnlineCard type="minus" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <OnlineCard type="minus" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <OnlineCard type="minus" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <OnlineCard type="minus" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <OnlineCard type="minus" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <OnlineCard type="minus" />
-            </SwiperSlide>
+            {filteredData.map((item, i) => (
+              <SwiperSlide key={i}>
+                <OnlineCard data={item} tip="aksi" onlike={onUpdate} />
+              </SwiperSlide>
+            ))}
           </Swiper>
         </div>
         <div className="absolute z-[2] flex justify-between w-full mx-auto transform -translate-y-1/2 top-1/2 max-md:hidden">

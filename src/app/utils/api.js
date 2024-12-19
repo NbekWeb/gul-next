@@ -1,6 +1,5 @@
 import axios from 'axios'
 
-// Axios instance
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL
 })
@@ -21,16 +20,17 @@ const processQueue = (error, token = null) => {
 }
 
 // API wrapper function
-export const api = ({ url, open = false, ...props }) => {
+export const api = ({
+  url,
+  ...props
+}) => {
   let token = localStorage.getItem('access_token')
 
   if (token) token = `Bearer ${token}`
 
-  if (!open) {
-    props.headers = {
-      ...props.headers,
-      Authorization: props.headers?.Authorization || token
-    }
+  props.headers = {
+    ...props.headers,
+    Authorization: props.headers?.Authorization || token
   }
 
   return instance({
@@ -48,12 +48,16 @@ async function refreshTokenAndRetry(originalRequest) {
       throw new Error('No refresh token available')
     }
 
-    const { data } = await instance.post('/token/refresh/', { refresh: refresh_token })
+    const {
+      data
+    } = await instance.post('/account/token/refresh/', {
+      token: refresh_token
+    })
 
     if (data?.access) {
-      const newToken = `Bearer ${data.access}`
+      const newToken = `Bearer ${data.token}`
 
-      localStorage.setItem('access_token', data.access)
+      localStorage.setItem('access_token', data.token)
       processQueue(null, newToken)
 
       originalRequest.headers['Authorization'] = newToken
@@ -65,6 +69,7 @@ async function refreshTokenAndRetry(originalRequest) {
     }
   } catch (refreshError) {
     processQueue(refreshError, null)
+    
     Clear()
     throw refreshError
   } finally {
@@ -115,12 +120,13 @@ function createAxiosResponseInterceptor() {
   )
 }
 
-// Clear tokens and redirect to login
+
 function Clear() {
   localStorage.removeItem('access_token')
   localStorage.removeItem('refresh_token')
-  window.location.href = '/login'
 }
 
-// Initialize the interceptor
+
+
+
 createAxiosResponseInterceptor()

@@ -1,12 +1,12 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import Icon from "../Icon";
 import React, { useState, useEffect, useRef } from "react";
 
 import { usePathname, useRouter } from "next/navigation";
 
-export default function Banner() {
+export default function Banner({ data = {} }) {
   const [selectedLang, setSelectedLang] = useState("ru");
   const pathname = usePathname();
 
@@ -19,16 +19,14 @@ export default function Banner() {
   }, [pathname]);
 
   return (
-    <div className="">
+    <div className="max-lg:pb-10">
       <div className="relative ">
         <div className="flex flex-col justify-between ">
-          <img src="/img/o1.png" className="w-full rounded-2xl " />
+          <div className="w-full rounded-2xl aspect-square overflow-hidden">
+            <img src={data?.image} className="w-full h-full object-cover" />
+          </div>
           <p className="mt-3 text-lg font-semibold max-lg:text-base max-sm:text-sm max-md:mt-1 limit2 min-h-8 text-dark-400">
-            Кремовый букет пионовидных роз Lorem ipsum dolor sit amet,
-            consectetur adipisicing elit. Corrupti vero repellendus laborum
-            similique ipsa beatae mollitia facere nesciunt consequatur, quas qui
-            sequi non dolore pariatur impedit earum, praesentium perferendis
-            perspiciatis!
+            {data?.translations?.[selectedLang]?.name}
           </p>
         </div>
       </div>

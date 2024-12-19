@@ -1,12 +1,13 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Link } from "@/i18n/routing";
 import React, { useState, useEffect, useRef } from "react";
 import Icon from "./Icon";
-import { Popover, Select, Menu } from "antd";
-
+import { Popover, Select, Menu, Modal } from "antd";
 import { useTranslations } from "next-intl";
+import Login from "./Auth/Login";
+import { useOrders } from "@/app/content/OrdersContext";
 
 const content = (
   <div className="flex flex-col gap-2 text-lg font-semibold ">
@@ -64,26 +65,46 @@ const menus = [
       },
     ],
   },
-  { path: "payment", label: "payment", key: "payment" },
+  { path: "1", label: "payment", key: "payment" },
   { path: "delivery", label: "delivery", key: "delivery" },
   {
     path: "flower-subscription",
     label: "subscription",
     key: "subscription",
   },
-  { path: "return", label: "return", key: "return" },
-  { path: "corporate-client", label: "client", key: "client" },
+  { path: "2", label: "return", key: "return" },
+  { path: "3", label: "client", key: "client" },
 ];
 
 export default function Menus() {
+  const goBottom = () => {
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: "smooth",
+    });
+  };
+
+  const { toggleOpened, opened } = useOrders();
   const t = useTranslations("menu");
 
+  const { ordersLength, updateOrders } = useOrders();
+
+  const addOrder = () => {
+    const newOrders = [...Array(ordersLength + 1).keys()]; // Just an example of adding orders
+    updateOrders(newOrders); // Update orders and localStorage
+  };
+
+  const [showDialog, setShowDialog] = useState(false);
+  const [hasAccessToken, setHasAccessToken] = useState(
+    !!localStorage.getItem("access_token")
+  );
   const [selectedLang, setSelectedLang] = useState("ru");
   const [current, setCurrent] = useState("");
   const [open, setOpen] = useState(false);
 
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const changeLang = (newLang) => {
     setSelectedLang(newLang);
@@ -93,6 +114,17 @@ export default function Menus() {
     }
   };
 
+  const logOut = () => {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    setHasAccessToken(false);
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem("access_token");
+    setHasAccessToken(!!token);
+  }, []);
+
   useEffect(() => {
     if (pathname.startsWith("/en")) {
       setSelectedLang("en");
@@ -100,6 +132,19 @@ export default function Menus() {
       setSelectedLang("ru");
     }
   }, [pathname]);
+
+  useEffect(() => {
+    if (opened) {
+      setShowDialog(opened);
+    }
+  }, [opened]);
+
+  const handleCancel = () => {
+    setShowDialog(false);
+    if (opened) {
+      toggleOpened();
+    }
+  };
 
   const switchLanguage = () => {
     if (pathname.startsWith("/en")) {
@@ -109,6 +154,10 @@ export default function Menus() {
       const newPath = pathname.replace("/ru", "/en");
       router.push(newPath);
     }
+  };
+
+  const handleSucces = () => {
+    setHasAccessToken(true);
   };
 
   useEffect(() => {
@@ -133,6 +182,9 @@ export default function Menus() {
 
   return (
     <div className={`relative `}>
+      <Modal footer={null} title="" open={showDialog} onCancel={handleCancel}>
+        <Login onClose={handleCancel} onSucces={() => handleSucces()} />
+      </Modal>
       <div className="container px-5 mx-auto overflow-x-hidden max-sm:px-3 ">
         <div className="flex items-center justify-between py-5 max-md:grid max-md:grid-cols-3">
           <div className="flex items-center gap-4 md:hidden">
@@ -162,12 +214,41 @@ export default function Menus() {
             <Link href={`/basket`}>
               <span className="relative">
                 <Icon type="bag" />
-                <span className="w-[14px] h-[14px] rounded-full bg-green-700 text-[10px] flex items-center justify-center text-white absolute top-0 right-0 max-xl:w-[10px] max-xl:h-[10px] max-xl:text-[8px] max-xl:right-0.5 max-xl:top-0.5">
-                  1
-                </span>
+                {ordersLength > 0 && (
+                  <span className="w-[14px] h-[14px] rounded-full bg-green-700 text-[10px] flex items-center justify-center text-white absolute top-0 right-0 max-xl:w-[10px] max-xl:h-[10px] max-xl:text-[8px] max-xl:right-0.5 max-xl:top-0.5">
+                    {ordersLength}
+                  </span>
+                )}
               </span>
             </Link>
-            <Icon type="user" />
+            {hasAccessToken ? (
+              <Popover
+                content={
+                  <div
+                    className="flex items-center gap-2 text-lg font-medium text-dark-400 hover:cursor-pointer "
+                    onClick={logOut}
+                  >
+                    <span className="text-red-500">
+                      <Icon type="log" />
+                    </span>
+                    <span>{t("logout")}</span>{" "}
+                  </div>
+                }
+                trigger="click"
+                placement="bottomRight"
+              >
+                <span className="text-xl text-dark-400">
+                  <Icon type="user" />
+                </span>
+              </Popover>
+            ) : (
+              <span
+                onClick={() => setShowDialog(true)}
+                className="hover:cursor-pointer"
+              >
+                <Icon type="user" />
+              </span>
+            )}
           </div>
           <div className="flex items-center gap-4 max-md:hidden ">
             <div className="flex items-center none-select">
@@ -269,7 +350,8 @@ export default function Menus() {
                         label: <Link href={`/${path}`}>{t(label)}</Link>,
                       })),
                     }
-                  : {
+                  : path != "1" && path != "2" && path != "3"
+                  ? {
                       key: path,
                       label: (
                         <Link href={`/${path}`}>
@@ -280,6 +362,16 @@ export default function Menus() {
                             )}
                           </span>
                         </Link>
+                      ),
+                    }
+                  : {
+                      key: path,
+                      label: (
+                        <span onClick={() => goBottom()}>
+                          <span className="flex items-center gap-2 ">
+                            <span>{t(label)}</span>
+                          </span>
+                        </span>
                       ),
                     }
               )}
@@ -293,16 +385,44 @@ export default function Menus() {
             <Link href={`/basket`}>
               <span className="relative">
                 <Icon type="bag" />
-                <span className="w-[14px] h-[14px] rounded-full bg-green-700 text-[10px] flex items-center justify-center text-white absolute top-0 right-0 max-xl:w-[10px] max-xl:h-[10px] max-xl:text-[8px] max-xl:right-0.5 max-xl:top-0.5">
-                  1
-                </span>
+                {ordersLength > 0 && (
+                  <span className="w-[14px] h-[14px] rounded-full bg-green-700 text-[10px] flex items-center justify-center text-white absolute top-0 right-0 max-xl:w-[10px] max-xl:h-[10px] max-xl:text-[8px] max-xl:right-0.5 max-xl:top-0.5">
+                    {ordersLength}
+                  </span>
+                )}
               </span>
             </Link>
-            <Icon type="user" />
+            {hasAccessToken ? (
+              <Popover
+                content={
+                  <div
+                    className="flex items-center gap-2 text-lg font-medium text-dark-400 hover:cursor-pointer "
+                    onClick={logOut}
+                  >
+                    <span className="text-red-500">
+                      <Icon type="log" />
+                    </span>
+                    <span>{t("logout")}</span>
+                  </div>
+                }
+                trigger="click"
+                placement="bottomRight"
+              >
+                <span className="text-xl text-dark-400">
+                  <Icon type="user" />
+                </span>
+              </Popover>
+            ) : (
+              <span
+                onClick={() => setShowDialog(true)}
+                className="hover:cursor-pointer"
+              >
+                <Icon type="user" />
+              </span>
+            )}
           </div>
         </div>
       </div>
-
       <div
         className={`absolute top-0  w-full h-screen  md:hidden overflow-y-hidden tr3 ${
           open ? "left-0" : "-left-[1000px]"
@@ -372,7 +492,9 @@ export default function Menus() {
                 style={{ width: 120 }}
               >
                 <Select.Option value="moskva">{t("moskva")}</Select.Option>
-                <Select.Option value="amsterdam">{t("amsterdam")}</Select.Option>
+                <Select.Option value="amsterdam">
+                  {t("amsterdam")}
+                </Select.Option>
                 <Select.Option value="newest">{t("quito")}</Select.Option>
               </Select>
             </div>
@@ -396,7 +518,8 @@ export default function Menus() {
                         ),
                       })),
                     }
-                  : {
+                  : path != "1" && path != "2" && path != "3"
+                  ? {
                       key: path,
                       label: (
                         <Link href={`/${path}`} onClick={() => setOpen(false)}>
@@ -407,6 +530,24 @@ export default function Menus() {
                             )}
                           </span>
                         </Link>
+                      ),
+                    }
+                  : {
+                      key: path,
+                      label: (
+                        <span
+                          onClick={() => {
+                            setOpen(false);
+                            goBottom();
+                          }}
+                        >
+                          <span className="flex items-center gap-2 ">
+                            <span>{label}</span>
+                            {icon && (
+                              <img src={icon} alt={label} className="w-4" />
+                            )}
+                          </span>
+                        </span>
                       ),
                     }
               )}
