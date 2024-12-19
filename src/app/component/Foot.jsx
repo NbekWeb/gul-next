@@ -112,6 +112,7 @@ export default function Foot() {
                 <img src="/img/wk.png" className="h-full" />
                 <img src="/img/wt.png" className="h-full" />
                 <a href="https://vk.com/flowersandopt" target="_blank">
+                
                   <img src="/img/vk.png" className="h-full" />
                 </a>
                 <img src="/img/yt.png" className="h-full" />
