@@ -221,7 +221,12 @@
     "promoCode": "Enter promo code (if available):",
     "applyCashback": "Apply cashback:",
     "finalTotal": "Your cart total",
-    "codes": " Promo code"
+    "codes": " Promo code",
+    "day": "Statistics of the Day",
+    "month": "Statistics of the Month",
+    "equator": "Equator Statistics",
+    "year": "Statistics of the Year",
+    "totalQuantity": "Total Quantity"
   },
   "foot": {}
 }

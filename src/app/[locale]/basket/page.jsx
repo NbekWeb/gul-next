@@ -137,11 +137,11 @@ export default function HomePage() {
         {flowers.length === 0 ? (
           <Empty description={t("empty")} />
         ) : (
-          <div className="flex gap-2.5 ">
-            <div className="flex-grow p-10 border rounded-3xl border-dark-400/50">
+          <div className=" gap-2.5 grid grid-cols-5 w-full max-xl:grid-cols-1 max-xl:gap-5 ">
+            <div className="col-span-3 p-10 border rounded-3xl border-dark-400/50 max-xl:col-span-1 max-xl:order-last">
               <Form data={accaunt} goBack={() => clear()} />
             </div>
-            <div className="p-10 bg-gray-100 rounded-2xl min-w-[550px] max-h-max">
+            <div className="col-span-2 p-10 bg-gray-100 rounded-2xl max-h-max max-xl:col-span-1">
               <h2 className="text-3xl font-semibold mb-7 text-dark-400 max-lg:text-2xl max-lg:mb-5 max-sm:mb-3">
                 {t("cartTitle")}
               </h2>

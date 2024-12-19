@@ -162,6 +162,11 @@ span:hover {
   border-color: #85ca40;
 }
 
-.PhoneInputCountry {
+.PhoneInputCountry,
+.apexcharts-toolbar,
+.apexcharts-xaxis-texts-g {
   display: none !important;
+}
+.apexcharts-xaxistooltip.apexcharts-active {
+  opacity: 0 !important;
 }

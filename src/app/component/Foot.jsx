@@ -104,8 +104,9 @@ export default function Foot() {
                 {t("contacts")}
               </span>
               <div className="flex gap-2 text-lg font-semibold lg:flex-col xs:mt-2 text-dark-400 max-lg:mt-0 max-md:flex-col max-xs:mx-auto">
-                <a href="tel:+8(904) 999 99 99">8(904) 999 99 99</a>
-                <a href="tel:+8(904) 999 99 99">8(904) 999 99 99</a>
+                
+                <a href="tel:+7(981) 104 18 10">+7 981-104-18-10</a>
+                <a href="tel:+7(981) 104 18 10">+7 981-104-18-10</a>
               </div>
               <div className="flex items-center h-6 gap-4 max-xl:gap-2 lg:mt-2 max-md:gap-1 max-xs:hidden ">
                 <img src="/img/tg.png" className="h-full" />

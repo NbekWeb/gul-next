@@ -41,10 +41,12 @@ export default function HomePage({ data, goBack }) {
       <div>
         <h3 className="text-3xl font-semibold mb-7">{t("f_order_form")}</h3>
 
+<div className="overflow-x-auto tr-scrollbar">
+  
         <div className="flex max-w-max capitalize mb-7 items-center p-1.5 gap-1.5 rounded-xl bg-gray-100 text-base">
           <div
             onClick={() => setSelect1(0)}
-            className={`h-full hover:cursor-pointer px-2.5 flex items-center rounded-xl py-2 ${
+            className={`h-full min-w-max hover:cursor-pointer px-2.5 flex items-center rounded-xl py-2 ${
               select1 == 0 && "bg-white"
             }`}
           >
@@ -52,7 +54,7 @@ export default function HomePage({ data, goBack }) {
           </div>
           <div
             onClick={() => setSelect1(1)}
-            className={`h-full hover:cursor-pointer px-2.5 flex items-center rounded-xl py-2 ${
+            className={`h-full min-w-max hover:cursor-pointer px-2.5 flex items-center rounded-xl py-2 ${
               select1 == 1 && "bg-white"
             }`}
           >
@@ -60,7 +62,7 @@ export default function HomePage({ data, goBack }) {
           </div>
           <div
             onClick={() => setSelect1(2)}
-            className={`h-full hover:cursor-pointer px-2.5 flex items-center rounded-xl py-2 ${
+            className={`h-full min-w-max hover:cursor-pointer px-2.5 flex items-center rounded-xl py-2 ${
               select1 == 2 && "bg-white"
             }`}
           >
@@ -68,13 +70,14 @@ export default function HomePage({ data, goBack }) {
           </div>
           <div
             onClick={() => setSelect1(3)}
-            className={`h-full hover:cursor-pointer px-2.5 flex items-center rounded-xl py-2 ${
+            className={`h-full min-w-max hover:cursor-pointer px-2.5 flex items-center rounded-xl py-2 ${
               select1 == 3 && "bg-white"
             }`}
           >
             {t("f_select4_title")}
           </div>
         </div>
+</div>
         <Form name="feedback_form1" layout="vertical">
           <Form.Item
             name="name1"

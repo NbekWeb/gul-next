@@ -12,16 +12,16 @@ import { useOrders } from "@/app/content/OrdersContext";
 const content = (
   <div className="flex flex-col gap-2 text-lg font-semibold ">
     <a
-      href="tel:+8(904) 999 99 99"
+      href="tel:+7(981) 104 18 10"
       className="hover:text-dark-400 text-dark-400"
     >
-      8(904) 999 99 99
+      +7 981-104-18-10
     </a>
     <a
-      href="tel:+8(904) 999 99 99"
+      href="tel:+7(981) 104 18 10"
       className="hover:text-dark-400 text-dark-400"
     >
-      8(904) 999 99 99
+      +7 981-104-18-10
     </a>
   </div>
 );
@@ -319,8 +319,8 @@ export default function Menus() {
               </div>
             </div>
             <div className="flex items-center gap-4 text-lg font-semibold text-dark-400 max-xl:hidden">
-              <a href="tel:+8(904) 999 99 99">8(904) 999 99 99</a>
-              <a href="tel:+8(904) 999 99 99">8(904) 999 99 99</a>
+              <a href="tel:+7(981) 104 18 10">+7 981-104-18-10</a>
+              <a href="tel:+7(981) 104 18 10">+7 981-104-18-10</a>
             </div>
             <div className=" xl:hidden max-sm:hidden">
               <Popover
