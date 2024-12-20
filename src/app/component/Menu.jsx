@@ -84,7 +84,7 @@ export default function Menus() {
     });
   };
 
-  const { toggleOpened, opened } = useOrders();
+  const { toggleOpened, opened, logined, updatLogined } = useOrders();
   const t = useTranslations("menu");
 
   const { ordersLength, updateOrders } = useOrders();
@@ -118,6 +118,7 @@ export default function Menus() {
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
     setHasAccessToken(false);
+    updatLogined();
   };
 
   useEffect(() => {
@@ -157,6 +158,7 @@ export default function Menus() {
   };
 
   const handleSucces = () => {
+    updatLogined();
     setHasAccessToken(true);
   };
 
@@ -182,9 +184,15 @@ export default function Menus() {
 
   return (
     <div className={`relative `}>
-      <Modal footer={null} title="" open={showDialog} onCancel={handleCancel}>
-        <Login onClose={handleCancel} onSucces={() => handleSucces()} />
-      </Modal>
+      {showDialog && (
+        <Modal footer={null} title="" open={showDialog} onCancel={handleCancel}>
+          <Login
+            onClose={handleCancel}
+            onSucces={() => handleSucces()}
+            cleared={showDialog}
+          />
+        </Modal>
+      )}
       <div className="container px-5 mx-auto overflow-x-hidden max-sm:px-3 ">
         <div className="flex items-center justify-between py-5 max-md:grid max-md:grid-cols-3">
           <div className="flex items-center gap-4 md:hidden">

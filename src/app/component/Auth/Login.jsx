@@ -1,7 +1,7 @@
 "use client";
 
 import Icon from "../Icon";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Form, Input, Button, message } from "antd";
 import "react-phone-number-input/style.css";
 import { InputMask } from "@react-input/mask";
@@ -10,7 +10,7 @@ import { useTranslations } from "next-intl";
 
 const types = [{ name: "phone" }, { name: "email" }];
 
-export default function Login({ onClose, onSucces }) {
+export default function Login({ onClose, onSucces, cleared = false }) {
   const t = useTranslations("menu"); // Using the "form" namespace for form-related translations
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -27,6 +27,24 @@ export default function Login({ onClose, onSucces }) {
   const [passwordRegAgain, setPasswordRegAgain] = useState("");
 
   const [type, setType] = useState("log");
+
+  const clear = () => {
+    setPhone("");
+    setPassword("");
+    setEmail("");
+    console.log("sa1", { firstName });
+    console.log("sa1");
+    setFirstName("");
+    setLastName("");
+    setEmailReg("");
+    setPhoneReg("");
+    setPasswordReg("");
+    setPasswordRegAgain("");
+  };
+
+  useEffect(() => {
+    clear();
+  }, [cleared]);
 
   const onFinish = async (values) => {
     try {
@@ -45,6 +63,7 @@ export default function Login({ onClose, onSucces }) {
       messageApi.error(t("loginError")); // Using translation for error message
     } finally {
       onClose();
+      clear();
     }
   };
 
@@ -63,6 +82,7 @@ export default function Login({ onClose, onSucces }) {
     } catch (error) {
       messageApi.error(t("emailError")); // Using translation for email error message
     } finally {
+      clear();
       onClose();
     }
   };
@@ -87,6 +107,7 @@ export default function Login({ onClose, onSucces }) {
       messageApi.error(t("registrationError")); // Using translation for registration error message
     } finally {
       onClose();
+      clear();
     }
   };
 

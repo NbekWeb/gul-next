@@ -3,12 +3,12 @@
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useTranslations } from "next-intl";
-
+import { Link } from "@/i18n/routing";
 import Icon from "../Icon";
 
 import BaloonCard from "../Card/BaloonCard";
 
-export default function Banner({ data = [],onUpdate }) {
+export default function Banner({ data = [], onUpdate }) {
   const t = useTranslations("menu");
 
   return (
@@ -22,10 +22,12 @@ export default function Banner({ data = [],onUpdate }) {
         <h3 className="w-1/2 text-5xl font-semibold capitalize relative z-[2] max-md:text-4xl max-sm:text-3xl">
           {t("balloons")}
         </h3>
-        <span className="absolute z-[2] flex items-center text-lg font-semibold text-dark-400 bottom-16 gap-2.5">
-          {t("choose")}
-          <Icon type="arrow" className="" />
-        </span>
+        <Link href={`/404`}>
+          <span className="absolute z-[2] flex items-center text-lg font-semibold text-dark-400 bottom-16 gap-2.5 hover:text-dark-400">
+            {t("choose")}
+            <Icon type="arrow" className="" />
+          </span>
+        </Link>
       </div>
       <div className="relative flex flex-col justify-between w-full h-full mx-auto overflow-x-hidden">
         <div className="w-full">

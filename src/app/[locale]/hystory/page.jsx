@@ -71,7 +71,7 @@ export default function HomePage() {
         if (!flowersData[flower]) {
           flowersData[flower] = 0;
         }
-        flowersData[flower] += stat.quantity; // Sum quantities for the same flower
+        flowersData[flower] += (stat.quantity * stat.price) / 1000; // Sum quantities for the same flower
       });
 
       const flowers = Object.keys(flowersData);
@@ -88,8 +88,13 @@ export default function HomePage() {
           categories: flowers, // Flower names
         },
         yaxis: {
-          max: Math.max(...quantities) + 10,
-          min: Math.min(...quantities) - 10, // Dynamic max value
+          max: Math.max(...quantities) + 1,
+          min: Math.min(...quantities) - 1,
+          labels: {
+            formatter: (value) => {
+              return value.toFixed(0) + "k";
+            },
+          },
         },
         stroke: { curve: "smooth" }, // Smooth curves for spline effect
         title: {
@@ -138,7 +143,7 @@ export default function HomePage() {
       data.month.forEach((monthData) => {
         months.push(monthData.month_name); // Store month name for x-axis
         const totalQuantityForMonth = monthData.statistics.reduce(
-          (sum, stat) => sum + stat.quantity,
+          (sum, stat) => sum + (stat.quantity * stat.price) / 1000,
           0
         );
         totalQuantities.push(totalQuantityForMonth);
@@ -159,8 +164,13 @@ export default function HomePage() {
           },
         },
         yaxis: {
-          max: Math.max(...totalQuantities) + 10,
-          min: Math.min(...totalQuantities) - 10,
+          max: Math.max(...totalQuantities) + 1,
+          min: Math.min(...totalQuantities) - 1,
+          labels: {
+            formatter: (value) => {
+              return value.toFixed(0) + "k";
+            },
+          },
         },
         stroke: { curve: "smooth" },
       });
@@ -203,7 +213,7 @@ export default function HomePage() {
       data.six_month.forEach((monthData) => {
         months.push(monthData.month_name);
         const totalQuantityForMonth = monthData.statistics.reduce(
-          (sum, stat) => sum + stat.quantity,
+          (sum, stat) => sum + (stat.quantity * stat.price) / 1000,
           0
         );
         totalQuantities.push(totalQuantityForMonth);
@@ -219,8 +229,13 @@ export default function HomePage() {
           categories: months,
         },
         yaxis: {
-          max: Math.max(...totalQuantities) + 10,
-          min: Math.min(...totalQuantities) - 10,
+          max: Math.max(...totalQuantities) + 1,
+          min: Math.min(...totalQuantities) - 1,
+          labels: {
+            formatter: (value) => {
+              return value.toFixed(0) + "k";
+            },
+          },
         },
         stroke: { curve: "smooth" },
       });
@@ -263,7 +278,7 @@ export default function HomePage() {
       data.year.forEach((monthData) => {
         months.push(monthData.month_name);
         const totalQuantityForMonth = monthData.statistics.reduce(
-          (sum, stat) => sum + stat.quantity,
+          (sum, stat) => sum + (stat.quantity * stat.price) / 1000,
           0
         );
         totalQuantities.push(totalQuantityForMonth);
@@ -279,8 +294,13 @@ export default function HomePage() {
           categories: months,
         },
         yaxis: {
-          max: Math.max(...totalQuantities) + 10,
-          min: Math.min(...totalQuantities) - 10,
+          max: Math.max(...totalQuantities) + 1,
+          min: Math.min(...totalQuantities) - 1,
+          labels: {
+            formatter: (value) => {
+              return value.toFixed(0) + "k";
+            },
+          },
         },
         stroke: { curve: "smooth" },
       });

@@ -6,12 +6,7 @@ import See from "../Main/See";
 import { Pagination } from "antd";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-export default function List({
-  data = [],
-  total = 0,
-  categories = [],
-  saw = [],
-}) {
+export default function List({ data = [], total = 0, categories = [] }) {
   const [currentPage, setCurrentPage] = useState(1);
   const pathname = usePathname();
   const router = useRouter();
@@ -63,7 +58,6 @@ export default function List({
           </div>
         </div>
       )}
-      {/* <See /> */}
     </div>
   );
 }

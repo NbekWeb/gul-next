@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { api } from "@/app/utils/api";
 import Slider from "@/app/component/Single/Slider";
 import { Spin } from "antd";
+import { useOrders } from "@/app/content/OrdersContext";
 
 export default function HomePage() {
   const t = useTranslations("menu");
@@ -18,6 +19,8 @@ export default function HomePage() {
   const [selectedLang, setSelectedLang] = useState("ru");
   const [loading, setLoading] = useState(0);
   const pathname = usePathname();
+  const [saws, setSaws] = useState([]);
+  const { logined } = useOrders();
 
   const flowerId = pathname.split("/").pop();
 
@@ -82,6 +85,22 @@ export default function HomePage() {
       setLoading((prev) => prev - 1);
     }
   };
+  const getSaws = async () => {
+    setLoading((prev) => prev + 1);
+    try {
+      const response = await api({
+        url: "/flower/flower-seen/",
+        method: "GET",
+      });
+
+      setSaws(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error fetching banner data:", error);
+    } finally {
+      setLoading((prev) => prev - 1);
+    }
+  };
 
   useEffect(() => {
     if (pathname.startsWith("/en")) {
@@ -109,6 +128,12 @@ export default function HomePage() {
     }
   }, [flowers, categories, selectedLang]);
 
+  useEffect(() => {
+    if (logined) {
+      getSaws();
+    }
+  }, [logined]);
+
   return (
     <Spin spinning={loading > 0}>
       <div className="container px-5 mx-auto overflow-x-hidden max-sm:px-3">
@@ -116,7 +141,10 @@ export default function HomePage() {
           <Link href={`/`} className="text-dark-400/50 hover:text-green-800">
             {t("home")}
           </Link>
-          <Link href={`/catalog?category=${flowers.category}`} className="text-dark-400/50 hover:text-green-800">
+          <Link
+            href={`/catalog?category=${flowers.category}`}
+            className="text-dark-400/50 hover:text-green-800"
+          >
             | {categoryName}
           </Link>
           <span className="text-green-800">
@@ -130,7 +158,8 @@ export default function HomePage() {
             flowers={flowersAll}
             vaza={sizes}
             onlike={() => getFlowers(flowerId)}
-            onUpdate={()=>getFlowersAll()}
+            onUpdate={() => getFlowersAll()}
+            saws={saws}
           />
         </div>
       </div>

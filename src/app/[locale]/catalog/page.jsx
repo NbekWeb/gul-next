@@ -6,12 +6,14 @@ import Lists from "@/app/component/Catalog/Lists";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import Cards from "@/app/component/Catalog/Cards";
-
+import { useOrders } from "@/app/content/OrdersContext";
 import { Spin, Empty } from "antd";
-
+import See from "@/app/component/Main/See";
 import { api } from "@/app/utils/api";
 
 export default function Catalog() {
+  const { logined, updatLogined } = useOrders();
+
   const [loading, setLoading] = useState(0);
 
   const [selectedLang, setSelectedLang] = useState("ru");
@@ -50,7 +52,7 @@ export default function Catalog() {
         method: "GET",
       });
 
-      // setCategories(response.data);
+      setSaws(response.data);
       console.log(response.data);
     } catch (error) {
       console.error("Error fetching banner data:", error);
@@ -87,8 +89,13 @@ export default function Catalog() {
 
   useEffect(() => {
     getCategory();
-    getSaws()
   }, []);
+
+  useEffect(() => {
+    if (logined) {
+      getSaws();
+    }
+  }, [logined]);
 
   useEffect(() => {
     const min = searchParams.get("min") || null;
@@ -128,6 +135,7 @@ export default function Catalog() {
         </div>
 
         <Lists data={categories} count={flowersAll.length} />
+
         {flowersAll.length > 0 && (
           <Cards
             data={flowersAll}
@@ -136,6 +144,8 @@ export default function Catalog() {
           />
         )}
         {flowersAll.length == 0 && <Empty description="sa" />}
+
+        {saws.length > 0 && <See data={saws} />}
       </div>
     </Spin>
   );

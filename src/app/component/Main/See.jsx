@@ -3,9 +3,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import Icon from "../Icon";
 import { useTranslations } from "next-intl";
-import Saws from "../Catalog/Saws";
+import Saw from "../Catalog/Saws";
 
-export default function Banner() {
+export default function Banner({ data = [], onUpdate }) {
   const t = useTranslations("menu");
   return (
     <div className="container px-5 mx-auto max-sm:px-3 ">
@@ -53,27 +53,11 @@ export default function Banner() {
               },
             }}
           >
-            <SwiperSlide>
-              <Saws />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Saws />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Saws />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Saws />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Saws />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Saws />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Saws />
-            </SwiperSlide>
+            {data.map((item, i) => (
+              <SwiperSlide key={i}>
+                <Saw data={item} onlike={onUpdate} />
+              </SwiperSlide>
+            ))}
           </Swiper>
         </div>
         <div className="absolute max-md:hidden z-[2] flex justify-between w-full mx-auto transform -translate-y-1/2 top-1/2">

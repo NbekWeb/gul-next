@@ -30,7 +30,7 @@ export default function Banner({ bannerData = [] }) {
         >
           {bannerData.map((item, i) => (
             <SwiperSlide key={i}>
-              <img src={item.src} className="w-full " />
+              <img src={item?.image} className="w-full " />
             </SwiperSlide>
           ))}
         </Swiper>

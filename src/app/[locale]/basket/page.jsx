@@ -19,7 +19,8 @@ export default function HomePage() {
   const [flowers, setFlowers] = useState([]);
   const [accaunt, setAccaunt] = useState({});
   const [loading, setLoading] = useState(0);
-
+  const token = localStorage.getItem("access_token");
+  
   const { toggleOpened, opened, updateOrders } = useOrders();
 
   const pathname = usePathname();

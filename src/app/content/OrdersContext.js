@@ -1,11 +1,18 @@
 // app/context/OrdersContext.js
 "use client"; // Required for using state and effects
 
-import { createContext, useState, useEffect, useContext } from "react";
+import {
+  createContext,
+  useState,
+  useEffect,
+  useContext
+} from "react";
 
 const OrdersContext = createContext();
 
-export const OrdersProvider = ({ children }) => {
+export const OrdersProvider = ({
+  children
+}) => {
   const [ordersLength, setOrdersLength] = useState(() => {
     if (typeof window !== "undefined") {
       // Initialize from localStorage
@@ -15,7 +22,10 @@ export const OrdersProvider = ({ children }) => {
     return 0;
   });
 
-  const [opened, setOpened] = useState(false); 
+  const [opened, setOpened] = useState(false);
+  let token = localStorage.getItem('access_token')
+
+  const [logined, setLogined] = useState(!!token);
 
   useEffect(() => {
     // Sync orders length with localStorage
@@ -30,12 +40,26 @@ export const OrdersProvider = ({ children }) => {
     setOrdersLength(newOrders.length); // Update state
   };
 
-  const toggleOpened = () => setOpened(prevOpened => !prevOpened); 
+  const toggleOpened = () => setOpened(prevOpened => !prevOpened);
+  const updatLogined = () => {
+    let token = localStorage.getItem('access_token')
+    setLogined(!!token);
+  }
 
-  return (
-    <OrdersContext.Provider value={{ ordersLength, updateOrders, opened, toggleOpened }}>
-      {children}
-    </OrdersContext.Provider>
+  return ( <
+    OrdersContext.Provider value = {
+      {
+        ordersLength,
+        updateOrders,
+        opened,
+        toggleOpened,
+        logined,
+        updatLogined
+      }
+    } > {
+      children
+    } <
+    /OrdersContext.Provider>
   );
 };
 

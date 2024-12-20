@@ -4,6 +4,7 @@ import { Link } from "@/i18n/routing";
 import React, { useState, useEffect, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Select } from "antd";
+import { useOrders } from "@/app/content/OrdersContext";
 
 import Icon from "./Icon";
 import { api } from "@/app/utils/api";
@@ -12,6 +13,7 @@ import { useTranslations } from "next-intl";
 export default function Foot() {
   const t = useTranslations("menu");
   const [categories, setCategories] = useState([]);
+  const { toggleOpened, opened, logined } = useOrders();
 
   const [selectedLang, setSelectedLang] = useState("ru");
 
@@ -91,8 +93,7 @@ export default function Foot() {
                 {t("title")}
               </span>
               <div className="flex flex-col gap-2.5 mt-8 text-sm text-black/60 max-sm:mt-4 max-sm:gap-1.5">
-                <Link href={`/login`}>{t("login")}</Link>
-                <Link href={`/regis`}>{t("register")}</Link>
+                {!logined && <span onClick={() => goOpen()}>{t("login")}</span>}
                 <Link href={`/hystory`}>{t("orderHistory")}</Link>
                 <Link href={`/favorite`}>{t("favorites")}</Link>
               </div>
@@ -112,7 +113,6 @@ export default function Foot() {
                 <img src="/img/wk.png" className="h-full" />
                 <img src="/img/wt.png" className="h-full" />
                 <a href="https://vk.com/flowersandopt" target="_blank">
-                
                   <img src="/img/vk.png" className="h-full" />
                 </a>
                 <img src="/img/yt.png" className="h-full" />

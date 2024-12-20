@@ -26,6 +26,7 @@ export default function Banner({
   vaza = [],
   onlike,
   flowers = [],
+  saws = [],
   onUpdate,
 }) {
   const t = useTranslations("menu");
@@ -497,7 +498,7 @@ export default function Banner({
       </div>
       <div className="flex flex-col gap-20 mt-20">
         <Added data={flowers} onUpdate={() => onUpdate()} />
-        {/* <See /> */}
+        {saws.length > 0 && <See data={saws} />}
       </div>
     </div>
   );
