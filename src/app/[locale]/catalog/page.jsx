@@ -143,7 +143,7 @@ export default function Catalog() {
             onUpdate={() => getFlowersAll()}
           />
         )}
-        {flowersAll.length == 0 && <Empty description="sa" />}
+        {flowersAll.length == 0 && <Empty description={t("empty")} />}
 
         {saws.length > 0 && <See data={saws} />}
       </div>
