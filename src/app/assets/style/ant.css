@@ -462,6 +462,17 @@
   font-size: 18px !important;
   color: #453c3c !important;
 }
+.searching .ant-input,
+.searching .ant-input-affix-wrapper {
+  padding: 0px 10px !important;
+  font-size: 16px !important;
+  color: initial !important;
+  height: 36px !important;
+}
+
+.searching .ant-btn {
+  border-radius: 6px !important;
+}
 .ant-form-vertical
   .ant-form-item:not(.ant-form-item-horizontal)
   .ant-form-item-label,
@@ -485,12 +496,27 @@
   overflow-y: hidden !important;
 }
 
-.ant-upload-list-item-actions a{
+.ant-upload-list-item-actions a {
   display: none !important  ;
 }
 
-
 /* .custom-switch{} */
-.ant-switch.ant-switch-checked{
+.ant-switch.ant-switch-checked {
   background-color: #85ca40 !important;
+}
+
+.searching
+  .ant-input-search
+  > .ant-input-group
+  > .ant-input-group-addon:last-child
+  .ant-input-search-button {
+  height: 36px !important;
+}
+
+.searching .ant-btn {
+  border-radius: 0 6px 6px 0 !important;
+}
+.ant-input-affix-wrapper .ant-input-prefix {
+  font-size: 14px;
+  color: #453c3c;
 }

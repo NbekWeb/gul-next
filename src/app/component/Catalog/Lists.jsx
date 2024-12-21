@@ -52,7 +52,7 @@ export default function Lists({ data = [], count = 0 }) {
             <List
               key={index}
               name={item?.translations?.[selectedLang]?.name}
-              selected={categories.includes(item.id)}
+              selected={categories?.includes(item.id)}
               onClick={() => goTo(item.id)}
             />
           ))}

@@ -4,10 +4,11 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Link } from "@/i18n/routing";
 import React, { useState, useEffect, useRef } from "react";
 import Icon from "./Icon";
-import { Popover, Select, Menu, Modal } from "antd";
+import { Popover, Select, Menu, Modal, Input } from "antd";
 import { useTranslations } from "next-intl";
 import Login from "./Auth/Login";
 import { useOrders } from "@/app/content/OrdersContext";
+import { api } from "@/app/utils/api";
 
 const content = (
   <div className="flex flex-col gap-2 text-lg font-semibold ">
@@ -76,7 +77,25 @@ const menus = [
   { path: "3", label: "client", key: "client" },
 ];
 
+const useDebounce = (value, delay) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+};
+
 export default function Menus() {
+  const [name, setName] = useState("");
+  const debouncedName = useDebounce(name, 300);
   const goBottom = () => {
     window.scrollTo({
       top: document.body.scrollHeight,
@@ -94,6 +113,29 @@ export default function Menus() {
     updateOrders(newOrders); // Update orders and localStorage
   };
 
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+  const searchRef = useRef(null);
+
+  useEffect(() => {
+    if (name.length > 0) {
+      setIsDropdownVisible(true);
+    } else {
+      setIsDropdownVisible(false);
+    }
+  }, [name]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setIsDropdownVisible(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const [showDialog, setShowDialog] = useState(false);
   const [hasAccessToken, setHasAccessToken] = useState(
     !!localStorage.getItem("access_token")
@@ -101,6 +143,7 @@ export default function Menus() {
   const [selectedLang, setSelectedLang] = useState("ru");
   const [current, setCurrent] = useState("");
   const [open, setOpen] = useState(false);
+  const [flowersAll, setFlowersAll] = useState([]);
 
   const router = useRouter();
   const pathname = usePathname();
@@ -114,12 +157,38 @@ export default function Menus() {
     }
   };
 
+  const getFlowersAll = async (name) => {
+    try {
+      const response = await api({
+        url: "/flower/flowers/all/",
+        method: "GET",
+        params: { name },
+      });
+
+      setFlowersAll(response.data.results);
+    } catch (error) {
+      console.error("Error fetching banner data:", error);
+    }
+  };
+
   const logOut = () => {
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
     setHasAccessToken(false);
     updatLogined();
   };
+
+  const handleFocus = () => {
+    if (name.length > 0) {
+      setIsDropdownVisible(true);
+    }
+  };
+
+  useEffect(() => {
+    if (debouncedName) {
+      getFlowersAll(debouncedName);
+    }
+  }, [debouncedName]);
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
@@ -193,8 +262,8 @@ export default function Menus() {
           />
         </Modal>
       )}
-      <div className="container px-5 mx-auto overflow-x-hidden max-sm:px-3 ">
-        <div className="flex items-center justify-between py-5 max-md:grid max-md:grid-cols-3">
+      <div className="container px-5 mx-auto overflow-x-hidden max-sm:px-3">
+        <div className="flex items-center justify-between py-5 max-md:grid max-md:grid-cols-3 max-md:pt-5 max-md:pb-3">
           <div className="flex items-center gap-4 md:hidden">
             <span className="text-4xl" onClick={() => setOpen(true)}>
               <Icon type="menu" />
@@ -344,9 +413,10 @@ export default function Menus() {
           </div>
         </div>
         <div className="flex items-center justify-between pb-6 overflow-x-hidden max-md:hidden">
-          <div className="flex-grow mr-4 overflow-x-hidden">
+          <div className="flex-grow mr-4 overflow-x-auto tr-scrollbar">
             <Menu
               mode="horizontal"
+              className="min-w-max"
               selectedKeys={[current]}
               items={menus.map(({ path, label, icon, children }) =>
                 children
@@ -385,8 +455,37 @@ export default function Menus() {
               )}
             />
           </div>
-          <div className="flex gap-5 text-xl text-dark-400 max-xl:text-xl">
-            <Icon type="search" />
+          <div className="flex items-center gap-5 text-xl text-dark-400 max-xl:text-xl ">
+            <div className="h-10 w-[300px] max-lg:w-[200px] overflow-y-hidden searching max-h-10">
+              <Input
+                prefix={<Icon type="search" />}
+                placeholder="Поиск"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                onFocus={handleFocus}
+              />
+              <div
+                ref={searchRef}
+                className={`absolute flex flex-col gap-2 text-sm text-dark-400 w-[300px] max-lg:w-[200px] rounded-md  top-32 z-[1000] py-1.5 border px-2.5 ${
+                  !isDropdownVisible && "hidden"
+                }`}
+              >
+                {flowersAll.map((flower, i) => (
+                  <Link
+                    href={`/single-flower/${flower?.id}`}
+                    key={i}
+                    onClick={() => setName("")}
+                    className="truncate hover:outline-offset-1 hover:underline hover:cursor-pointer hover:text-green-800"
+                  >
+                    {flower?.translations?.[selectedLang]?.name}
+                  </Link>
+                ))}
+                {flowersAll.length == 0 && (
+                  <div className="truncate ">{t("notFound")}</div>
+                )}
+              </div>
+            </div>
+
             <Link href={`/favorite`}>
               <Icon type="heart" />
             </Link>
@@ -428,6 +527,37 @@ export default function Menus() {
                 <Icon type="user" />
               </span>
             )}
+          </div>
+        </div>
+        <div className="w-full h-10 mb-2 overflow-y-hidden searching max-h-10 md:hidden">
+          <Input
+            prefix={<Icon type="search" />}
+            placeholder="Поиск"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            onFocus={handleFocus}
+          />
+          <div className="container absolute pr-10 mx-auto max-sm:pr-6 top-[120px] z-[1000] ">
+            <div
+              ref={searchRef}
+              className={`  flex flex-col gap-2 text-sm bg-white left-0 text-dark-400 w-full rounded-md   py-1.5 border px-2.5 ${
+                !isDropdownVisible && "hidden"
+              }`}
+            >
+              {flowersAll.map((flower, i) => (
+                <Link
+                  href={`/single-flower/${flower?.id}`}
+                  key={i}
+                  onClick={() => setName("")}
+                  className="truncate hover:outline-offset-1 hover:underline hover:cursor-pointer hover:text-green-800"
+                >
+                  {flower?.translations?.[selectedLang]?.name}
+                </Link>
+              ))}
+              {flowersAll.length == 0 && (
+                <div className="truncate ">{t("notFound")}</div>
+              )}
+            </div>
           </div>
         </div>
       </div>

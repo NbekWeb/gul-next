@@ -5,6 +5,8 @@ import Icon from "../Icon";
 import React, { useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { usePathname, useRouter } from "next/navigation";
+import "aos/dist/aos.css"; // Import AOS styles
+import AOS from "aos"; // Import AOS library
 
 export default function Banner({ data = {} }) {
   const [selectedLang, setSelectedLang] = useState("ru");
@@ -35,9 +37,24 @@ export default function Banner({ data = {} }) {
     }
   }, [data]);
 
+  useEffect(() => {
+    AOS.init({
+      offset: 120, // Offset from the trigger point
+      duration: 600, // Animation duration
+      easing: "ease-in-out", // Easing function
+      delay: 100, // Delay before animation starts
+      once: false, // Whether animation should run only once
+    });
+    AOS.refresh();
+  }, []);
+
   return (
     <>
-      <div className="relative max-md:pb-10">
+      <div
+        data-aos="zoom-in-up"
+        data-aos-delay="200"
+        className="relative max-md:pb-10"
+      >
         <div className="flex flex-col justify-between ">
           <div className="w-full overflow-hidden rounded-2xl aspect-square">
             <img

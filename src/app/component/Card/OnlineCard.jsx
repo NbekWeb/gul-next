@@ -7,6 +7,8 @@ import { useTranslations } from "next-intl";
 import { usePathname, useRouter } from "next/navigation";
 
 import { api } from "@/app/utils/api";
+import "aos/dist/aos.css"; // Import AOS styles
+import AOS from "aos"; // Import AOS library
 
 import { useOrders } from "@/app/content/OrdersContext";
 
@@ -74,12 +76,27 @@ export default function Banner({ data = {}, tip = "", onlike }) {
     }
   }, [pathname]);
 
+  useEffect(() => {
+    AOS.init({
+      offset: 120, // Offset from the trigger point
+      duration: 600, // Animation duration
+      easing: "ease-in-out", // Easing function
+      delay: 100, // Delay before animation starts
+      once: false, // Whether animation should run only once
+    });
+    AOS.refresh();
+  }, []);
+
   // const queryParams = new URLSearchParams();
   // queryParams.set("id", data?.id);
 
   return (
     <>
-      <div className="relative max-md:pb-10 ">
+      <div
+        data-aos="zoom-in-up"
+        data-aos-delay="200"
+        className="relative max-md:pb-10 "
+      >
         <div className="flex flex-col justify-between ">
           <div className="w-full overflow-hidden rounded-2xl aspect-square">
             <img

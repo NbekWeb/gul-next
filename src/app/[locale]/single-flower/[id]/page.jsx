@@ -142,7 +142,7 @@ export default function HomePage() {
             {t("home")}
           </Link>
           <Link
-            href={`/catalog?category=${flowers.category}`}
+            href={`/catalog?category=[${flowers.category}]`}
             className="text-dark-400/50 hover:text-green-800"
           >
             | {categoryName}

@@ -6,11 +6,13 @@ import { useTranslations } from "next-intl";
 import { usePathname, useRouter } from "next/navigation";
 import { api } from "@/app/utils/api";
 import { useOrders } from "@/app/content/OrdersContext";
+import "aos/dist/aos.css"; // Import AOS styles
+import AOS from "aos"; // Import AOS library
 
 export default function Banner({ data = {}, onlike }) {
   const [selectedLang, setSelectedLang] = useState("ru");
   const [type, setType] = useState("");
-  const { toggleOpened,opened } = useOrders();
+  const { toggleOpened, opened } = useOrders();
   const pathname = usePathname();
 
   const t = useTranslations("menu");
@@ -87,8 +89,19 @@ export default function Banner({ data = {}, onlike }) {
     }
   }, [pathname]);
 
+  useEffect(() => {
+    AOS.init({
+      offset: 120, // Offset from the trigger point
+      duration: 600, // Animation duration
+      easing: "ease-in-out", // Easing function
+      delay: 100, // Delay before animation starts
+      once: false, // Whether animation should run only once
+    });
+    AOS.refresh();
+  }, []);
+
   return (
-    <div className="max-lg:pb-10">
+    <div className="max-lg:pb-10" data-aos="zoom-in-up" data-aos-delay="200">
       <div className="relative ">
         <div className="flex flex-col justify-between ">
           <img

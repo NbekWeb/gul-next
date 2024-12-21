@@ -12,6 +12,7 @@
     "@ant-design/nextjs-registry": "^1.0.2",
     "@react-input/mask": "^2.0.4",
     "antd": "^5.22.2",
+    "aos": "^2.3.4",
     "axios": "^1.7.9",
     "libphonenumber-js": "^1.11.17",
     "next": "^14.0.0",

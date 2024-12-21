@@ -10,9 +10,7 @@ import { routing } from "@/i18n/routing";
 export async function generateMetadata({ params }) {
   const { locale } = await params;
 
-
-
-  if (!routing.locales.includes(locale)) {
+  if (!routing.locales?.includes(locale)) {
     notFound();
   }
 
@@ -32,7 +30,7 @@ export default async function LocaleLayout({ children, params }) {
         <div className="fixed top-0 bg-white z-[10] w-full ">
           <Menu />
         </div>
-        <div className="max-md:mt-[90px] md:mt-[145px] xs:mb-10 max-xs:mb-4">
+        <div className="max-md:mt-[120px] md:mt-[145px] xs:mb-10 max-xs:mb-4">
           {children}
         </div>
         <Foot />
