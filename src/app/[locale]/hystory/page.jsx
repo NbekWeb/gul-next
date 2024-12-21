@@ -331,6 +331,7 @@ export default function HomePage() {
       });
 
       setFlowersAll(response.data.results);
+      setId(response.data.results?.[0]?.id)
     } catch (error) {
       console.error("Error fetching banner data:", error);
     } finally {
