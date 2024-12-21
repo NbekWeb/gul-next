@@ -104,34 +104,34 @@ export default function Foot() {
               <span className="text-base font-semibold text-black max-lg:hidden ">
                 {t("contacts")}
               </span>
-              <div className="flex gap-2 text-lg font-semibold lg:flex-col xs:mt-2 text-dark-400 max-lg:mt-0 max-md:flex-col max-xs:mx-auto">
+              <div className="flex items-center gap-2 text-lg font-semibold lg:flex-col max-md:mt-2 max-xs:mt-0 text-dark-400 max-lg:mt-0 max-md:flex-col max-xs:mx-auto">
                 <a href="tel:+7(981) 104 18 10">+7 981-104-18-10</a>
                 <a href="tel:+7(981) 104 18 10">+7 981-104-18-10</a>
               </div>
               <div className="flex items-center h-6 gap-4 max-xl:gap-2 lg:mt-2 max-md:gap-1 max-xs:hidden ">
                 <img src="/img/tg.png" className="h-full" />
-                <img src="/img/wk.png" className="h-full" />
+                {/* <img src="/img/wk.png" className="h-full" /> */}
                 <img src="/img/wt.png" className="h-full" />
                 <a href="https://vk.com/flowersandopt" target="_blank">
                   <img src="/img/vk.png" className="h-full" />
                 </a>
-                <img src="/img/yt.png" className="h-full" />
+                {/* <img src="/img/yt.png" className="h-full" /> */}
               </div>
 
               <div className="flex items-center justify-between w-full h-6 gap-4 pt-5 text-xl text-gray-900 border-b border-gray-900 max-xs:text-lg xs:hidden max-md:pb-10 max-xs:justify-between">
-                <span className="flex items-center justify-center border border-gray-900 rounded-full w-11 h-11 max-xs:min-w-9 max-xs:h-9 hover:bg-gray-900 hover:text-white tr3">
+                <span className="flex items-center justify-center border border-gray-900 rounded-full w-11 min-h-11 max-xs:min-w-9 max-xs:h-9 hover:bg-gray-900 hover:text-white tr3">
                   <Icon type="wk" />
                 </span>
-                <span className="flex items-center justify-center border border-gray-900 rounded-full w-11 h-11 max-xs:min-w-9 max-xs:h-9 hover:bg-gray-900 hover:text-white tr3">
+                {/* <span className="flex items-center justify-center border border-gray-900 rounded-full w-11 min-h-11 max-xs:min-w-9 max-xs:h-9 hover:bg-gray-900 hover:text-white tr3">
                   <Icon type="face" />
-                </span>
-                <span className="flex items-center justify-center border border-gray-900 rounded-full w-11 h-11 max-xs:min-w-9 max-xs:h-9 hover:bg-gray-900 hover:text-white tr3">
+                </span> */}
+                <span className="flex items-center justify-center border border-gray-900 rounded-full w-11 min-h-11 max-xs:min-w-9 max-xs:h-9 hover:bg-gray-900 hover:text-white tr3">
                   <Icon type="insta" />
                 </span>
-                <span className="flex items-center justify-center border border-gray-900 rounded-full w-11 h-11 max-xs:min-w-9 max-xs:h-9 hover:bg-gray-900 hover:text-white tr3">
+                <span className="flex items-center justify-center border border-gray-900 rounded-full w-11 min-h-11 max-xs:min-w-9 max-xs:h-9 hover:bg-gray-900 hover:text-white tr3">
                   <Icon type="tg" />
                 </span>
-                <span className="flex items-center justify-center border border-gray-900 rounded-full w-11 h-11 max-xs:min-w-9 max-xs:h-9 hover:bg-gray-900 hover:text-white tr3">
+                <span className="flex items-center justify-center border border-gray-900 rounded-full w-11 min-h-11 max-xs:min-w-9 max-xs:h-9 hover:bg-gray-900 hover:text-white tr3">
                   <Icon type="ws" />
                 </span>
               </div>
