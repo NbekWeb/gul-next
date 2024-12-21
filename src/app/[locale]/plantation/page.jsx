@@ -73,7 +73,7 @@ export default function HomePage() {
               className="rounded-xl"
               width="100%"
               height="100%"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2995.59582507668!2d69.2903145!3d41.3394014!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38aef5e14956af57%3A0x8844f705a66e4f7c!2sLor777!5e0!3m2!1sen!2s!4v1725197418502!5m2!1sen!2s"
+              src="https://yandex.ru/map-widget/v1/?um=constructor%3A4d5356e2d6db30647e75f2c8598f960e163a3a8e53feb187f61b241c9ea96364&amp;source=constructor"
               allowFullScreen=""
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
