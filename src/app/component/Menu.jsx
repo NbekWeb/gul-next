@@ -12,12 +12,12 @@ import { api } from "@/app/utils/api";
 
 const content = (
   <div className="flex flex-col gap-2 text-lg font-semibold ">
-    <a
+    {/* <a
       href="tel:+7(981) 104 18 10"
       className="hover:text-dark-400 text-dark-400"
     >
       +7 981-104-18-10
-    </a>
+    </a> */}
     <a
       href="tel:+7(981) 104 18 10"
       className="hover:text-dark-400 text-dark-400"
@@ -397,7 +397,7 @@ export default function Menus() {
             </div>
             <div className="flex items-center gap-4 text-lg font-semibold text-dark-400 max-xl:hidden">
               <a href="tel:+7(981) 104 18 10">+7 981-104-18-10</a>
-              <a href="tel:+7(981) 104 18 10">+7 981-104-18-10</a>
+              {/* <a href="tel:+7(981) 104 18 10">+7 981-104-18-10</a> */}
             </div>
             <div className=" xl:hidden max-sm:hidden">
               <Popover

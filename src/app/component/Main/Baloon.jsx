@@ -1,19 +1,37 @@
 "use client";
 
+import React, { useEffect } from "react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import Icon from "../Icon";
+import "aos/dist/aos.css"; // Import AOS styles
+import AOS from "aos"; // Import AOS library
 
 import BaloonCard from "../Card/BaloonCard";
 
 export default function Banner({ data = [], onUpdate }) {
   const t = useTranslations("menu");
 
+  useEffect(() => {
+    AOS.init({
+      offset: 120, // Offset from the trigger point
+      duration: 600, // Animation duration
+      easing: "ease-in-out", // Easing function
+      delay: 100, // Delay before animation starts
+      once: false, // Whether animation should run only once
+    });
+    AOS.refresh();
+  }, []);
+
   return (
     <div className="container grid grid-cols-2 gap-5 px-5 mx-auto baloon max-sm:px-3 pb-44 max-lg:grid-cols-1 ">
-      <div className="relative bg-blue-100 w-full rounded-3xl h-[540px] flex gap-10 flex-col justify-center px-5">
+      <div
+        className="relative bg-blue-100 w-full rounded-3xl h-[540px] flex gap-10 flex-col justify-center px-5"
+        data-aos="zoom-in-up"
+        data-aos-delay="200"
+      >
         <img
           src="/img/baloon.png"
           className="absolute bottom-0 right-0 h-[500px] z-[2]"
