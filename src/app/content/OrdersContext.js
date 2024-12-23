@@ -1,4 +1,3 @@
-// app/context/OrdersContext.js
 "use client"; // Required for using state and effects
 
 import {
@@ -10,12 +9,11 @@ import {
 
 const OrdersContext = createContext();
 
-export const OrdersProvider = ({
-  children
-}) => {
+export const OrdersProvider = ({ children }) => {
+  // Initialize the state with a function that checks if we're on the client side
   const [ordersLength, setOrdersLength] = useState(() => {
-    if (typeof window !== "undefined") {
-      // Initialize from localStorage
+    if (typeof window !== "undefined" && window.localStorage) {
+      // Access localStorage only on the client side
       const storedOrders = localStorage.getItem("orders");
       return storedOrders ? JSON.parse(storedOrders).length : 0;
     }
@@ -23,43 +21,55 @@ export const OrdersProvider = ({
   });
 
   const [opened, setOpened] = useState(false);
-  let token = localStorage.getItem('access_token')
+  const [logined, setLogined] = useState(false);
 
-  const [logined, setLogined] = useState(!!token);
+  // Check if token exists only on the client side
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      let token = localStorage.getItem('access_token');
+      setLogined(!!token);
+    }
+  }, []);
 
   useEffect(() => {
-    // Sync orders length with localStorage
-    const storedOrders = localStorage.getItem("orders");
-    if (storedOrders) {
-      setOrdersLength(JSON.parse(storedOrders).length);
+    // Sync orders length with localStorage when the component mounts
+    if (typeof window !== "undefined") {
+      const storedOrders = localStorage.getItem("orders");
+      if (storedOrders) {
+        setOrdersLength(JSON.parse(storedOrders).length);
+      }
     }
   }, []);
 
   const updateOrders = (newOrders) => {
-    localStorage.setItem("orders", JSON.stringify(newOrders)); // Update localStorage
+    if (typeof window !== "undefined") {
+      localStorage.setItem("orders", JSON.stringify(newOrders)); // Update localStorage
+    }
     setOrdersLength(newOrders.length); // Update state
   };
 
   const toggleOpened = () => setOpened(prevOpened => !prevOpened);
-  const updatLogined = () => {
-    let token = localStorage.getItem('access_token')
-    setLogined(!!token);
-  }
 
-  return ( <
-    OrdersContext.Provider value = {
-      {
+  const updatLogined = () => {
+    if (typeof window !== "undefined") {
+      let token = localStorage.getItem('access_token');
+      setLogined(!!token);
+    }
+  };
+
+  return (
+    <OrdersContext.Provider
+      value={{
         ordersLength,
         updateOrders,
         opened,
         toggleOpened,
         logined,
         updatLogined
-      }
-    } > {
-      children
-    } <
-    /OrdersContext.Provider>
+      }}
+    >
+      {children}
+    </OrdersContext.Provider>
   );
 };
 
