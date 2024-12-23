@@ -41,20 +41,11 @@ export default function Banner({
   const [check2, setCheck2] = useState(false);
   const [value, setValue] = useState("0");
 
-  const { toggleOpened, opened, updateOrders } = useOrders();
+  const { toggleOpened, opened, updateOrders, logined } = useOrders();
 
   const pathname = usePathname();
 
   const [selectedLang, setSelectedLang] = useState("ru");
-
-  const handleChange = (e) => {
-    const { value } = e.target;
-    if (/^\d*$/.test(value)) {
-      setValue(value.replace(/^0+/, "") || "0");
-    } else {
-      setValue("0");
-    }
-  };
 
   useEffect(() => {
     if (pathname.startsWith("/en")) {
@@ -67,32 +58,38 @@ export default function Banner({
   const [activeIndex, setActiveIndex] = useState(0);
 
   const postLike = async (id) => {
-    if (!data?.like) {
-      try {
-        const response = await api({
-          url: "/flower/like/",
-          method: "POST",
-          data: { flower: id },
-        });
-        onlike();
-      } catch (error) {
-        if (!opened) {
-          toggleOpened();
+    if (logined) {
+      if (!data?.like) {
+        try {
+          const response = await api({
+            url: "/flower/like/",
+            method: "POST",
+            data: { flower: id },
+          });
+          onlike();
+        } catch (error) {
+          if (!opened) {
+            toggleOpened();
+          }
+          console.error("Error fetching banner data:", error);
         }
-        console.error("Error fetching banner data:", error);
+      } else {
+        try {
+          const response = await api({
+            url: `/flower/like/${id}/`,
+            method: "DELETE",
+          });
+          onlike();
+        } catch (error) {
+          if (!opened) {
+            toggleOpened();
+          }
+          console.error("Error fetching banner data:", error);
+        }
       }
     } else {
-      try {
-        const response = await api({
-          url: `/flower/like/${id}/`,
-          method: "DELETE",
-        });
-        onlike();
-      } catch (error) {
-        if (!opened) {
-          toggleOpened();
-        }
-        console.error("Error fetching banner data:", error);
+      if (!opened) {
+        toggleOpened();
       }
     }
   };

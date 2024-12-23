@@ -16,7 +16,7 @@ const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 export default function HomePage() {
   const pathname = usePathname();
   const router = useRouter();
-  const { toggleOpened, opened } = useOrders();
+  const { toggleOpened, opened, logined } = useOrders();
   const t = useTranslations("menu");
   const [statistic, setStatistic] = useState({});
   const [loading, setLoading] = useState(0);
@@ -49,276 +49,299 @@ export default function HomePage() {
 
   // Function to fetch daily statistics
   const getFlowersDaily = async () => {
-    setLoading((prev) => prev + 1);
-    const params = { day: true };
-    if (id != -1) {
-      params.flower_id = id;
-    }
-    try {
-      const response = await api({
-        url: "/order/statistics_flowers/",
-        method: "GET",
-        params, // Passing day parameter
-      });
+    if (logined) {
+      setLoading((prev) => prev + 1);
+      const params = { day: true };
+      if (id != -1) {
+        params.flower_id = id;
+      }
+      try {
+        const response = await api({
+          url: "/order/statistics_flowers/",
+          method: "GET",
+          params, // Passing day parameter
+        });
 
-      const data = response.data;
-      setStatistic(data);
+        const data = response.data;
+        setStatistic(data);
 
-      // Process daily data for chart
-      const flowersData = {};
-      data.day.forEach((stat) => {
-        const flower = stat.flower; // Group by flower
-        if (!flowersData[flower]) {
-          flowersData[flower] = 0;
-        }
-        flowersData[flower] += (stat.quantity * stat.price) / 1000; // Sum quantities for the same flower
-      });
+        // Process daily data for chart
+        const flowersData = {};
+        data.day.forEach((stat) => {
+          const flower = stat.flower; // Group by flower
+          if (!flowersData[flower]) {
+            flowersData[flower] = 0;
+          }
+          flowersData[flower] += (stat.quantity * stat.price) / 1000; // Sum quantities for the same flower
+        });
 
-      const flowers = Object.keys(flowersData);
-      const quantities = flowers.map((flower) => flowersData[flower]);
+        const flowers = Object.keys(flowersData);
+        const quantities = flowers.map((flower) => flowersData[flower]);
 
-      // Configure chart options and series for daily data
-      setChartOptionsDay({
-        chart: {
-          id: "daily-flower-sales",
-          toolbar: { show: true },
-          offsetY: 20,
-        },
-        xaxis: {
-          categories: flowers, // Flower names
-        },
-        yaxis: {
-          max: Math.max(...quantities) + 1,
-          min: Math.min(...quantities) - 1,
-          labels: {
-            formatter: (value) => {
-              return value.toFixed(0) + "k";
+        // Configure chart options and series for daily data
+        setChartOptionsDay({
+          chart: {
+            id: "daily-flower-sales",
+            toolbar: { show: true },
+            offsetY: 20,
+          },
+          xaxis: {
+            categories: flowers, // Flower names
+          },
+          yaxis: {
+            max: Math.max(...quantities) + 1,
+            min: Math.min(...quantities) - 1,
+            labels: {
+              formatter: (value) => {
+                return value.toFixed(0) + "k";
+              },
             },
           },
-        },
-        stroke: { curve: "smooth" }, // Smooth curves for spline effect
-        title: {
-          text: "",
-          align: "center",
-        },
-      });
+          stroke: { curve: "smooth" }, // Smooth curves for spline effect
+          title: {
+            text: "",
+            align: "center",
+          },
+        });
 
-      setChartSeriesDay([
-        {
-          name: t("totalQuantity"),
-          data: quantities,
-        },
-      ]);
-    } catch (error) {
-      router.push(`/${selectedLang}`);
+        setChartSeriesDay([
+          {
+            name: t("totalQuantity"),
+            data: quantities,
+          },
+        ]);
+      } catch (error) {
+        router.push(`/${selectedLang}`);
+        if (!opened) {
+          toggleOpened();
+        }
+        console.error("Error fetching daily flower statistics:", error);
+      } finally {
+        setLoading((prev) => prev - 1);
+      }
+    } else {
       if (!opened) {
         toggleOpened();
       }
-      console.error("Error fetching daily flower statistics:", error);
-    } finally {
-      setLoading((prev) => prev - 1);
     }
   };
 
   const getFlowersMonthly = async () => {
-    setLoading((prev) => prev + 1);
-    const params = { month: true };
-    if (id != -1) {
-      params.flower_id = id;
-    }
+    if (logined) {
+      setLoading((prev) => prev + 1);
+      const params = { month: true };
+      if (id != -1) {
+        params.flower_id = id;
+      }
 
-    try {
-      const response = await api({
-        url: "/order/statistics_flowers/",
-        method: "GET",
-        params, // Passing month parameter
-      });
+      try {
+        const response = await api({
+          url: "/order/statistics_flowers/",
+          method: "GET",
+          params, // Passing month parameter
+        });
 
-      const data = response.data;
+        const data = response.data;
 
-      // Process monthly data for chart
-      const months = [];
-      const totalQuantities = [];
+        // Process monthly data for chart
+        const months = [];
+        const totalQuantities = [];
 
-      data.month.forEach((monthData) => {
-        months.push(monthData.month_name); // Store month name for x-axis
-        const totalQuantityForMonth = monthData.statistics.reduce(
-          (sum, stat) => sum + (stat.quantity * stat.price) / 1000,
-          0
-        );
-        totalQuantities.push(totalQuantityForMonth);
-      });
+        data.month.forEach((monthData) => {
+          months.push(monthData.month_name); // Store month name for x-axis
+          const totalQuantityForMonth = monthData.statistics.reduce(
+            (sum, stat) => sum + (stat.quantity * stat.price) / 1000,
+            0
+          );
+          totalQuantities.push(totalQuantityForMonth);
+        });
 
-      setChartOptionsMonth({
-        chart: {
-          id: "monthly-flower-sales",
-          toolbar: { show: true },
-          offsetY: 20,
-        },
-        xaxis: {
-          categories: months,
-
-          labels: {
-            rotate: -45,
-            style: { fontSize: "12px" },
+        setChartOptionsMonth({
+          chart: {
+            id: "monthly-flower-sales",
+            toolbar: { show: true },
+            offsetY: 20,
           },
-        },
-        yaxis: {
-          max: Math.max(...totalQuantities) + 1,
-          min: Math.min(...totalQuantities) - 1,
-          labels: {
-            formatter: (value) => {
-              return value.toFixed(0) + "k";
+          xaxis: {
+            categories: months,
+
+            labels: {
+              rotate: -45,
+              style: { fontSize: "12px" },
             },
           },
-        },
-        stroke: { curve: "smooth" },
-      });
+          yaxis: {
+            max: Math.max(...totalQuantities) + 1,
+            min: Math.min(...totalQuantities) - 1,
+            labels: {
+              formatter: (value) => {
+                return value.toFixed(0) + "k";
+              },
+            },
+          },
+          stroke: { curve: "smooth" },
+        });
 
-      setChartSeriesMonth([
-        {
-          name: t("totalQuantity"),
-          data: totalQuantities,
-        },
-      ]);
-    } catch (error) {
-      router.push(`/${selectedLang}`);
+        setChartSeriesMonth([
+          {
+            name: t("totalQuantity"),
+            data: totalQuantities,
+          },
+        ]);
+      } catch (error) {
+        router.push(`/${selectedLang}`);
+        if (!opened) {
+          toggleOpened();
+        }
+        console.error("Error fetching monthly flower statistics:", error);
+      } finally {
+        setLoading((prev) => prev - 1);
+      }
+    } else {
       if (!opened) {
         toggleOpened();
       }
-      console.error("Error fetching monthly flower statistics:", error);
-    } finally {
-      setLoading((prev) => prev - 1);
     }
   };
 
   const getFlowersSixMonth = async () => {
+    if (logined) {
+    }
     setLoading((prev) => prev + 1);
     const params = { six_month: true };
     if (id != -1) {
       params.flower_id = id;
-    }
-    try {
-      const response = await api({
-        url: "/order/statistics_flowers/",
-        method: "GET",
-        params,
-      });
+      try {
+        const response = await api({
+          url: "/order/statistics_flowers/",
+          method: "GET",
+          params,
+        });
 
-      const data = response.data;
+        const data = response.data;
 
-      const months = [];
-      const totalQuantities = [];
+        const months = [];
+        const totalQuantities = [];
 
-      data.six_month.forEach((monthData) => {
-        months.push(monthData.month_name);
-        const totalQuantityForMonth = monthData.statistics.reduce(
-          (sum, stat) => sum + (stat.quantity * stat.price) / 1000,
-          0
-        );
-        totalQuantities.push(totalQuantityForMonth);
-      });
+        data.six_month.forEach((monthData) => {
+          months.push(monthData.month_name);
+          const totalQuantityForMonth = monthData.statistics.reduce(
+            (sum, stat) => sum + (stat.quantity * stat.price) / 1000,
+            0
+          );
+          totalQuantities.push(totalQuantityForMonth);
+        });
 
-      setChartOptionsSixMonth({
-        chart: {
-          id: "six-month-flower-sales",
-          toolbar: { show: true },
-          offsetY: 20,
-        },
-        xaxis: {
-          categories: months,
-        },
-        yaxis: {
-          max: Math.max(...totalQuantities) + 1,
-          min: Math.min(...totalQuantities) - 1,
-          labels: {
-            formatter: (value) => {
-              return value.toFixed(0) + "k";
+        setChartOptionsSixMonth({
+          chart: {
+            id: "six-month-flower-sales",
+            toolbar: { show: true },
+            offsetY: 20,
+          },
+          xaxis: {
+            categories: months,
+          },
+          yaxis: {
+            max: Math.max(...totalQuantities) + 1,
+            min: Math.min(...totalQuantities) - 1,
+            labels: {
+              formatter: (value) => {
+                return value.toFixed(0) + "k";
+              },
             },
           },
-        },
-        stroke: { curve: "smooth" },
-      });
+          stroke: { curve: "smooth" },
+        });
 
-      setChartSeriesSixMonth([
-        {
-          name: t("totalQuantity"),
-          data: totalQuantities,
-        },
-      ]);
-    } catch (error) {
-      router.push(`/${selectedLang}`);
+        setChartSeriesSixMonth([
+          {
+            name: t("totalQuantity"),
+            data: totalQuantities,
+          },
+        ]);
+      } catch (error) {
+        router.push(`/${selectedLang}`);
+        if (!opened) {
+          toggleOpened();
+        }
+      } finally {
+        setLoading((prev) => prev - 1);
+      }
+    } else {
       if (!opened) {
         toggleOpened();
       }
-      console.error("Error fetching six-month flower statistics:", error);
-    } finally {
-      setLoading((prev) => prev - 1);
     }
   };
 
   const getFlowersYearly = async () => {
-    setLoading((prev) => prev + 1);
-    const params = { year: true };
-    if (id != -1) {
-      params.flower_id = id;
-    }
-    try {
-      const response = await api({
-        url: "/order/statistics_flowers/",
-        method: "GET",
-        params,
-      });
+    if (logined) {
+      setLoading((prev) => prev + 1);
+      const params = { year: true };
+      if (id != -1) {
+        params.flower_id = id;
+      }
+      try {
+        const response = await api({
+          url: "/order/statistics_flowers/",
+          method: "GET",
+          params,
+        });
 
-      const data = response.data;
+        const data = response.data;
 
-      const months = [];
-      const totalQuantities = [];
+        const months = [];
+        const totalQuantities = [];
 
-      data.year.forEach((monthData) => {
-        months.push(monthData.month_name);
-        const totalQuantityForMonth = monthData.statistics.reduce(
-          (sum, stat) => sum + (stat.quantity * stat.price) / 1000,
-          0
-        );
-        totalQuantities.push(totalQuantityForMonth);
-      });
+        data.year.forEach((monthData) => {
+          months.push(monthData.month_name);
+          const totalQuantityForMonth = monthData.statistics.reduce(
+            (sum, stat) => sum + (stat.quantity * stat.price) / 1000,
+            0
+          );
+          totalQuantities.push(totalQuantityForMonth);
+        });
 
-      setChartOptionsYear({
-        chart: {
-          id: "yearly-flower-sales",
-          toolbar: { show: true },
-          offsetY: 20,
-        },
-        xaxis: {
-          categories: months,
-        },
-        yaxis: {
-          max: Math.max(...totalQuantities) + 1,
-          min: Math.min(...totalQuantities) - 1,
-          labels: {
-            formatter: (value) => {
-              return value.toFixed(0) + "k";
+        setChartOptionsYear({
+          chart: {
+            id: "yearly-flower-sales",
+            toolbar: { show: true },
+            offsetY: 20,
+          },
+          xaxis: {
+            categories: months,
+          },
+          yaxis: {
+            max: Math.max(...totalQuantities) + 1,
+            min: Math.min(...totalQuantities) - 1,
+            labels: {
+              formatter: (value) => {
+                return value.toFixed(0) + "k";
+              },
             },
           },
-        },
-        stroke: { curve: "smooth" },
-      });
+          stroke: { curve: "smooth" },
+        });
 
-      setChartSeriesYear([
-        {
-          name: t("totalQuantity"),
-          data: totalQuantities,
-        },
-      ]);
-    } catch (error) {
-      router.push(`/${selectedLang}`);
+        setChartSeriesYear([
+          {
+            name: t("totalQuantity"),
+            data: totalQuantities,
+          },
+        ]);
+      } catch (error) {
+        router.push(`/${selectedLang}`);
+        if (!opened) {
+          toggleOpened();
+        }
+        console.error("Error fetching yearly flower statistics:", error);
+      } finally {
+        setLoading((prev) => prev - 1);
+      }
+    } else {
       if (!opened) {
         toggleOpened();
       }
-      console.error("Error fetching yearly flower statistics:", error);
-    } finally {
-      setLoading((prev) => prev - 1);
     }
   };
 
@@ -331,7 +354,7 @@ export default function HomePage() {
       });
 
       setFlowersAll(response.data.results);
-      setId(response.data.results?.[0]?.id)
+      setId(response.data.results?.[0]?.id);
     } catch (error) {
       console.error("Error fetching banner data:", error);
     } finally {
@@ -352,7 +375,11 @@ export default function HomePage() {
   }, [selectType, id]);
 
   useEffect(() => {
-    getFlowersAll();
+    if (logined) {
+      getFlowersAll();
+    } else {
+      router.push(`/${selectedLang}`);
+    }
   }, []);
 
   return (

@@ -38,7 +38,7 @@ export default function HomePage() {
       <div className="container px-5 mx-auto overflow-x-hidden max-sm:px-3">
         <div className="flex gap-2.5 items-center text-base font-medium mb-7 overflow-x-auto whitespace-nowrap pb-2 custom-scrollbar">
           <Link href={`/`} className="text-dark-400/50 hover:text-green-800">
-          {t('home')}
+            {t("home")}
           </Link>
 
           <Link href={`/clients`} className="text-green-800">
@@ -88,7 +88,7 @@ export default function HomePage() {
         </div>
 
         <div className="flex items-center justify-center h-12 px-5 mt-4 mb-10 text-white bg-green-800 border-2 border-green-800 max-sm:w-full hover:cursor-pointer lg:hidden max-w-max rounded-3xl hover:bg-white hover:text-green-800">
-          Регистрация для оптовых клиентов
+          {t("registration_info")}
         </div>
         <Sorts data={categories} />
       </div>

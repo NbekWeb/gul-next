@@ -20,8 +20,8 @@ export default function HomePage() {
   const [accaunt, setAccaunt] = useState({});
   const [loading, setLoading] = useState(0);
   const token = localStorage.getItem("access_token");
-  
-  const { toggleOpened, opened, updateOrders } = useOrders();
+
+  const { toggleOpened, opened, updateOrders, logined } = useOrders();
 
   const pathname = usePathname();
   const router = useRouter();
@@ -48,19 +48,25 @@ export default function HomePage() {
     updateOrders([]);
   };
   const getUser = async () => {
-    try {
-      const response = await api({
-        url: `/account/user/detail/`,
-        method: "GET",
-      });
-      setAccaunt(response.data);
-    } catch (error) {
-      router.push(`/${selectedLang}`);
+    if (logined) {
+      try {
+        const response = await api({
+          url: `/account/user/detail/`,
+          method: "GET",
+        });
+        setAccaunt(response.data);
+      } catch (error) {
+        router.push(`/${selectedLang}`);
+        if (!opened) {
+          toggleOpened();
+        }
+      } finally {
+        setLoading((prev) => prev - 1);
+      }
+    } else {
       if (!opened) {
         toggleOpened();
       }
-    } finally {
-      setLoading((prev) => prev - 1);
     }
   };
 

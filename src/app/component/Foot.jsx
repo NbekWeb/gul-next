@@ -94,7 +94,19 @@ export default function Foot() {
               </span>
               <div className="flex flex-col gap-2.5 mt-8 text-sm text-black/60 max-sm:mt-4 max-sm:gap-1.5">
                 {!logined && <span onClick={() => goOpen()}>{t("login")}</span>}
-                <Link href={`/hystory`}>{t("orderHistory")}</Link>
+                {logined && <Link href={`/hystory`}>{t("orderHistory")}</Link>}
+                {!logined && (
+                  <span
+                  className="hover:cursor-pointer"
+                    onClick={() => {
+                      if (!opened) {
+                        toggleOpened();
+                      }
+                    }}
+                  >
+                    {t("orderHistory")}
+                  </span>
+                )}
                 <Link href={`/favorite`}>{t("favorites")}</Link>
               </div>
             </div>

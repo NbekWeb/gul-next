@@ -69,7 +69,7 @@ const menus = [
   { path: "1", label: "payment", key: "payment" },
   { path: "delivery", label: "delivery", key: "delivery" },
   {
-    path: "flower-subscription",
+    path: "4",
     label: "subscription",
     key: "subscription",
   },
@@ -107,11 +107,6 @@ export default function Menus() {
   const t = useTranslations("menu");
 
   const { ordersLength, updateOrders } = useOrders();
-
-  const addOrder = () => {
-    const newOrders = [...Array(ordersLength + 1).keys()]; // Just an example of adding orders
-    updateOrders(newOrders); // Update orders and localStorage
-  };
 
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const searchRef = useRef(null);
@@ -428,7 +423,7 @@ export default function Menus() {
                         label: <Link href={`/${path}`}>{t(label)}</Link>,
                       })),
                     }
-                  : path != "1" && path != "2" && path != "3"
+                  : path != "1" && path != "2" && path != "3" && path != "4"
                   ? {
                       key: path,
                       label: (

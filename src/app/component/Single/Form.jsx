@@ -73,7 +73,7 @@ export default function FormComponent({ id = -1, onUpdate }) {
         rating: 0,
         image: null,
       });
-      router.push(`/${selectedLang}/catalog?category=[${id}]`);
+      // router.push(`/${selectedLang}/catalog?category=[${id}]`);
       onUpdate();
     } catch (error) {
       if (!opened) {
