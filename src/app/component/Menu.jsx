@@ -66,15 +66,15 @@ const menus = [
       },
     ],
   },
-  { path: "1", label: "payment", key: "payment" },
+  // { path: "1", label: "payment", key: "payment" },
   { path: "delivery", label: "delivery", key: "delivery" },
-  {
-    path: "4",
-    label: "subscription",
-    key: "subscription",
-  },
-  { path: "2", label: "return", key: "return" },
-  { path: "3", label: "client", key: "client" },
+  // {
+  //   path: "4",
+  //   label: "subscription",
+  //   key: "subscription",
+  // },
+  // { path: "2", label: "return", key: "return" },
+  // { path: "3", label: "client", key: "client" },
 ];
 
 const useDebounce = (value, delay) => {
@@ -224,7 +224,7 @@ export default function Menus() {
   const handleSucces = () => {
     updatLogined();
     setHasAccessToken(true);
-    router.push(`${selectedLang}/hystory`);
+    router.push(`/${selectedLang}/hystory`);
   };
 
   useEffect(() => {

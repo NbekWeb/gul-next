@@ -26,16 +26,14 @@ export default function HomePage() {
   const pathname = usePathname();
   const router = useRouter();
 
-  const getFlower = async (id, count) => {
+  const getFlower = async (id, count, vaza, card) => {
     setLoading((prev) => prev + 1);
     try {
       const response = await api({
         url: `/flower/flowers/${id}/`,
         method: "GET",
       });
-      setFlowers((prev) => [...prev, { ...response.data, count }]); // Use spread operator to add to array
-
-      // Use spread operator to add to array
+      setFlowers((prev) => [...prev, { ...response.data, count, vaza, card }]); // Use spread operator to add to array
     } catch (error) {
     } finally {
       setLoading((prev) => prev - 1);
@@ -71,18 +69,15 @@ export default function HomePage() {
   };
 
   const onDelete = (id) => {
-    // Remove the item from the localStorage orders
     const orders = JSON.parse(localStorage.getItem("orders")) || [];
     const updatedOrders = orders.filter((order) => order.id !== id);
     localStorage.setItem("orders", JSON.stringify(updatedOrders));
 
-    // Remove the deleted flower from the flowers state
     setFlowers((prev) => prev.filter((flower) => flower.id !== id));
     updateOrders(updatedOrders);
-    // Optionally, refetch the flowers list if needed
     updatedOrders.forEach((order) => {
       if (order.id) {
-        getFlower(order.id, order.count);
+        getFlower(order.id, order.count, order.vaza, order.card);
       }
     });
   };
@@ -104,7 +99,9 @@ export default function HomePage() {
 
   const calculateTotal = () => {
     return flowers.reduce((total, flower) => {
-      return total + flower.price * flower.count; // Multiply price by count for each flower
+      const vazaPrice = flower.vaza ? 1290 : 0;
+      const cardPrice = flower.card ? 90 : 0;
+      return total + (+flower.price + vazaPrice + cardPrice) * flower.count;
     }, 0);
   };
 
@@ -124,7 +121,7 @@ export default function HomePage() {
     // Loop through orders and fetch data for each flower ID
     orders.forEach((order) => {
       if (order.id) {
-        getFlower(order.id, order.count);
+        getFlower(order.id, order.count, order.vaza, order.card);
       }
     });
   }, []);
@@ -196,7 +193,6 @@ export default function HomePage() {
                   <div className="flex items-center gap-5 text-lg">
                     <Switch defaultChecked />
                     <span>
-                      {" "}
                       {calculateTotal() >= 1000 ? 1000 : calculateTotal() / 2} ₽
                     </span>
                   </div>

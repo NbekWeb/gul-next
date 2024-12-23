@@ -57,7 +57,12 @@ export default function HomePage({ item = {}, onDelete, onAdd }) {
                 }}
               />
             </div>
-            <span>{Math.trunc(item?.price)} ₽ </span>
+            <span>
+              {Math.trunc(
+                +item?.price + (item?.vaza ? 1290 : 0) + (item?.card ? 90 : 0)
+              )}
+              ₽
+            </span>
           </div>
           <span
             className="flex items-center justify-center w-8 h-8 text-lg text-white bg-red-500 rounded-full"

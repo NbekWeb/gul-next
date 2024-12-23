@@ -102,7 +102,11 @@ export default function Banner({
     const order = {
       id: data?.id,
       count: nums,
+      vaza: check1,
+      card: check2,
     };
+
+    
 
     existingOrders.push(order);
 

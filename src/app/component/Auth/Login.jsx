@@ -256,7 +256,7 @@ export default function Login({ onClose, onSucces, cleared = false }) {
                 <Form layout="vertical" onFinish={onFinishUser}>
                   <Form.Item
                     name="username"
-                    label={t("username")}
+                    label={t("userName")}
                     className="phone"
                     rules={[
                       {
