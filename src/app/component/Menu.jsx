@@ -224,6 +224,7 @@ export default function Menus() {
   const handleSucces = () => {
     updatLogined();
     setHasAccessToken(true);
+    router.push(`${selectedLang}/hystory`);
   };
 
   useEffect(() => {
