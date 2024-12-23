@@ -6,12 +6,14 @@ import { Link } from "@/i18n/routing";
 import { api } from "@/app/utils/api";
 import Sorts from "@/app/component/Main/Sorts";
 import { Spin } from "antd";
+import { useOrders } from "@/app/content/OrdersContext";
 
 export default function HomePage() {
   const t = useTranslations("menu");
 
   const [loading, setLoading] = useState(0);
   const [categories, setCategories] = useState([]);
+  const { toggleOpened, opened, logined } = useOrders();
 
   const getCategory = async () => {
     setLoading((prev) => prev + 1);
@@ -76,20 +78,36 @@ export default function HomePage() {
               <li> {t("retail_15")} </li>
             </ol>
             <p>{t("retail_16")}</p>
-
-            <div className="flex items-center justify-center h-12 px-5 mt-4 text-white bg-green-800 border-2 border-green-800 max-lg:hidden hover:cursor-pointer max-w-max rounded-3xl hover:bg-white hover:text-green-800">
-              {t("registration_info")}
-            </div>
+            {!logined && (
+              <div
+                onClick={() => {
+                  if (!opened) {
+                    toggleOpened();
+                  }
+                }}
+                className="flex items-center justify-center h-12 px-5 mt-4 text-white bg-green-800 border-2 border-green-800 max-lg:hidden hover:cursor-pointer max-w-max rounded-3xl hover:bg-white hover:text-green-800"
+              >
+                {t("registration_info")}
+              </div>
+            )}
           </div>
           <div className="flex flex-col col-span-2 gap-7 max-lg:col-span-5 max-lg:gap-5">
             <img src="/img/market3.png" className="w-full" />
             <img src="/img/market4.png" className="w-full" />
           </div>
         </div>
-
-        <div className="flex items-center justify-center h-12 px-5 mt-4 mb-10 text-white bg-green-800 border-2 border-green-800 max-sm:w-full hover:cursor-pointer lg:hidden max-w-max rounded-3xl hover:bg-white hover:text-green-800">
-          {t("registration_info")}
-        </div>
+        {!logined && (
+          <div
+            onClick={() => {
+              if (!opened) {
+                toggleOpened();
+              }
+            }}
+            className="flex items-center justify-center h-12 px-5 mt-4 mb-10 text-white bg-green-800 border-2 border-green-800 max-sm:w-full hover:cursor-pointer lg:hidden max-w-max rounded-3xl hover:bg-white hover:text-green-800"
+          >
+            {t("registration_info")}
+          </div>
+        )}
         <Sorts data={categories} />
       </div>
     </Spin>

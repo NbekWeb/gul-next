@@ -3,12 +3,15 @@
 import React, { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
+import { useOrders } from "@/app/content/OrdersContext";
 
 import Sorts from "@/app/component/Main/Sorts";
 import { api } from "@/app/utils/api";
 
 export default function HomePage() {
   const t = useTranslations("menu");
+
+  const { toggleOpened, opened, logined } = useOrders();
 
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(0);
@@ -80,9 +83,18 @@ export default function HomePage() {
             <li>{t("clientSet")}</li>
           </ol>
           <p className="pt-2.5">{t("clientKurup")}</p>
-          <div className="flex items-center justify-center h-12 px-5 mt-4 text-white bg-green-800 border-2 border-green-800 max-lg:hidden hover:cursor-pointer max-w-max rounded-3xl hover:bg-white hover:text-green-800">
-            {t("registration_info")}
-          </div>
+          {!logined && (
+            <div
+              onClick={() => {
+                if (!opened) {
+                  toggleOpened();
+                }
+              }}
+              className="flex items-center justify-center h-12 px-5 mt-4 text-white bg-green-800 border-2 border-green-800 max-lg:hidden hover:cursor-pointer max-w-max rounded-3xl hover:bg-white hover:text-green-800"
+            >
+              {t("registration_info")}
+            </div>
+          )}
         </div>
         <div className="flex flex-col col-span-2 gap-7 max-lg:col-span-5 max-lg:gap-5">
           <img src="/img/market1.png" className="w-full" />

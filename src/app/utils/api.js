@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: 'https://api.flowersoptrf.ru/api/v1/'
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL || 'https://api.flowersoptrf.ru/api/v1/'
 })
 
 // Queue to store requests while token is being refreshed
