@@ -275,7 +275,7 @@ export default function Menus() {
             href={`/`}
             className="flex items-center gap-2.5 max-md:justify-center"
           >
-            <img src="/img/logo.png" alt="logo" className="w-10" />
+            <img src="/img/logo.svg" alt="logo" className="w-10" />
             <span className="text-xl font-medium text-pink-500 max-sm:hidden max-md:text-base">
               FLOWERS&OPT
             </span>
@@ -496,25 +496,11 @@ export default function Menus() {
               </span>
             </Link>
             {hasAccessToken ? (
-              <Popover
-                content={
-                  <div
-                    className="flex items-center gap-2 text-lg font-medium text-dark-400 hover:cursor-pointer "
-                    onClick={logOut}
-                  >
-                    <span className="text-red-500">
-                      <Icon type="log" />
-                    </span>
-                    <span>{t("logout")}</span>
-                  </div>
-                }
-                trigger="click"
-                placement="bottomRight"
-              >
-                <span className="text-xl text-dark-400">
+              <Link href={'/hystory'}>
+               <span className="text-xl text-dark-400">
                   <Icon type="user" />
                 </span>
-              </Popover>
+                </Link>
             ) : (
               <span
                 onClick={() => setShowDialog(true)}

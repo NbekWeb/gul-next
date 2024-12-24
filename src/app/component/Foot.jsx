@@ -170,7 +170,7 @@ export default function Foot() {
                   href={`/`}
                   className="lg:hidden max-md:col-span-3 max-xs:justify-center max-xs:flex max-xs:mb-2"
                 >
-                  <img src="/img/logo.png" alt="logo" className="w-10 " />
+                  <img src="/img/logo.svg" alt="logo" className="w-10 " />
                 </Link>
                 <div className="flex items-center none-select ">
                   <Select
@@ -245,7 +245,7 @@ export default function Foot() {
                 className="flex items-center gap-2.5 max-lg:hidden"
               >
                 <img
-                  src="/img/logo.png"
+                  src="/img/logo.svg"
                   alt="logo"
                   className="w-10 max-lg:w-8"
                 />

@@ -14,6 +14,7 @@ import Card from "@/app/component/Basket/Card";
 import Form from "@/app/component/Basket/Form";
 
 export default function HomePage() {
+  const [applyCashback, setApplyCashback] = useState(true);
   const t = useTranslations("menu");
   const [selectedLang, setSelectedLang] = useState("ru");
   const [flowers, setFlowers] = useState([]);
@@ -105,6 +106,20 @@ export default function HomePage() {
     }, 0);
   };
 
+  const handleSwitchChange = (checked) => {
+    setApplyCashback(checked);
+  };
+  
+  const calculateFinalTotal = () => {
+    const baseTotal = calculateTotal();
+    const cashback = applyCashback
+      ? baseTotal >= 1000
+        ? 1000
+        : baseTotal / 2
+      : 0;
+    return baseTotal + 499 - 500 - cashback;
+  };
+
   useEffect(() => {
     if (pathname.startsWith("/en")) {
       setSelectedLang("en");
@@ -191,7 +206,7 @@ export default function HomePage() {
                     {t("applyCashback")}
                   </span>
                   <div className="flex items-center gap-5 text-lg">
-                    <Switch defaultChecked />
+                    <Switch defaultChecked onChange={handleSwitchChange} />
                     <span>
                       {calculateTotal() >= 1000 ? 1000 : calculateTotal() / 2} ₽
                     </span>
@@ -201,10 +216,7 @@ export default function HomePage() {
               <div className="flex items-center justify-between text-3xl font-semibold mt-7 max-lg:text-2xl ">
                 <h2 className=" text-dark-400">{t("cartTitle")}</h2>
                 <span className="text-green-800">
-                  {calculateTotal() +
-                    499 -
-                    500 -
-                    (calculateTotal() >= 1000 ? 1000 : calculateTotal() / 2)}
+                {calculateFinalTotal()}
                   ₽
                 </span>
               </div>

@@ -261,7 +261,7 @@ export default function Login({ onClose, onSucces, cleared = false }) {
                     rules={[
                       {
                         required: true,
-                        message: t("userName_error"), // Using translation for email required message
+                        message: t("userName_error"), 
                       },
                     ]}
                   >

@@ -401,7 +401,7 @@ export default function Banner({
                 <span>90 ₽</span>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-5 mt-5">
+            <div className="grid grid-cols-2 gap-5 mt-5 max-sm:grid-cols-1">
               <Link
                 href={"/delivery"}
                 className="group hover:text-dark-400 text-dark-400 hover:cursor-pointer hover:underline hover:underline-offset-1 py-2.5 px-4 bg-transparent border-2 border-white rounded-xl flex items-center gap-4"
@@ -418,7 +418,7 @@ export default function Banner({
               </Link>
               <Link
                 href={"/payment"}
-                className="group text-dark-400 hover:text-dark-400 hover:cursor-pointer hover:underline hover:underline-offset-1 py-2.5 px-4 bg-transparent border-2 border-white rounded-xl flex items-center gap-4"
+                className="group  text-dark-400 hover:text-dark-400 hover:cursor-pointer hover:underline hover:underline-offset-1 py-2.5 px-4 bg-transparent border-2 border-white rounded-xl flex items-center gap-4"
               >
                 <Round
                   action={false}
