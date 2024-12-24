@@ -31,7 +31,7 @@ export default function HomePage({ item = {}, onDelete, onAdd }) {
       <div className="h-full bg-white border w-28 rounded-2xl">
         <img
           src={item.images?.[0]?.image}
-          className="object-cover w-full h-full"
+          className="object-cover w-full h-full rounded-2xl"
         />
       </div>
       <div className="flex py-2.5 justify-between flex-col h-full  gap-4 w-full">
