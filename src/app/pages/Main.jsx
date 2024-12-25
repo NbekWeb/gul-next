@@ -15,8 +15,6 @@ import Baloon from "../component/Main/Baloon";
 
 import { api } from "@/app/utils/api";
 
-
-
 export default function HomePage() {
   const [banner, setBanner] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -85,8 +83,6 @@ export default function HomePage() {
     }
   };
 
-  
-
   useEffect(() => {
     getBanner();
     getBalloon();
@@ -96,8 +92,6 @@ export default function HomePage() {
 
   return (
     <Spin spinning={loading > 0}>
-    
-      <h1 className="hidden">Биржа цветов оптом</h1>
       <div>
         {banner.length > 0 && <Banner bannerData={banner} />}
         <div className="container grid grid-cols-4 gap-5 px-5 mx-auto mt-16 max-lg:grid-cols-2 max-xs:grid-cols-1 max-xl:grid-cols-3 max-md:mt-10">
