@@ -64,11 +64,13 @@ export default function Foot() {
       <div className="container px-5 pt-10 pb-6 mx-auto overflow-x-hidden max-xs:p-0 max-sm:px-3 max-lg:pt-6 max-sm:pt-3 ">
         <div className="grid justify-between grid-cols-5 rounded-md max-xs:bg-gray-100 max-lg:gap-6 max-sm:flex max-sm:flex-col max-lg:grid-cols-6 max-sm:px-10 max-sm:py-3 max-sm:gap-4">
           <div className="flex flex-col gap-8 text-base capitalize text-dark-400 max-xl:text-sm max-lg:order-3 max-lg:col-span-2 max-sm:gap-4">
-            <Link href={`/plantation`}>{t("aboutUs")}</Link>
-            {/* <Link href={`/payment`}>{t("payment")}</Link> */}
+            <Link href={`/plantation`}>{t("plantation")}</Link>
+            <Link href={`/example`}>{t("example")}</Link>
+            <Link href={`/schedule`}>{t("schedule")}</Link>
+            <Link href={`/clients`}>{t("clients")}</Link>
+            <Link href={`/retail-clients`}>{t("retailClients")}</Link>
             <Link href={`/delivery`}> {t("delivery")}</Link>
-            <Link href={`/flower-subscription`}>{t("subscription")}</Link>
-          </div>
+             </div>
           <div className="flex max-lg:order-4 sm:justify-center max-lg:col-span-2 ">
             <div>
               <Link
