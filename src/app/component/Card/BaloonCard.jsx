@@ -30,7 +30,6 @@ export default function Banner({ data = {}, onlike }) {
         if (!opened) {
           toggleOpened();
         }
-        console.log("Error fetching banner data:", `${error}`);
       }
     } else {
       try {

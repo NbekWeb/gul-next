@@ -94,7 +94,6 @@ export default function HomePage() {
       });
 
       setSaws(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error("Error fetching banner data:", error);
     } finally {

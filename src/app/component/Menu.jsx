@@ -110,6 +110,7 @@ export default function Menus() {
 
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const searchRef = useRef(null);
+  const searchRefResponsive = useRef(null);
 
   useEffect(() => {
     if (name.length > 0) {
@@ -121,7 +122,12 @@ export default function Menus() {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (searchRef.current && !searchRef.current.contains(event.target)) {
+      if (
+        searchRef.current &&
+        !searchRef.current.contains(event.target) &&
+        searchRefResponsive.current &&
+        !searchRefResponsive.current.contains(event.target)
+      ) {
         setIsDropdownVisible(false);
       }
     };
@@ -171,6 +177,11 @@ export default function Menus() {
     localStorage.removeItem("refresh_token");
     setHasAccessToken(false);
     updatLogined();
+  };
+
+  const goOne = (id) => {
+    router.push(`/${selectedLang}/single-flower/${id}`);
+    setName("");
   };
 
   const handleFocus = () => {
@@ -454,7 +465,7 @@ export default function Menus() {
           <div className="flex items-center gap-5 text-xl text-dark-400 max-xl:text-xl ">
             <div className="h-10 w-[300px] max-lg:w-[200px] overflow-y-hidden searching max-h-10">
               <Input
-                prefix={<Icon type="search" />}
+                prefix={<Icon type="search" className="text-sm" />}
                 placeholder="Поиск"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -462,19 +473,21 @@ export default function Menus() {
               />
               <div
                 ref={searchRef}
-                className={`absolute flex flex-col gap-2 text-sm text-dark-400 w-[300px] max-lg:w-[200px] rounded-md  top-32 z-[1000] py-1.5 border px-2.5 ${
+                className={`absolute bg-white flex flex-col gap-2 text-sm text-dark-400 w-[300px] max-lg:w-[200px] rounded-md  top-32 z-[1000] py-1.5 border px-2.5 ${
                   !isDropdownVisible && "hidden"
                 }`}
               >
                 {flowersAll.map((flower, i) => (
-                  <Link
-                    href={`/single-flower/${flower?.id}`}
+                  <span
                     key={i}
-                    onClick={() => setName("")}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      goOne(flower.id);
+                    }}
                     className="truncate hover:outline-offset-1 hover:underline hover:cursor-pointer hover:text-green-800"
                   >
                     {flower?.translations?.[selectedLang]?.name}
-                  </Link>
+                  </span>
                 ))}
                 {flowersAll.length == 0 && (
                   <div className="truncate ">{t("notFound")}</div>
@@ -496,11 +509,11 @@ export default function Menus() {
               </span>
             </Link>
             {hasAccessToken ? (
-              <Link href={'/hystory'}>
-               <span className="text-xl text-dark-400">
+              <Link href={"/hystory"}>
+                <span className="text-xl text-dark-400">
                   <Icon type="user" />
                 </span>
-                </Link>
+              </Link>
             ) : (
               <span
                 onClick={() => setShowDialog(true)}
@@ -519,22 +532,24 @@ export default function Menus() {
             onChange={(e) => setName(e.target.value)}
             onFocus={handleFocus}
           />
-          <div className="container absolute pr-10 mx-auto max-sm:pr-6 top-[120px] z-[1000] ">
+          <div className="container absolute pr-10 bg-white mx-auto max-sm:pr-6 top-[120px] z-[1000] ">
             <div
-              ref={searchRef}
-              className={`  flex flex-col gap-2 text-sm bg-white left-0 text-dark-400 w-full rounded-md   py-1.5 border px-2.5 ${
+              ref={searchRefResponsive}
+              className={`  flex flex-col gap-2  text-sm  left-0 text-dark-400 w-full rounded-md   py-1.5 border px-2.5 ${
                 !isDropdownVisible && "hidden"
               }`}
             >
               {flowersAll.map((flower, i) => (
-                <Link
-                  href={`/single-flower/${flower?.id}`}
+                <span
                   key={i}
-                  onClick={() => setName("")}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    goOne(flower.id);
+                  }}
                   className="truncate hover:outline-offset-1 hover:underline hover:cursor-pointer hover:text-green-800"
                 >
                   {flower?.translations?.[selectedLang]?.name}
-                </Link>
+                </span>
               ))}
               {flowersAll.length == 0 && (
                 <div className="truncate ">{t("notFound")}</div>
