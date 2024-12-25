@@ -15,12 +15,14 @@ export async function generateMetadata({ params }) {
   // Translations for metadata
   const translations = {
     en: {
-      title: "FLOWERS&OPT",
-      description: "Wholesale flower exchange with delivery! Flower&Opt",
+      title: "Flower Exchange Wholesale with Delivery! Flower&Opt",
+      description:
+        "Flower&Opt - We offer a wide selection of flowers wholesale with delivery across Russia! We also invite partners for collaboration.",
     },
     ru: {
-      title: "FLOWERS&OPT",
-      description: "Биржа цветов оптом с доставкой! Flower&Opt",
+      title: "Биржа цветов оптом с доставкой! Flower&Opt",
+      description:
+        "Flower&Opt - Предлагаем большой выбор цветов оптом с доставкой по РФ! Так же приглашаем партнёров на сотрудничество.",
     },
   };
 
