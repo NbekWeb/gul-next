@@ -1,58 +1,51 @@
-import fs from 'fs';
-
-export default function generateSitemap() {
-  // Get the current date in ISO format
-  const lastModified = new Date().toISOString();
-
-  // Sitemap XML template
-  const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- English pages -->
   <url>
     <loc>https://flowersopt-shop.ru/en/</loc>
-    <lastmod>${lastModified}</lastmod>
+    <lastmod>2024-12-26T00:00:00+00:00</lastmod>
     <changefreq>yearly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://flowersopt-shop.ru/en/catalog</loc>
-    <lastmod>${lastModified}</lastmod>
+    <lastmod>2024-12-26T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://flowersopt-shop.ru/en/plantation</loc>
-    <lastmod>${lastModified}</lastmod>
+    <lastmod>2024-12-26T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://flowersopt-shop.ru/en/example</loc>
-    <lastmod>${lastModified}</lastmod>
+    <lastmod>2024-12-26T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://flowersopt-shop.ru/en/schedule</loc>
-    <lastmod>${lastModified}</lastmod>
+    <lastmod>2024-12-26T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://flowersopt-shop.ru/en/clients</loc>
-    <lastmod>${lastModified}</lastmod>
+    <lastmod>2024-12-26T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://flowersopt-shop.ru/en/retail-clients</loc>
-    <lastmod>${lastModified}</lastmod>
+    <lastmod>2024-12-26T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://flowersopt-shop.ru/en/delivery</loc>
-    <lastmod>${lastModified}</lastmod>
+    <lastmod>2024-12-26T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -60,55 +53,50 @@ export default function generateSitemap() {
   <!-- Russian pages -->
   <url>
     <loc>https://flowersopt-shop.ru/</loc>
-    <lastmod>${lastModified}</lastmod>
+    <lastmod>2024-12-26T00:00:00+00:00</lastmod>
     <changefreq>yearly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://flowersopt-shop.ru/catalog</loc>
-    <lastmod>${lastModified}</lastmod>
+    <lastmod>2024-12-26T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://flowersopt-shop.ru/plantation</loc>
-    <lastmod>${lastModified}</lastmod>
+    <lastmod>2024-12-26T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://flowersopt-shop.ru/example</loc>
-    <lastmod>${lastModified}</lastmod>
+    <lastmod>2024-12-26T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://flowersopt-shop.ru/schedule</loc>
-    <lastmod>${lastModified}</lastmod>
+    <lastmod>2024-12-26T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://flowersopt-shop.ru/clients</loc>
-    <lastmod>${lastModified}</lastmod>
+    <lastmod>2024-12-26T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://flowersopt-shop.ru/retail-clients</loc>
-    <lastmod>${lastModified}</lastmod>
+    <lastmod>2024-12-26T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://flowersopt-shop.ru/delivery</loc>
-    <lastmod>${lastModified}</lastmod>
+    <lastmod>2024-12-26T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
-</urlset>`;
-
-  // Save to a file or send as response
-  fs.writeFileSync('./public/sitemap.xml', sitemapContent);
-  console.log('Sitemap generated successfully!');
-}
+</urlset>
