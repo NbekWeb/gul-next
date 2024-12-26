@@ -23,16 +23,7 @@ export default function HomePage() {
 
   const [loading, setLoading] = useState(0);
 
-  const [sitemap, setSitemap] = useState("");
 
-  useEffect(() => {
-    fetch("/sitemap")
-      .then((response) => response.text())
-      .then((data) => {
-        setSitemap(data);
-      })
-      .catch((error) => console.error("Error fetching sitemap:", error));
-  }, []);
 
   const getBanner = async () => {
     setLoading((prev) => prev + 1);
