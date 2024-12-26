@@ -25,7 +25,7 @@ export async function generateMetadata({ params }) {
     },
   };
 
-  const metadata = translations[locale] || translations.en;
+  const metadata = translations[locale] || translations.ru;
 
   return {
     title: metadata.title,
