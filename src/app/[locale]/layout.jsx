@@ -6,9 +6,9 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { cookies } from "next/headers";
 
-export async function generateMetadata({ params }) {
+export async function generateMetadata() {
   const cookieStore = cookies();
-  const locale = (await cookieStore.get("NEXT_LOCALE")?.value) || "ru";
+  const locale = cookieStore.get("NEXT_LOCALE")?.value || "ru";
 
   if (!routing.locales?.includes(locale)) {
     notFound();
@@ -19,12 +19,11 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function LocaleLayout({ children, params }) {
+export default async function LocaleLayout({ children }) {
   // Get the locale from cookies or fallback to "ru"
   const cookieStore = cookies();
-  const locale =
-    params.locale || (await cookieStore.get("NEXT_LOCALE")?.value) || "ru";
-
+  console.log(cookieStore.get("NEXT_LOCALE")?.value);
+  const locale = cookieStore.get("NEXT_LOCALE")?.value || "ru";
   // Fetch messages for the locale
   const messages = await getMessages(locale);
 
@@ -32,7 +31,8 @@ export default async function LocaleLayout({ children, params }) {
     <NextIntlClientProvider locale={locale} messages={messages}>
       <div className="text-dark-400">
         <div className="fixed top-0 bg-white z-[10] w-full">
-          <Menu />
+        {/* {locale}   */}
+        <Menu />
         </div>
         <div className="max-md:mt-[120px] md:mt-[145px] xs:mb-10 max-xs:mb-4">
           {children}
