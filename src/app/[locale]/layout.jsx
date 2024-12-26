@@ -22,7 +22,6 @@ export async function generateMetadata() {
 export default async function LocaleLayout({ children }) {
   // Get the locale from cookies or fallback to "ru"
   const cookieStore = cookies();
-  console.log(cookieStore.get("NEXT_LOCALE")?.value);
   const locale = cookieStore.get("NEXT_LOCALE")?.value || "ru";
   // Fetch messages for the locale
   const messages = await getMessages(locale);
