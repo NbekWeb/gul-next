@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
             content="unsFweJY8bLs_xFHYdP01fGEDlWWkTlUJqJ1LNET9NM"
           />
           <meta name="robots" content="noindex, nofollow"></meta>
-          <meta name="yandex-verification" content="cb8e05d25e38104b" />
+          <meta name="yandex-verification" content="ba4d062d2d49eb07"  />
 
           <script
             type="text/javascript"
