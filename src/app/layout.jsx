@@ -8,15 +8,13 @@ export default function RootLayout({ children }) {
     <>
       <html lang="en">
         <head>
-          {/* Meta Tags */}
           <meta
             name="google-site-verification"
             content="unsFweJY8bLs_xFHYdP01fGEDlWWkTlUJqJ1LNET9NM"
           />
           <meta name="robots" content="noindex, nofollow"></meta>
-          <meta name="yandex-verification" content="5d7d718b61d69fbd" />
+          <meta name="yandex-verification" content="ba4d062d2d49eb07" />
 
-          {/* Yandex.Metrika Counter Script */}
           <script
             type="text/javascript"
             src="https://mc.yandex.ru/metrika/tag.js"
@@ -54,6 +52,7 @@ export default function RootLayout({ children }) {
               />
             </div>
           </noscript>
+
           <OrdersProvider>
             <AntdRegistry>{children}</AntdRegistry>
           </OrdersProvider>
