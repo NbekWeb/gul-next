@@ -10,10 +10,10 @@ export default function RootLayout({ children }) {
         <head>
           <meta
             name="google-site-verification"
-            content="googlef434395c08e2d4cd"
+            content="nuy-bnLrWBiweaHY804vJad3MeKvXKRoc6-IUF1XBto"
           />
 
-          <meta name="yandex-verification" content="ba4d062d2d49eb07"/>
+          <meta name="yandex-verification" content="ba4d062d2d49eb07" />
 
           <script src="https://mc.yandex.ru/metrika/tag.js" async></script>
 
