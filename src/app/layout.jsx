@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
             content="unsFweJY8bLs_xFHYdP01fGEDlWWkTlUJqJ1LNET9NM"
           />
 
-          <meta name="yandex-verification" content="9255a7cf6137c2e9" />
+          <meta name="yandex-verification" content="ba4d062d2d49eb07"/>
 
           <script src="https://mc.yandex.ru/metrika/tag.js" async></script>
 
