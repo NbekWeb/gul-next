@@ -16,12 +16,14 @@ export default function RootLayout({ children }) {
           <meta name="yandex-verification" content="cb8e05d25e38104b"  />
 
           <script
-            type="text/javascript"
+            
             src="https://mc.yandex.ru/metrika/tag.js"
             async
           ></script>
 
           <script
+          type="text/javascript"
+          async
             dangerouslySetInnerHTML={{
               __html: `
               (function(m,e,t,r,i,k,a){
