@@ -10,7 +10,7 @@ export default function RootLayout({ children }) {
         <head>
           <meta
             name="google-site-verification"
-            content="unsFweJY8bLs_xFHYdP01fGEDlWWkTlUJqJ1LNET9NM"
+            content="google43302f3bac09aeee"
           />
 
           <meta name="yandex-verification" content="ba4d062d2d49eb07"/>
